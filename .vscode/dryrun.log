@@ -1,0 +1,15 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/hugorecolet/Desktop/42/studs/Cercle5/ft_containers'
+mkdir -p objs
+c++ -Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98 -o objs/ft_stack.o -c srcs/ft_stack.cpp
+c++ -Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98 -o ft_stack objs/ft_stack.o
+mkdir -p objs
+c++ -Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98 -o objs/ft_vector.o -c srcs/ft_vector.cpp
+c++ -Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98 -o ft_vector objs/ft_vector.o
+mkdir -p objs
+c++ -Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98 -o objs/ft_map.o -c srcs/ft_map.cpp
+clear
+echo "Compilation done!"
+c++ -Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98 -o ft_map objs/ft_map.o
+make: Leaving directory `/Users/hugorecolet/Desktop/42/studs/Cercle5/ft_containers'
+ 

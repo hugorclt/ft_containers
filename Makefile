@@ -6,7 +6,7 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2022/07/07 11:33:54 by hrecolet         ###   ########.fr        #
+#    Updated: 2022/07/13 12:06:43 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,15 @@ SRCS		=	srcs/ft_stack.cpp	\
 				srcs/ft_map.cpp		\
 				srcs/ft_vector.cpp
 
+OTH_SRCS	=	includes/iterator.hpp	\
+
 DIR_OBJS	=	.objs
 
 OBJS		=	$(addprefix $(DIR_OBJS)/, $(notdir $(SRCS:.c=.o)))
 
 CC			=	c++
 
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -g3
+CFLAGS		=	-Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98
 
 all			:	stack vector map
 
@@ -40,7 +42,7 @@ VECTOR		=	ft_vector
 vector		:	$(VECTOR)
 
 $(VECTOR)	:	./objs/ft_vector.o
-				@$(CC) $(CFLAGS) -o $@ $<
+				$(CC) $(CFLAGS) -o $@ $<
 
 #============================MAP=========================#
 
@@ -53,15 +55,15 @@ $(MAP)		:	./objs/ft_map.o
 
 #=========================OBJS==========================#
 
-./objs/ft_vector.o	:	srcs/ft_vector.cpp includes/ft_vector.hpp
+./objs/ft_vector.o	:	srcs/ft_vector.cpp includes/ft_vector.hpp $(OTH_SRCS)
+						@mkdir -p objs
+						$(CC) $(CFLAGS) -o $@ -c $<
+
+./objs/ft_stack.o	:	srcs/ft_stack.cpp includes/ft_stack.hpp $(OTH_SRCS)
 						@mkdir -p objs
 						@$(CC) $(CFLAGS) -o $@ -c $<
 
-./objs/ft_stack.o	:	srcs/ft_stack.cpp includes/ft_stack.hpp
-						@mkdir -p objs
-						@$(CC) $(CFLAGS) -o $@ -c $<
-
-./objs/ft_map.o		:	srcs/ft_map.cpp includes/ft_map.hpp
+./objs/ft_map.o		:	srcs/ft_map.cpp includes/ft_map.hpp $(OTH_SRCS)
 						@mkdir -p objs
 						@$(CC) $(CFLAGS) -o $@ -c $<
 						@clear
