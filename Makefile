@@ -6,7 +6,7 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2022/07/13 12:06:43 by hrecolet         ###   ########.fr        #
+#    Updated: 2022/08/14 11:33:25 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS		=	srcs/ft_stack.cpp	\
 				srcs/ft_vector.cpp
 
 OTH_SRCS	=	includes/iterator.hpp	\
+				includes/utility.hpp
 
 DIR_OBJS	=	.objs
 
