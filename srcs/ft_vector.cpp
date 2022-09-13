@@ -6,15 +6,12 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:41 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/08/02 15:59:30 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:46:47 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_vector.hpp"
 #include <vector>
-
-using namespace std::chrono;
-
 
 template <typename T>
 void	ft_compare(T x, T y, int test_number, int display_output)
@@ -38,14 +35,19 @@ int	main()
 	std::vector<int>	std_vec2(4, 2);
 
 	//Iterator Constructor
-	ft::vector<int>		ft_vec3;
-	std::vector<int>	std_vec3;
+	ft::vector<int>::iterator ft_begin = ft_vec2.begin();
+	ft::vector<int>::iterator ft_last = ft_vec2.end();
+	std::vector<int>::iterator std_begin = std_vec2.begin();
+	std::vector<int>::iterator std_last = std_vec2.end();
+	ft::vector<int>		ft_vec3(ft_begin, ft_last);
+	std::vector<int>	std_vec3(std_begin, std_last);
 
 	//Copy Constructor
 	ft::vector<int>		ft_vec4(ft_vec2);
 	std::vector<int>	std_vec4(std_vec2);
 
 	//size()
+	/*
 	std::cout << "\033[4mvector.size() :\033[0m" << std::endl;
 	ft_compare(ft_vec1.size(), std_vec1.size(), 0, 1);
 	ft_compare(ft_vec2.size(), std_vec2.size(), 1, 1);
@@ -144,4 +146,5 @@ int	main()
 		std::cout << e.what() << std::endl;
 	}
 	std::cout << std::endl;
+	*/
 }
