@@ -6,7 +6,7 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2022/09/13 12:45:04 by hrecolet         ###   ########.fr        #
+#    Updated: 2022/09/13 12:57:37 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJS		=	$(addprefix $(DIR_OBJS)/, $(notdir $(SRCS:.c=.o)))
 
 CC			=	c++
 
-CFLAGS		=	-Wall -Wextra -Werror -g3 -std=c++98
+CFLAGS		=	-Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98
 
 all			:	stack vector map
 
