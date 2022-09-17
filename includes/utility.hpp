@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:28:10 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/09/13 11:42:02 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/09/17 14:35:17 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,65 +125,47 @@ namespace ft {
 	};
 
 	/* -------------------------------------------------------------------------- */
-	/*                                 is_integral                                */
+	/*                                  remove_cv                                 */
 	/* -------------------------------------------------------------------------- */
-	/* -------------------------------- non-const ------------------------------- */
-	template <typename T> struct is_integral : ft::false_type {};
-	template <> struct is_integral<bool> : ft::true_type {};
-	template <> struct is_integral<char> : ft::true_type {};
-	template <> struct is_integral<wchar_t> : ft::true_type {};
-	template <> struct is_integral<short> : ft::true_type {};
-	template <> struct is_integral<int> : ft::true_type {};
-	template <> struct is_integral<long> : ft::true_type {};
-	template <> struct is_integral<long long> : ft::true_type {};
-	template <> struct is_integral<unsigned char> : ft::true_type {};
-	template <> struct is_integral<unsigned short int> : ft::true_type {};
-	template <> struct is_integral<unsigned int> : ft::true_type {};
-	template <> struct is_integral<unsigned long int> : ft::true_type {};
-	template <> struct is_integral<unsigned long long int> : ft::true_type {};
-	/* ---------------------------------- const --------------------------------- */
-	template <> struct is_integral<const bool> : ft::true_type {};
-	template <> struct is_integral<const char> : ft::true_type {};
-	template <> struct is_integral<const wchar_t> : ft::true_type {};
-	template <> struct is_integral<const short> : ft::true_type {};
-	template <> struct is_integral<const int> : ft::true_type {};
-	template <> struct is_integral<const long> : ft::true_type {};
-	template <> struct is_integral<const long long> : ft::true_type {};
-	template <> struct is_integral<const unsigned char> : ft::true_type {};
-	template <> struct is_integral<const unsigned short int> : ft::true_type {};
-	template <> struct is_integral<const unsigned int> : ft::true_type {};
-	template <> struct is_integral<const unsigned long int> : ft::true_type {};
-	template <> struct is_integral<const unsigned long long int> : ft::true_type {};
-	/* -------------------------------- volatile -------------------------------- */
-	template <> struct is_integral<volatile bool> : ft::true_type {};
-	template <> struct is_integral<volatile char> : ft::true_type {};
-	template <> struct is_integral<volatile wchar_t> : ft::true_type {};
-	template <> struct is_integral<volatile short> : ft::true_type {};
-	template <> struct is_integral<volatile int> : ft::true_type {};
-	template <> struct is_integral<volatile long> : ft::true_type {};
-	template <> struct is_integral<volatile long long> : ft::true_type {};
-	template <> struct is_integral<volatile unsigned char> : ft::true_type {};
-	template <> struct is_integral<volatile unsigned short int> : ft::true_type {};
-	template <> struct is_integral<volatile unsigned int> : ft::true_type {};
-	template <> struct is_integral<volatile unsigned long int> : ft::true_type {};
-	template <> struct is_integral<volatile unsigned long long int> : ft::true_type {};
-	/* ----------------------------- const-volatile ----------------------------- */
-	template <> struct is_integral<const volatile bool> : ft::true_type {};
-	template <> struct is_integral<const volatile char> : ft::true_type {};
-	template <> struct is_integral<const volatile wchar_t> : ft::true_type {};
-	template <> struct is_integral<const volatile short> : ft::true_type {};
-	template <> struct is_integral<const volatile int> : ft::true_type {};
-	template <> struct is_integral<const volatile long> : ft::true_type {};
-	template <> struct is_integral<const volatile long long> : ft::true_type {};
-	template <> struct is_integral<const volatile unsigned char> : ft::true_type {};
-	template <> struct is_integral<const volatile unsigned short int> : ft::true_type {};
-	template <> struct is_integral<const volatile unsigned int> : ft::true_type {};
-	template <> struct is_integral<const volatile unsigned long int> : ft::true_type {};
-	template <> struct is_integral<const volatile unsigned long long int> : ft::true_type {};
+
+	template<class T>
+	struct remove_cv {
+		typedef T type;
+	};
+
+	template<class T>
+	struct remove_cv<const T> {
+		typedef T type;
+	};
+
+	template<class T>
+	struct remove_cv<volatile T> {
+		typedef T type;
+	};
+
+	template<class T>
+	struct remove_cv<const volatile T> {
+		typedef T type;
+	};
 
 	/* -------------------------------------------------------------------------- */
-	/*                                 is_iterator                                */
+	/*                                 is_integral                                */
 	/* -------------------------------------------------------------------------- */
+	template <typename T> struct is_integral_base : ft::false_type {};
+	template <> struct is_integral_base<bool> : ft::true_type {};
+	template <> struct is_integral_base<char> : ft::true_type {};
+	template <> struct is_integral_base<wchar_t> : ft::true_type {};
+	template <> struct is_integral_base<short> : ft::true_type {};
+	template <> struct is_integral_base<int> : ft::true_type {};
+	template <> struct is_integral_base<long> : ft::true_type {};
+	template <> struct is_integral_base<long long> : ft::true_type {};
+	template <> struct is_integral_base<unsigned char> : ft::true_type {};
+	template <> struct is_integral_base<unsigned short int> : ft::true_type {};
+	template <> struct is_integral_base<unsigned int> : ft::true_type {};
+	template <> struct is_integral_base<unsigned long int> : ft::true_type {};
+	template <> struct is_integral_base<unsigned long long int> : ft::true_type {};
+	
+	template<typename T> struct is_integral : is_integral_base<typename ft::remove_cv<T>::type > {};
 
 	/* -------------------------------------------------------------------------- */
 	/*                                  enable_if                                 */

@@ -6,11 +6,12 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/09/13 11:39:43 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/09/17 11:11:03 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+#include <iostream>
 #include <stddef.h>
 
 namespace ft {
@@ -67,7 +68,7 @@ namespace ft {
 			virtual ~random_access_iterator() {}
 
 			//operator
-			random_access_iterator &operator=(random_access_iterator &to_cpy) {
+			random_access_iterator &operator=(const random_access_iterator &to_cpy) {
 				this->elem = to_cpy.elem;
 				return (*this);
 			}
@@ -84,9 +85,11 @@ namespace ft {
 			random_access_iterator	operator--(int) {random_access_iterator tmp = *this; --(*this); return (tmp); }
 
 			//Arithmetic operator
-			random_access_iterator	operator+(const difference_type &diff) {return (random_access_iterator(this->elem + diff)); };
-			random_access_iterator	operator-(const difference_type &diff) {return (random_access_iterator(this->elem - diff)); };
+			//random_access_iterator	operator+(const random_access_iterator &rhs) {return (random_access_iterator(this->elem + rhs.elem)); };
+			//random_access_iterator	operator-(const random_access_iterator &rhs) {return (random_access_iterator(this->elem - rhs.elem)); };
 			
+			difference_type	operator-(const random_access_iterator &it) { return (this->elem - it.elem); }
+
 			//Comparison operator
 			bool	operator==(random_access_iterator &iter) const {return (this->elem == iter.elem); };
 			bool	operator!=(random_access_iterator &iter) const {return (this->elem != iter.elem); };
@@ -100,5 +103,32 @@ namespace ft {
 
 			private:
 				pointer	elem;
-	}; 	
+	};
+
+	template<class It>
+	typename ft::iterator_traits<It>::difference_type
+	do_distance(It first, It last, ft::input_iterator_tag)
+	{
+		typename ft::iterator_traits<It>::difference_type result = 0;
+		while (first != last)
+		{
+			++first;
+			++result;
+		}
+		return (result);
+	}
+
+	template<class It>
+	typename ft::iterator_traits<It>::difference_type
+	do_distance(It first, It last, ft::random_access_iterator_tag)
+	{
+		return last - first;
+	}
+
+	template<class It>
+	typename ft::iterator_traits<It>::difference_type
+	distance(It first, It last)
+	{
+		return (do_distance(first, last, typename ft::iterator_traits<It>::iterator_category()));
+	}
 }
