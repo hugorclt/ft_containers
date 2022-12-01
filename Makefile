@@ -6,81 +6,62 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2022/09/13 12:57:37 by hrecolet         ###   ########.fr        #
+#    Updated: 2022/12/01 12:23:06 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	srcs/ft_stack.cpp	\
-				srcs/ft_map.cpp		\
-				srcs/ft_vector.cpp
+CC				=	c++
+CFLAGS			=	-Wall -Wextra -Werror -std=c++98
+OBJS_DIR		=	.objs
 
-OTH_SRCS	=	includes/iterator.hpp	\
-				includes/utility.hpp
 
-DIR_OBJS	=	.objs
+#===================================================#
+#						VECTOR						#
+#===================================================#
+VEC_SRCS		=	srcs/ft_vector/main.cpp\
+					srcs/ft_vector/constructor.cpp\
+					srcs/ft_vector/capacity.cpp\
 
-OBJS		=	$(addprefix $(DIR_OBJS)/, $(notdir $(SRCS:.c=.o)))
+VEC_OBJS 		= 	$(addprefix $(OBJS_DIR)/, $(notdir $(VEC_SRCS:%.cpp=%.o)))
 
-CC			=	c++
+$(OBJS_DIR)		:
+					@mkdir -p $(OBJS_DIR)
 
-CFLAGS		=	-Wall -Wextra -Werror  -fsanitize=address -g3 -std=c++98
 
-all			:	stack vector map
+$(OBJS_DIR)/%.o	: 	srcs/ft_vector/%.cpp
+					@printf "\033[0;33mGenerating vector object... %-38.38s \r" $@
+					@$(CC) $(CFLAGS) -c $< -o $@
 
-#==========================STACK=========================#
+vector			: 	$(OBJS_DIR) $(VEC_OBJS)
+		      		@$(CC) $(CFLAGS) $(VEC_OBJS) -o vector
+					@echo \n
+					@echo "\033[1;32mVector: Done!\033[0m"
 
-STACK		=	ft_stack
+#===================================================#
+#						STACK						#
+#===================================================#
 
-stack		:	$(STACK)
+#===================================================#
+#						MAP							#
+#===================================================#
 
-$(STACK)	:	./objs/ft_stack.o
-				@$(CC) $(CFLAGS) -o $@ $<
-				
-#==========================VECTOR========================#
+#===================================================#
+#						GENERAL						#
+#===================================================#
+all				:	vector
 
-VECTOR		=	ft_vector
+clean			:
+		      		@rm -f $(VEC_OBJS)
+					@rm -rf $(OBJS_DIR)
+					@echo "\033[1;31mObject cleaned!\033[0m"
+					
+fclean			:	
+					@rm -f $(VEC_OBJS)
+					@rm -rf $(OBJS_DIR)
+					@rm -f vector
+					@echo "\033[1;31mProgram and object cleaned!\033[0m"
 
-vector		:	$(VECTOR)
+re				:	fclean all
 
-$(VECTOR)	:	./objs/ft_vector.o
-				$(CC) $(CFLAGS) -o $@ $<
-
-#============================MAP=========================#
-
-MAP			=	ft_map
-
-map			:	$(MAP)
-
-$(MAP)		:	./objs/ft_map.o
-				@$(CC) $(CFLAGS) -o $@ $<
-
-#=========================OBJS==========================#
-
-./objs/ft_vector.o	:	srcs/ft_vector.cpp includes/ft_vector.hpp $(OTH_SRCS)
-						@mkdir -p objs
-						$(CC) $(CFLAGS) -o $@ -c $<
-
-./objs/ft_stack.o	:	srcs/ft_stack.cpp includes/ft_stack.hpp $(OTH_SRCS)
-						@mkdir -p objs
-						@$(CC) $(CFLAGS) -o $@ -c $<
-
-./objs/ft_map.o		:	srcs/ft_map.cpp includes/ft_map.hpp $(OTH_SRCS)
-						@mkdir -p objs
-						@$(CC) $(CFLAGS) -o $@ -c $<
-						@clear
-						@echo "Compilation done!"
-
-clean		:	
-				@rm -rf ./objs/
-				@echo "Cleaned"
-
-fclean		:	clean
-				@clear
-				@rm	-f	$(VECTOR)
-				@rm	-f	$(MAP)
-				@rm	-f	$(STACK)
-				@echo "Fully cleaned"
-
-re			:	fclean all
-
-.PHONY		:	all clean fclean re stack vector map
+.PHONY			:
+					all clean fclean re

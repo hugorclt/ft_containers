@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define.hpp                                         :+:      :+:    :+:   */
+/*   proto.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/07 13:40:57 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/01 10:25:15 by hrecolet         ###   ########.fr       */
+/*   Created: 2022/12/01 11:57:48 by hrecolet          #+#    #+#             */
+/*   Updated: 2022/12/01 15:03:35 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-# define MAX_VECTOR_SIZE 4611686018427387903
-
 /* -------------------------------------------------------------------------- */
-/*                                    color                                   */
+/*                                  prototype                                 */
 /* -------------------------------------------------------------------------- */
-# define RED "\033[1;31m"
-# define GREEN "\033[1;32m"
-# define BLUE "\033[1;34m"
-# define PINK "\033[1;95m"
-# define WHITE "\033[97m"
-# define PURPLE "\033[1;35m"
-# define ORANGE "\033[38:5:208m"
-# define RESET "\033[0m"
+void size(void);
+void constructor(void);
+void maxsize(void);
+void resize(void);
+void capacity(void);
+void empty(void);
+void reserve(void);

@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/11/29 23:55:52 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:58:34 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ namespace ft {
 			vector(const vector& x) {
 				_array = _allocator.allocate(x._maxSize);
 				_currentSize = x._currentSize;
-				*(_array) = *(x._array);
+				for (size_type i = 0; i < x._currentSize; i++)
+					_allocator.construct(&_array[i], x._array[i]);
 				_maxSize = x._maxSize;
 			}
 
@@ -204,8 +205,14 @@ namespace ft {
 			void	reserve(size_type n) {
 				if (n >= _maxSize)
 				{
-					_allocator.allocate(n);
+					value_type	*tmp = _allocator.allocate(n);
+
+					for (size_type i = 0; i < _currentSize; i++)
+						_allocator.construct(&tmp[i], _array[i]);
+					clear();
+					_allocator.deallocate(_array, _maxSize);
 					_maxSize = n;
+					_array = tmp;
 				}
 			}
 
@@ -213,10 +220,23 @@ namespace ft {
 			{
 				if (n == _currentSize)
 					return ;
+				else if (n < _currentSize)
+				{
+					for (size_type i = n; i < _currentSize; i++)
+						_allocator.destroy(&(_array[i++]));
+				}
+				else
+				{
+					reserve(n);
+					for (size_type i = _currentSize; i < n; i++)
+						_allocator.construct(&_array[i], val);
+				}
+				_currentSize = n;
 			}
 
 			void	clear() {
-				_allocator.destroy(_array);
+				for (size_type i = 0; i < _currentSize; i++)
+					_allocator.destroy(&(_array[i]));
 			}
 	};
 }
