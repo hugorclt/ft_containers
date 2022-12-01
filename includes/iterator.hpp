@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/09/17 11:11:03 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/11/28 22:32:09 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ namespace ft {
 	};
 
 	template <typename T>
-	class random_access_iterator : public ft::iterator<ft::random_access_iterator_tag, T> {			
+	class random_access_iterator : public ft::iterator<ft::random_access_iterator_tag, T> {
 		public:
 			//Definition
 			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
@@ -91,12 +91,12 @@ namespace ft {
 			difference_type	operator-(const random_access_iterator &it) { return (this->elem - it.elem); }
 
 			//Comparison operator
-			bool	operator==(random_access_iterator &iter) const {return (this->elem == iter.elem); };
-			bool	operator!=(random_access_iterator &iter) const {return (this->elem != iter.elem); };
-			bool	operator>=(random_access_iterator &iter) const {return (this->elem >= iter.elem); };
-			bool	operator<=(random_access_iterator &iter) const {return (this->elem <= iter.elem); };
-			bool	operator>(random_access_iterator &iter) const {return (this->elem < iter.elem); };
-			bool	operator<(random_access_iterator &iter) const {return (this->elem > iter.elem); };
+			bool	operator==(const random_access_iterator &iter) const {return (this->elem == iter.elem); };
+			bool	operator!=(const random_access_iterator &iter) const {return (this->elem != iter.elem); };
+			bool	operator>=(const random_access_iterator &iter) const {return (this->elem >= iter.elem); };
+			bool	operator<=(const random_access_iterator &iter) const {return (this->elem <= iter.elem); };
+			bool	operator>(const random_access_iterator &iter) const {return (this->elem < iter.elem); };
+			bool	operator<(const random_access_iterator &iter) const {return (this->elem > iter.elem); };
 
 			//create const iterator
 			operator random_access_iterator<const value_type>() const {return (random_access_iterator<const value_type>(this->elem)); };

@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/09/17 17:28:03 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/11/29 23:55:52 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ namespace ft {
 			typedef size_t 												size_type;
 		
 		private:
-			T				*array;
-			size_t			currentSize; //current element in the vector
-			size_t			maxSize; //vector max capacity allocated actually
-			allocator_type	allocator;
+			T				*_array;
+			size_t			_currentSize; //current element in the vector
+			size_t			_maxSize; //vector max capacity allocated actually
+			allocator_type	_allocator;
 			
 		public:
 			/* -------------------------------------------------------------------------- */
@@ -51,19 +51,19 @@ namespace ft {
 			@Default constructor
 			Constructs an empty container, with no elements.
 			*/
-			explicit	vector(const allocator_type& alloc = allocator_type()) : array(NULL), currentSize(0), maxSize(0), allocator(alloc) {}
+			explicit	vector(const allocator_type& alloc = allocator_type()) : _array(NULL), _currentSize(0), _maxSize(0), _allocator(alloc) {}
 			
 			/*
 			@fill constructor
 			Constructs a container with n elements. Each element is a copy of val.
 			*/
 			explicit	vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) {
-				this->array = this->allocator.allocate(n);
+				_array = _allocator.allocate(n);
 				for (size_type i = 0; i < n; i++)
-					this->allocator.construct(&this->array[i], val);
-				this->currentSize = n;
-				this->maxSize = n;
-				this->allocator = alloc;
+					_allocator.construct(&_array[i], val);
+				_currentSize = n;
+				_maxSize = n;
+				_allocator = alloc;
 			}
 
 			/*
@@ -74,14 +74,14 @@ namespace ft {
 			*/
 			template<class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
-				difference_type	size = distance(first, last) + 1;
+				difference_type	size = distance(first, last);
 				
-				this->array = this->allocator.allocate(size);
+				_currentSize = size;
+				_maxSize = size;
+				_allocator = alloc;
+				_array = _allocator.allocate(size);
 				for (int i = 0; first != last; i++, first++)
-					this->allocator.construct(&this->array[i], *first);
-				this->currentSize = size;
-				this->maxSize = size;
-				this->allocator = alloc;
+					_allocator.construct(&_array[i], *first);
 			}
 
 			/*
@@ -89,10 +89,21 @@ namespace ft {
 			Constructs a container with a copy of each of the elements in x, in the same order.
 			*/
 			vector(const vector& x) {
-				this->array = this->allocator.allocate(x.maxSize);
-				this->currentSize = x.currentSize;
-				*(this->array) = *(x.array);
-				this->maxSize = x.maxSize;
+				_array = _allocator.allocate(x._maxSize);
+				_currentSize = x._currentSize;
+				*(_array) = *(x._array);
+				_maxSize = x._maxSize;
+			}
+
+			vector	&operator=(const vector &x) {
+				clear();
+				_allocator.deallocate(_array, _maxSize);
+				_array = _allocator.allocate(x._maxSize);
+				for (size_type i = 0; i < x._currentSize; i++)
+					_allocator.construct(&_array[i], x._array[i]);
+				_currentSize = x._currentSize;
+				_maxSize = x._maxSize;
+				return (*this);
 			}
 
 			/* -------------------------------------------------------------------------- */
@@ -100,30 +111,50 @@ namespace ft {
 			/* -------------------------------------------------------------------------- */
 
 			~vector() {
-				this->clear();
-				this->allocator.deallocate(this->array, this->maxSize);
+				clear();
+				_allocator.deallocate(_array, _maxSize);
 			}
 
 			/* -------------------------------------------------------------------------- */
-			/*                                  operator                                  */
+			/*                               element_access                               */
 			/* -------------------------------------------------------------------------- */
-			vector	&operator=(const vector &x) {
-				this->clear();
-				this->allocator.deallocate(this->array, this->maxSize);
-				this->array = this->allocator.allocate(x.maxSize);
-				for (size_type i = 0; i < x.currentSize; i++)
-					this->allocator.construct(&this->array[i], x.array[i]);
-				this->currentSize = x.currentSize;
-				this->maxSize = x.maxSize;
-				return (*this);
-			}
 
 			reference	operator[](size_type n) {
-				return (*(this->array + n));
+				return (*(_array + n));
 			}
 
 			const_reference	operator[](size_type n) const {
-				return (*(this->array) + n);
+				return (*(_array) + n);
+			}
+
+			reference	at(size_type n) {
+				if (n > _currentSize || n < 0)
+					throw std::out_of_range("ArrayList<X>::at() : index is out of range");
+				else
+					return (*(_array + n));
+			}
+
+			const_reference	at(size_type n) const {
+				if (n > _currentSize || n < 0)
+					throw std::out_of_range("ArrayList<X>::at() : index is out of range");
+				else
+					return (*(_array + n));
+			}
+
+			reference	front() {
+				return (*_array);
+			}
+
+			const_reference	front() const {
+				return (*_array);
+			}
+
+			reference	back() {
+				return (*(_array + _currentSize - 1));
+			}
+
+			const_reference	back() const {
+				return (*(_array + _currentSize - 1));
 			}
 
 			/* -------------------------------------------------------------------------- */
@@ -131,346 +162,61 @@ namespace ft {
 			/* -------------------------------------------------------------------------- */
 			
 			iterator	begin() {
-				return (iterator(this->array));
+				return (iterator(_array));
 			}
 
 			iterator	end() {
-				return (iterator(&this->array[this->currentSize - 1]));
+				return (iterator(&_array[_currentSize]));
 			}
 
 			reverse_iterator	rbegin() {
-				return (reverse_iterator(this->array));
+				return (reverse_iterator(_array));
 			}
 
 			reverse_iterator	rend() {
-				return (reverse_iterator(&this->array[this->currentSize - 1]));
+				return (reverse_iterator(&_array[_currentSize]));
 			}
 			
 			/* -------------------------------------------------------------------------- */
-			/*                                    size                                    */
+			/*                                   capacity                                 */
 			/* -------------------------------------------------------------------------- */
 			
 			size_type	size() const {
-				return (this->currentSize);
+				return (_currentSize);
 			}
 
 			size_type	max_size() const {
-				return (this->allocator.max_size());
+				return (_allocator.max_size());
 			}
 
 			size_type	capacity() const {
-				return (this->maxSize);
-			}
-
-			void	resize(size_type n, value_type val = value_type()) {
-				if (n > this->allocator.max_size())
-					throw std::out_of_range("ArrayList<X>::resize() : n is out of range");
-				else if (n < this->currentSize) {
-					value_type	*newArray = this->allocator.allocate(this->maxSize);
-					for (size_type i = 0; i < n; i++)
-						this->allocator.construct(&newArray[i], this->array[i]);
-					this->clear();
-					this->allocator.deallocate(this->array, this->maxSize);
-					this->array = newArray;
-				}
-				else if (n > this->currentSize && n < this->maxSize) {
-					for (size_type i = this->currentSize; i < n; i++)
-						this->allocator.construct(&this->array[i], val);
-
-				}
-				else if (n > this->currentSize && n > this->maxSize) {
-					value_type	*newArray = this->allocator.allocate(n);
-					for (size_type i = 0; i < this->currentSize; i++)
-						this->allocator.construct(&newArray[i], this->array[i]);
-					for (size_type i = this->currentSize; i < n; i++)
-						this->allocator.construct(&newArray[i], val);
-					this->clear();
-					this->allocator.deallocate(this->array, this->maxSize);
-					this->maxSize = n;
-					this->array = newArray;
-				}
-				this->currentSize = n;
+				return (_maxSize);
 			}
 
 			bool	empty() const {
-				if (this->currentSize == 0)
-					return (true);
-				else
-					return (false);
-			}
-
-			void	reserve(size_type n) {
-				if (n > this->allocator.max_size())
-					std::out_of_range("ArrayList<X>::reserve() : n is out of range");
-				if (n > this->maxSize) {
-					value_type	*newArray = this->allocator.allocate(n);
-					for (size_type i = 0; i < this->currentSize; i++)
-						this->allocator.construct(&newArray[i], this->array[i]);
-					this->clear();
-					this->allocator.deallocate(this->array, this->maxSize);
-					this->maxSize = n;
-					this->array = newArray;
-				}
-			}
-
-			/* -------------------------------------------------------------------------- */
-			/*                               element_access                               */
-			/* -------------------------------------------------------------------------- */
-			reference	at(size_type n) {
-				if (n > this->currentSize || n < 0)
-					throw std::out_of_range("ArrayList<X>::at() : index is out of range");
-				else
-					return (*(this->array + n));
-			}
-
-			const_reference	at(size_type n) const {
-				if (n > this->currentSize || n < 0)
-					throw std::out_of_range("ArrayList<X>::at() : index is out of range");
-				else
-					return (*(this->array + n));
-			}
-
-			reference	front() {
-				return (*this->array);
-			}
-
-			const_reference	front() const {
-				return (*this->array);
-			}
-
-			reference	back() {
-				return (*(this->array + this->currentSize - 1));
-			}
-
-			const_reference	back() const {
-				return (*(this->array + this->currentSize - 1));
+				return (_currentSize <= 0);
 			}
 
 			/* -------------------------------------------------------------------------- */
 			/*                                  Modifiers                                 */
 			/* -------------------------------------------------------------------------- */
-			template <class InputIterator>
-			void	assign(InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value>::type* = 0) {
-				difference_type	size = distance(first, last) + 1;
-				
-				if (size > static_cast<long>(this->maxSize)) {
-					value_type	*newArray = this->allocator.allocate(size);
-					for (size_type i = 0; first != last; i++, first++)
-						this->allocator.construct(&newArray[i], *first);
-					this->clear();
-					this->allocator.deallocate(this->array, this->maxSize);
-					this->maxSize = size;
-					this->array = newArray;
-				}
-				else {
-					for (difference_type i = 0; i < size; i++, first++)
-					{
-						this->allocator.construct(&this->array[i], *first);
-					}
-				}
-				this->currentSize = size;
-			}
 
-			void	assign(size_type n, const value_type &val) {
-				if (n > this->maxSize) {
-					value_type	*newArray = this->allocator.allocate(n);
-					for (size_type i = 0; i < n; i++)
-						this->allocator.construct(&newArray[i], val);
-					this->clear();
-					this->allocator.deallocate(this->array, this->maxSize);
-					this->maxSize = n;
-					this->array = newArray;
-				}
-				else {
-					for (size_type i =0; i < n; i++)
-						this->allocator.construct(&this->array[i], val);
-				}
-				this->currentSize = n;
-			}
-
-			void	push_back(const value_type& val) {
-				size_type	saveCurrent = this->currentSize;
-				
-				if (this->currentSize + 1 > this->maxSize) {
-					value_type	*newArray = this->allocator.allocate(this->maxSize + 1);
-					for (size_type i = 0; i < this->currentSize; i++)
-						this->allocator.construct(&newArray[i], this->array[i]);
-					this->allocator.construct(&newArray[this->currentSize], val);
-					this->clear();
-					this->allocator.deallocate(this->array, this->maxSize);
-					this->array = newArray;
-					this->maxSize++;
-				}
-				else
-					this->allocator.construct(&this->array[this->currentSize], val);
-				this->currentSize = saveCurrent + 1;
-			}
-
-			void	pop_back() {
-				if (currentSize > 0) {
-					this->allocator.destroy(&this->array[this->currentSize - 1]);
-					this->currentSize--;
-				}
-			}
-
-			iterator insert(iterator position, const value_type &val) {
-				size_type	saveCurrent = this->currentSize;
-				difference_type	size = position - this->begin();
-				value_type	*newArray;
-				
-				if (this->currentSize + 1 > this->maxSize) {
-					newArray = this->allocator.allocate(this->maxSize + 1);
-					
-					for (difference_type i = 0; i < size; i++)
-						this->allocator.construct(&newArray[i], this->array[i]);
-					this->allocator.construct(&newArray[size], val);
-					for (size_type i = size + 1; i < this->currentSize; i++)
-						this->allocator.construct(&newArray[i], this->array[i - 1]);
-					this->maxSize++;
-				}
-				else
+			void	reserve(size_type n) {
+				if (n >= _maxSize)
 				{
-					newArray = this->allocator.allocate(this->maxSize);
-					
-					for (difference_type i = 0; i < size; i++)
-						this->allocator.construct(&newArray[i], this->array[i]);
-					this->allocator.construct(&newArray[size], val);
-					for (size_type i = size + 1; i < this->currentSize; i++)
-						this->allocator.construct(&newArray[i], this->array[i - 1]);
-				}
-				this->clear();
-				this->allocator.deallocate(this->array, this->maxSize);
-				this->array = newArray;
-				this->currentSize = saveCurrent + 1;
-				return (iterator(&this->array[size]));
-			}
-
-			void	insert(iterator position, size_type n, const value_type &val) {
-				difference_type	size = position - this->begin();
-				size_type		saveCurrent = this->currentSize;
-				difference_type i = 0;
-				size_type		j = 0;
-				value_type		*newArray;
-
-				if (this->currentSize + 1 > this->maxSize) {
-					newArray = this->allocator.allocate(this->maxSize + n);
-					
-					while (i < size) {
-						this->allocator.construct(&newArray[i], this->array[i]);
-						i++;
-					}
-					j = i;
-					while (size < static_cast<long>(n)) {
-						this->allocator.construct(&newArray[i], val);
-						size++;
-						i++;
-					}
-					while (j < this->currentSize) {
-						this->allocator.construct(&newArray[i], this->array[i]);
-						j++;
-					}
-					this->maxSize = this->maxSize + n;
-				}
-				else {
-					newArray = this->allocator.allocate(this->maxSize);
-					
-					while (i < size) {
-						this->allocator.construct(&newArray[i], this->array[i]);
-						i++;
-					}
-					j = i;
-					while (size < static_cast<long>(n)) {
-						this->allocator.construct(&newArray[i], val);
-						size++;
-						i++;
-					}
-					while (j < this->currentSize) {
-						this->allocator.construct(&newArray[i], this->array[i]);
-						j++;
-					}
-				}
-				this->clear();
-				this->allocator.deallocate(this->array, this->maxSize);
-				this->array = newArray;
-				this->currentSize = saveCurrent;
-			}
-
-			template <class InputIterator>
-			void	insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
-				difference_type	size = position - this->begin();
-				size_type		saveCurrent = this->currentSize;
-				difference_type	sizeToAdd = ft::distance(first, last);
-				value_type		*newArray;
-				difference_type i = 0;
-				size_type		j = 0;
-				
-				if (this->currentSize + size > this->maxSize)
-				{
-					newArray = this->allocator.allocate(this->maxSize + sizeToAdd);
-					while (i < size) {
-						this->allocator.construct(&newArray[i], this->array[i]);
-						i++;
-					}
-					j = i;
-					while (first != last) {
-						this->allocator.construct(&newArray[i], *first);
-						first++;
-						i++;
-					}
-					while (j < this->currentSize) {
-						this->allocator.construct(&newArray[i], this->array[j]);
-						i++;
-						j++;
-					}
-				}
-				else
-				{
-					newArray = this->allocator.allocate(this->maxSize);
-					while (i < size) {
-						this->allocator.construct(&newArray[i], this->array[i]);
-						i++;
-					}
-					j = i;
-					while (first != last) {
-						this->allocator.construct(&newArray[i], *first);
-						first++;
-						i++;
-					}
-					while (j < this->currentSize) {
-						this->allocator.construct(&newArray[i], this->array[j]);
-						i++;
-						j++;
-					}
-				}
-				this->clear();
-				this->allocator.deallocate(this->array, this->maxSize);
-				this->array = newArray;
-				this->currentSize = saveCurrent;
-			}
-
-			iterator erase(iterator position) {
-				if (iterator == this->end()) {
-					this->allocator.destroy(&this->array[this->currentSize - 1]);
-					this->currentSize--;
-					return (this->array[currentSize - 1]);
-				}
-				else {
-					value_type		*newArray = this->allocator.allocate(this->maxSize - 1);
-					difference_type	pos = position - this->begin();
-					
-					for (difference_type i = 0; i < position; i++)
-						this->allocator.construct(&newArray[i], this->array[i]);
+					_allocator.allocate(n);
+					_maxSize = n;
 				}
 			}
 
-			iterator erase(iterator first, iterator last) {
-				
+			void	resize(size_type n, value_type val = value_type())
+			{
+				if (n == _currentSize)
+					return ;
 			}
-			
+
 			void	clear() {
-				for (size_type i = 0; i < this->currentSize; i++)
-					this->allocator.destroy(&this->array[i]);
-				this->currentSize = 0;
+				_allocator.destroy(_array);
 			}
 	};
 }
