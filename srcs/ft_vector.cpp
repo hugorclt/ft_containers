@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:41 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/11/28 23:19:37 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:59:19 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,29 +135,29 @@ int	main()
 	// ft_compare(ft_vec1.capacity(), std_vec1.capacity(), 2, 1);
 	// std::cout << std::endl;
 
-	/* --------------------------------- empty() -------------------------------- */
-	std::cout << "\033[4mvector.empty() :\033[0m" << std::endl;
-	ft_compare(ft_vec1.empty(), std_vec1.empty(), 0, 1);
-	ft_compare(ft_vec3.empty(), std_vec3.empty(), 1, 1);
-	std::cout << std::endl;
+	// /* --------------------------------- empty() -------------------------------- */
+	// std::cout << "\033[4mvector.empty() :\033[0m" << std::endl;
+	// ft_compare(ft_vec1.empty(), std_vec1.empty(), 0, 1);
+	// ft_compare(ft_vec3.empty(), std_vec3.empty(), 1, 1);
+	// std::cout << std::endl;
 
-	/* -------------------------------- reserve() ------------------------------- */
-	std::cout << "\033[4mvector.reserve() :\033[0m" << std::endl;
-	ft_vec1.reserve(10);
-	std_vec1.reserve(10);
-	ft_vec3.reserve(2);
-	std_vec3.reserve(2);
-	ft_compare(ft_vec1.capacity(), std_vec1.capacity(), 0, 1);
-	for (size_t i = 0; i < ft_vec3.size(); i++)
-		ft_compare(ft_vec3[i], std_vec3[i], 1, 1);
-	ft_vec3.reserve(6);
-	std_vec3.reserve(6);
-	for (size_t i = 0; i < ft_vec3.size(); i++)
-		ft_compare(ft_vec3[i], std_vec3[i], 2, 1);
-	ft_vec1.reserve(3);
-	std_vec1.reserve(3);
-	ft_compare(ft_vec1.capacity(), std_vec1.capacity(), 3, 1);
-	std::cout << std::endl;
+	// /* -------------------------------- reserve() ------------------------------- */
+	// std::cout << "\033[4mvector.reserve() :\033[0m" << std::endl;
+	// ft_vec1.reserve(10);
+	// std_vec1.reserve(10);
+	// ft_vec3.reserve(2);
+	// std_vec3.reserve(2);
+	// ft_compare(ft_vec1.capacity(), std_vec1.capacity(), 0, 1);
+	// for (size_t i = 0; i < ft_vec3.size(); i++)
+	// 	ft_compare(ft_vec3[i], std_vec3[i], 1, 1);
+	// ft_vec3.reserve(6);
+	// std_vec3.reserve(6);
+	// for (size_t i = 0; i < ft_vec3.size(); i++)
+	// 	ft_compare(ft_vec3[i], std_vec3[i], 2, 1);
+	// ft_vec1.reserve(3);
+	// std_vec1.reserve(3);
+	// ft_compare(ft_vec1.capacity(), std_vec1.capacity(), 3, 1);
+	// std::cout << std::endl;
 	
 	// /* ---------------------------------- at() ---------------------------------- */
 	// std::cout << "\033[4mvector.at() :\033[0m" << std::endl;

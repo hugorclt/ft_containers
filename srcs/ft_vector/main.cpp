@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:41 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/01 15:05:30 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:14:02 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_print_vector(T vec)
 
 void	do_capacity_test()
 {
-	constructor();
 	size();
 	maxsize();
 	resize();
@@ -43,30 +42,21 @@ void	do_capacity_test()
 	reserve();
 }
 
+void	do_access_test()
+{
+	at();
+	operat();
+	front();
+	back();
+}
+
 int	main()
 {
+	constructor();
+	std::cout << WHITE << "CAPACITY_TEST:" << RESET << std::endl;
 	do_capacity_test();
-	// /* ---------------------------------- at() ---------------------------------- */
-	// std::cout << "\033[4mvector.at() :\033[0m" << std::endl;
-	// for (size_t i = 0; i < ft_vec2.size(); i++)
-	// 	ft_compare(ft_vec2.at(i), std_vec2.at(i), i, 1);
-	// try {
-	// 	//std_vec1.at(10);
-	// 	ft_vec1.at(10);
-	// } catch (std::exception &e) {
-	// 	std::cout << e.what() << std::endl;
-	// }
-	// std::cout << std::endl;
-
-	// /* ---------------------------------- front --------------------------------- */
-	// std::cout << "\033[4mvector.front() :\033[0m" << std::endl;
-	// ft_compare(ft_vec2.front(), std_vec2.front(), 0, 1);
-	// std::cout << std::endl;
-
-	// /* ---------------------------------- back ---------------------------------- */
-	// std::cout << "\033[4mvector.back() :\033[0m" << std::endl;
-	// ft_compare(ft_vec2.back(), std_vec2.back(), 0, 1);
-	// std::cout << std::endl;
+	std::cout << WHITE << "ACCESS_TEST:" << RESET << std::endl;
+	do_access_test();
 
 	// /* --------------------------------- assign --------------------------------- */
 	// std::cout << "\033[4mvector.assign() :\033[0m" << std::endl;

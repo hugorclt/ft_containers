@@ -6,7 +6,7 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2022/12/01 12:23:06 by hrecolet         ###   ########.fr        #
+#    Updated: 2022/12/02 12:00:59 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ OBJS_DIR		=	.objs
 VEC_SRCS		=	srcs/ft_vector/main.cpp\
 					srcs/ft_vector/constructor.cpp\
 					srcs/ft_vector/capacity.cpp\
+					srcs/ft_vector/access.cpp\
 
 VEC_OBJS 		= 	$(addprefix $(OBJS_DIR)/, $(notdir $(VEC_SRCS:%.cpp=%.o)))
 
