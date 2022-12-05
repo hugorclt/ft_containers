@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:41 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/05 08:23:59 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:57:17 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	do_modifier_test(void)
 	push_back();
 	pop_back();
 	insert();
+	erase();
+	swap();
 }
 
 int	main()

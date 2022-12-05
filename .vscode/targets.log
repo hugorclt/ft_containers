@@ -1,237 +1,239 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-# GNU Make 4.2.1
+# GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
-# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Dec  5 08:13:51 2022
+# Make data base, printed on Mon Dec  5 17:36:57 2022
 
 # Variables
 
-# automatic
-<D = $(patsubst %/,%,$(dir $<))
-# automatic
-?F = $(notdir $?)
 # environment
-DESKTOP_SESSION = ubuntu
+GDK_BACKEND = x11
+# environment
+LC_ALL = C
+# environment
+SSH_AGENT_LAUNCHER = gnome-keyring
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# environment
+MANDATORY_PATH = /usr/share/gconf/unity.mandatory.path
+# environment
+VSCODE_CWD = /mnt/nfs/homes/hrecolet
+# environment
+LIBVIRT_DEFAULT_URI = qemu:///system
+# default
+MAKE_COMMAND := make
+# environment
+GTK3_MODULES = xapp-gtk3-module
+# environment
+QT_ACCESSIBILITY = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /mnt/nfs/homes/hrecolet/Documents/42cursus/Cercle5/ft_containers
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+XDG_DATA_DIRS = /usr/share/unity:/usr/share/gnome:/mnt/nfs/homes/hrecolet/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+OLDPWD = /mnt/nfs/homes/hrecolet
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/hrecolet/.config/Code/CachedData/6261075646f055b99068d3688932416f2346dd3b
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session4
+# environment
+LANG = C
+# environment
+XAUTHORITY = /mnt/nfs/homes/hrecolet/.Xauthority
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /mnt/nfs/homes/hrecolet/Documents/42cursus/Cercle5/ft_containers
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/40354/keyring/ssh
 # default
 .SHELLFLAGS := -c
 # environment
-XDG_SESSION_CLASS = user
+XDG_CONFIG_DIRS = /etc/xdg/xdg-unity:/etc/xdg
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+XDG_SESSION_DESKTOP = unity
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# environment
+CONDA_SHLVL = 0
+# automatic
+@F = $(notdir $@)
+# environment
+ZSH = /mnt/nfs/homes/hrecolet/.oh-my-zsh
+# environment
+VSCODE_PID = 353890
+# environment
+KRB5CCNAME = FILE:/tmp/krb5cc_40354_MpxgTE
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+# environment
+CONDA_PYTHON_EXE = /mnt/nfs/homes/hrecolet/goinfre/miniconda3/bin/python
+# environment
+SESSION_MANAGER = local/e2r6p9.clusters.42paris.fr:@/tmp/.ICE-unix/293469,unix/e2r6p9.clusters.42paris.fr:/tmp/.ICE-unix/293469
 # automatic
-@D = $(patsubst %/,%,$(dir $@))
+*F = $(notdir $*)
 # environment
-XAUTHORITY = /mnt/nfs/homes/hrecolet/.Xauthority
-# environment
-GDMSESSION = ubuntu
-# environment
-XMODIFIERS = @im=ibus
-# makefile
-CURDIR := /mnt/nfs/homes/hrecolet/Documents/42cursus/Cercle5/ft_containers
-# makefile
-SHELL = /bin/sh
-# environment
-VTE_VERSION = 6003
-# environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
-# environment
-_ = /usr/bin/code
-# makefile (from 'Makefile', line 14)
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
-# environment
-JOURNAL_STREAM = 9:385596
-# environment
-XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
-# makefile (from 'Makefile', line 1)
-MAKEFILE_LIST :=  Makefile
-# automatic
-@F = $(notdir $@)
-# environment
-IM_CONFIG_PHASE = 1
-# 'override' directive
-GNUMAKEFLAGS := 
-# environment
-MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
-# environment
-XDG_DATA_DIRS = /usr/share/gnome:/usr/share/ubuntu:/mnt/nfs/homes/hrecolet/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+CHROME_DESKTOP = code-url-handler.desktop
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/40354/bus
-# makefile (from 'Makefile', line 27)
-VEC_OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(VEC_SRCS:%.cpp=%.o)))
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
 # environment
-MANAGERPID = 52358
-# environment
-VSCODE_CWD = /mnt/nfs/homes/hrecolet/Documents/42cursus/Cercle5/ft_containers
-# environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
-# environment
-KRB5CCNAME = FILE:/tmp/krb5cc_40354_km8eHk
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /mnt/nfs/homes/hrecolet/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-# environment
-GPG_AGENT_INFO = /run/user/40354/gnupg/S.gpg-agent:0:1
-# environment
-LSCOLORS = Gxfxcxdxbxegedabagacad
-# environment
-SESSION_MANAGER = local/e1r11p23.clusters.42paris.fr:@/tmp/.ICE-unix/52918,unix/e1r11p23.clusters.42paris.fr:/tmp/.ICE-unix/52918
-# environment
-XDG_RUNTIME_DIR = /run/user/40354
-# environment
-XDG_MENU_PREFIX = gnome-
-# environment
-ELECTRON_RUN_AS_NODE = 1
-# environment
-INVOCATION_ID = 3287ad4ecd8d4b8883dc53fc226441bb
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# makefile
+SHELL = /bin/sh
 # default
-.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+MAKECMDGOALS := all
 # environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
+XMODIFIERS = @im=ibus
 # environment
-XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/hrecolet
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+SHLVL = 1
 # environment
-XDG_SESSION_DESKTOP = ubuntu
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
 # environment
-SSH_AUTH_SOCK = /run/user/40354/keyring/ssh
+PATH = /mnt/nfs/homes/hrecolet/goinfre/miniconda3/condabin:/mnt/nfs/homes/hrecolet/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# default
+MAKEFILES := 
 # automatic
-%F = $(notdir $%)
+^F = $(notdir $^)
+# environment
+INVOCATION_ID = 17d5c1154f894644b54ae8ea9fd98e8b
+# environment
+DOCKER_HOST = unix:///run/user/40354/docker.sock
+# automatic
+?F = $(notdir $?)
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+LS_COLORS = 
+# automatic
++F = $(notdir $+)
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+LESS = -R
+# environment
+DESKTOP_SESSION = unity
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# makefile (from 'Makefile', line 21)
+VEC_SRCS = srcs/ft_vector/main.cpp srcs/ft_vector/constructor.cpp srcs/ft_vector/capacity.cpp srcs/ft_vector/access.cpp srcs/ft_vector/modifiers.cpp 
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+LOGNAME = hrecolet
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# makefile
+.DEFAULT_GOAL := vector
+# environment
+SYSTEMD_EXEC_PID = 293493
 # environment
 DISPLAY = :0
 # environment
-PWD = /mnt/nfs/homes/hrecolet/Documents/42cursus/Cercle5/ft_containers
-# default
-.LOADED := 
-# environment
-SSH_AGENT_PID = 52887
-# environment
-ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+USER = hrecolet
 # environment
 GTK_MODULES = gail:atk-bridge
+# environment
+DEFAULTS_PATH = /usr/share/gconf/unity.default.path
+# default
+MAKE_VERSION := 4.3
+# environment
+MANAGERPID = 292950
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 353890
+# makefile (from 'Makefile', line 15)
+OBJS_DIR = .objs
+# environment
+PAGER = less
+# environment
+_ = /usr/share/code/code
+# environment
+XDG_RUNTIME_DIR = /run/user/40354
+# makefile (from 'Makefile', line 14)
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
+# environment
+GPG_AGENT_INFO = /run/user/40354/gnupg/S.gpg-agent:0:1
+# environment
+_CE_M = 
+# environment
+JOURNAL_STREAM = 8:1230266
+# environment
+XDG_SESSION_CLASS = user
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /mnt/nfs/homes/hrecolet
 # environment
-VSCODE_CLI = 1
-# environment
-VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/hrecolet/.config/Code/CachedData/6261075646f055b99068d3688932416f2346dd3b
-# environment
-LOGNAME = hrecolet
-# environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-ZSH = /mnt/nfs/homes/hrecolet/.oh-my-zsh
-# environment
-VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# environment
-GNOME_DESKTOP_SESSION_ID = this-is-deprecated
-# automatic
-^D = $(patsubst %/,%,$(dir $^))
-# makefile (from 'Makefile', line 21)
-VEC_SRCS = srcs/ft_vector/main.cpp srcs/ft_vector/constructor.cpp srcs/ft_vector/capacity.cpp srcs/ft_vector/access.cpp srcs/ft_vector/modifiers.cpp 
-# environment
-MAKELEVEL := 0
-# environment
-COLORTERM = truecolor
-# default
-MAKE = $(MAKE_COMMAND)
-# default
-MAKECMDGOALS := all
-# environment
 QT_IM_MODULE = ibus
 # environment
-SHLVL = 2
-# makefile (from 'Makefile', line 13)
-CC = c++
-# default
-MAKE_VERSION := 4.2.1
-# environment
-USER = hrecolet
-# makefile
-.DEFAULT_GOAL := vector
-# environment
-XDG_CURRENT_DESKTOP = Unity
-# environment
-LIBVIRT_DEFAULT_URI = qemu:///system
-# environment
-LESS = -R
-# automatic
-%D = $(patsubst %/,%,$(dir $%))
-# default
-MAKE_COMMAND := make
-# environment
-OLDPWD = /mnt/nfs/homes/hrecolet
-# default
-.VARIABLES := 
-# automatic
-*F = $(notdir $*)
-# environment
-XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+ELECTRON_RUN_AS_NODE = 1
 # environment
 VSCODE_IPC_HOOK = /run/user/40354/vscode-e9ed8a0c-1.73.1-main.sock
-# makefile
-MAKEFLAGS = pqrR
-# environment
-MFLAGS = -pqrR
-# automatic
-*D = $(patsubst %/,%,$(dir $*))
-# makefile (from 'Makefile', line 15)
-OBJS_DIR = .objs
-# automatic
-+D = $(patsubst %/,%,$(dir $+))
-# environment
-GDK_BACKEND = x11
-# automatic
-+F = $(notdir $+)
-# environment
-QT_ACCESSIBILITY = 1
-# environment
-DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# makefile (from 'Makefile', line 27)
+VEC_OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(VEC_SRCS:%.cpp=%.o)))
 # default
-MAKEFILES := 
+.RECIPEPREFIX := 
 # automatic
 <F = $(notdir $<)
-# environment
-PAGER = less
-# environment
-LC_ALL = C
-# environment
-GJS_DEBUG_TOPICS = JS ERROR;JS LOG
-# environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/f7a2ec3a_2386_497c_8d28_8d28331e9937
-# automatic
-^F = $(notdir $^)
-# environment
-GNOME_TERMINAL_SERVICE = :1.97
 # default
 SUFFIXES := 
 # environment
-CHROME_DESKTOP = code-url-handler.desktop
+XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/hrecolet
 # default
-.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# makefile (from 'Makefile', line 13)
+CC = c++
 # environment
-GJS_DEBUG_OUTPUT = stderr
-# default
-.RECIPEPREFIX := 
+XDG_MENU_PREFIX = gnome-
 # environment
-LANG = C
+CONDA_EXE = /mnt/nfs/homes/hrecolet/goinfre/miniconda3/bin/conda
 # environment
-TERM = xterm-256color
+_CE_CONDA = 
 # environment
-DOCKER_HOST = unix:///run/user/40354/docker.sock
-# environment
-VSCODE_PID = 53719
+GDMSESSION = unity
 # variable set hash-table stats:
-# Load=110/1024=11%, Rehash=0, Collisions=10/141=7%
+# Load=111/1024=11%, Rehash=0, Collisions=6/147=4%
 
 # Pattern-specific Variable Values
 
@@ -239,8 +241,8 @@ VSCODE_PID = 53719
 
 # Directories
 
-# . (device 59, inode 26877458): 9 files, no impossibilities.
-# srcs/ft_vector (device 59, inode 23367365): 8 files, no impossibilities so far.
+# srcs/ft_vector (device 58, inode 23367365): 8 files, no impossibilities so far.
+# . (device 58, inode 26877458): 9 files, no impossibilities.
 
 # 17 files, no impossibilities in 2 directories.
 
@@ -252,60 +254,32 @@ VSCODE_PID = 53719
 					@$(CC) $(CFLAGS) -c $< -o $@
 
 # 1 implicit rules, 0 (0.0%) terminal.
-
 # Files
 
-.objs/main.o: srcs/ft_vector/main.cpp
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'main'
-#  Last modified 2022-12-03 10:06:41.309773936
+vector: .objs .objs/main.o .objs/constructor.o .objs/capacity.o .objs/access.o .objs/modifiers.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-12-05 10:30:04.591719757
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 34):
-					@printf "\033[0;33mGenerating vector object... %-38.38s \r" $@
-					@$(CC) $(CFLAGS) -c $< -o $@
-
-all: vector
-#  Command line target.
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 38):
+		      		@$(CC) $(CFLAGS) $(VEC_OBJS) -o vector
+					@echo \n
+					@echo "\033[1;32mVector: Done!\033[0m"
 
 # Not a target:
 srcs/ft_vector/access.cpp:
 #  Implicit rule search has been done.
 #  Last modified 2022-12-03 09:07:10.788620697
 #  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+srcs/ft_vector/main.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-12-05 08:23:59.292350053
+#  File has been updated.
+#  Successfully updated.
  
-#  Successfully updated.
-
-.PHONY:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 69):
-					all clean fclean re
-
-.objs/capacity.o: srcs/ft_vector/capacity.cpp
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'capacity'
-#  Last modified 2022-12-03 10:06:41.96077759
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 34):
-					@printf "\033[0;33mGenerating vector object... %-38.38s \r" $@
-					@$(CC) $(CFLAGS) -c $< -o $@
-
-.objs/modifiers.o: srcs/ft_vector/modifiers.cpp
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'modifiers'
-#  Last modified 2022-12-03 10:06:42.622781306
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 34):
-					@printf "\033[0;33mGenerating vector object... %-38.38s \r" $@
-					@$(CC) $(CFLAGS) -c $< -o $@
 
 # Not a target:
 Makefile:
@@ -314,28 +288,66 @@ Makefile:
 #  File has been updated.
 #  Successfully updated.
 
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 56):
+		      		@rm -f $(VEC_OBJS)
+					@rm -rf $(OBJS_DIR)
+					@echo "\033[1;31mObject cleaned!\033[0m"
+					
+
+re: fclean all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+srcs/ft_vector/modifiers.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-12-05 09:22:41.085081614
+#  File has been updated.
+#  Successfully updated.
+
+.objs:
+#  Implicit rule search has not been done.
+#  Last modified 2022-12-05 10:30:04.46171903
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 30):
+					@mkdir -p $(OBJS_DIR)
+
 .objs/constructor.o: srcs/ft_vector/constructor.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'constructor'
-#  Last modified 2022-12-03 10:06:41.619775676
+#  Last modified 2022-12-05 10:30:03.399713092
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 34):
 					@printf "\033[0;33mGenerating vector object... %-38.38s \r" $@
 					@$(CC) $(CFLAGS) -c $< -o $@
 
-.objs:
-#  Implicit rule search has not been done.
-#  Last modified 2022-12-03 10:06:42.624781317
+.objs/access.o: srcs/ft_vector/access.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'access'
+#  Last modified 2022-12-05 10:30:04.065716816
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 30):
-					@mkdir -p $(OBJS_DIR)
+#  recipe to execute (from 'Makefile', line 34):
+					@printf "\033[0;33mGenerating vector object... %-38.38s \r" $@
+					@$(CC) $(CFLAGS) -c $< -o $@
 
 # Not a target:
-srcs/ft_vector/main.cpp:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all: vector
+#  Command line target.
 #  Implicit rule search has been done.
-#  Last modified 2022-12-03 10:00:15.829602956
+#  File does not exist.
 #  File has been updated.
 #  Successfully updated.
 
@@ -349,35 +361,15 @@ fclean:
 					@rm -f vector
 					@echo "\033[1;31mProgram and object cleaned!\033[0m"
 
-# Not a target:
-srcs/ft_vector/capacity.cpp:
+.objs/capacity.o: srcs/ft_vector/capacity.cpp
 #  Implicit rule search has been done.
-#  Last modified 2022-12-03 10:01:37.712065139
+#  Implicit/static pattern stem: 'capacity'
+#  Last modified 2022-12-05 10:30:03.747715038
 #  File has been updated.
 #  Successfully updated.
-
-vector: .objs .objs/main.o .objs/constructor.o .objs/capacity.o .objs/access.o .objs/modifiers.o
-#  Implicit rule search has not been done.
-#  Last modified 2022-12-03 10:06:42.842782541
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 38):
-		      		@$(CC) $(CFLAGS) $(VEC_OBJS) -o vector
-					@echo \n
-					@echo "\033[1;32mVector: Done!\033[0m"
-
-# Not a target:
-srcs/ft_vector/modifiers.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2022-12-03 10:06:39.949766302
-#  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-.DEFAULT:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 34):
+					@printf "\033[0;33mGenerating vector object... %-38.38s \r" $@
+					@$(CC) $(CFLAGS) -c $< -o $@
 
 # Not a target:
 srcs/ft_vector/constructor.cpp:
@@ -386,25 +378,34 @@ srcs/ft_vector/constructor.cpp:
 #  File has been updated.
 #  Successfully updated.
 
-re: fclean all
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-clean:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 56):
-		      		@rm -f $(VEC_OBJS)
-					@rm -rf $(OBJS_DIR)
-					@echo "\033[1;31mObject cleaned!\033[0m"
-					
-
-.objs/access.o: srcs/ft_vector/access.cpp
+.objs/modifiers.o: srcs/ft_vector/modifiers.cpp
 #  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'access'
-#  Last modified 2022-12-03 10:06:42.273779347
+#  Implicit/static pattern stem: 'modifiers'
+#  Last modified 2022-12-05 10:30:04.460719025
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 34):
+					@printf "\033[0;33mGenerating vector object... %-38.38s \r" $@
+					@$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 69):
+					all clean fclean re
+
+# Not a target:
+srcs/ft_vector/capacity.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2022-12-03 10:01:37.712065139
+#  File has been updated.
+#  Successfully updated.
+
+.objs/main.o: srcs/ft_vector/main.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'main'
+#  Last modified 2022-12-05 10:30:03.073711269
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 34):
@@ -424,7 +425,7 @@ clean:
 
 # strcache performance: lookups = 67 / hit rate = 37%
 # hash-table stats:
-# Load=42/8192=1%, Rehash=0, Collisions=2/67=3%
-# Finished Make data base on Mon Dec  5 08:13:51 2022
+# Load=42/8192=1%, Rehash=0, Collisions=0/67=0%
+# Finished Make data base on Mon Dec  5 17:36:57 2022
 
  

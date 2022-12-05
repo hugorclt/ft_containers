@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 11:57:48 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/05 08:23:53 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:57:01 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,5 @@ void assign(void);
 void push_back(void);
 void pop_back(void);
 void insert(void);
+void erase(void);
+void swap(void);

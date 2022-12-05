@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/05 09:26:26 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:55:25 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,11 @@ namespace ft
 			const_reference	back() const
 			{
 				return (*(_array + _currentSize - 1));
+			}
+
+			allocator_type get_allocator() const
+			{
+				return (_allocator);
 			}
 
 			/* -------------------------------------------------------------------------- */
@@ -342,10 +347,54 @@ namespace ft
 			template<class InputIterator>
 			void	insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
-				(void)position;
-				(void)first;
-				(void)last;
-				std::cout << "je suis le range" << std::endl;
+				difference_type	posIt = distance(begin(), position);
+				difference_type	size = distance(first, last);
+				
+				while (_currentSize + size > _maxSize)
+					reserve(_maxSize * 2);
+				for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
+				{
+					_allocator.construct(&_array[i + size], _array[i]);
+					_allocator.destroy(&(_array[i]));
+				}
+				for (size_type i = posIt; first != last; i++, first++)
+					_allocator.construct(&_array[i], *first);
+				_currentSize += size;
+			}
+
+			iterator	erase(iterator first, iterator last)
+			{
+				difference_type	posIt = distance(begin(), first);
+				difference_type	size = distance(first, last);
+				
+				for (size_type i = posIt; i < _currentSize; i++)
+				{
+					_allocator.destroy(&(_array[i]));
+					_allocator.construct(&_array[i], _array[i + size]);
+				}
+				_currentSize -= size;
+				return (iterator(&(_array[posIt])));
+			}
+			
+			iterator	erase(iterator position)
+			{
+				difference_type	posIt = distance(begin(), position);
+				
+				for (size_type i = posIt; i < _currentSize; i++)
+				{
+					_allocator.destroy(&(_array[i]));
+					_allocator.construct(&_array[i], _array[i + 1]);
+				}
+				_currentSize -= 1;
+				return (iterator(&(_array[posIt])));
+			}
+
+			void	swap(vector &x)
+			{
+				vector<value_type> tmp = x;
+				
+				x = *this;
+				*this = tmp;
 			}
 	};
 }
