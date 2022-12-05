@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 10:17:32 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/01 14:59:19 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/03 09:09:09 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void constructor(void)
 	ft::vector<int>		ft_vec4(ft_vec2);
 	std::vector<int>	std_vec4(std_vec2);
 
-	std::cout << PURPLE << "\t\tVECTOR TEST" << RESET << std::endl;
 	std::cout << ORANGE	<< "Constructor Test (default constructor): \t" << (constructor_test(ft_vec1, std_vec1) ? "❌" : "✅") << RESET << std::endl;
 	std::cout << ORANGE	<< "Constructor Test (fill constructor): \t\t" << (constructor_test(ft_vec2, std_vec2) ? "❌" : "✅") << RESET << std::endl;
 	std::cout << ORANGE	<< "Constructor Test (iterator constructor): \t" << (constructor_test(ft_vec3, std_vec3) ? "❌" : "✅") << RESET << std::endl;

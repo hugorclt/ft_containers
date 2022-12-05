@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:41 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/02 12:14:02 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/05 08:23:59 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_print_vector(T vec)
 		std::cout << vec[i] << std::endl;
 }
 
-void	do_capacity_test()
+void	do_capacity_test(void)
 {
 	size();
 	maxsize();
@@ -42,7 +42,7 @@ void	do_capacity_test()
 	reserve();
 }
 
-void	do_access_test()
+void	do_access_test(void)
 {
 	at();
 	operat();
@@ -50,14 +50,24 @@ void	do_access_test()
 	back();
 }
 
+void	do_modifier_test(void)
+{
+	assign();
+	push_back();
+	pop_back();
+	insert();
+}
+
 int	main()
 {
+	std::cout << WHITE << "\t\tVECTOR:" << RESET << std::endl;
 	constructor();
 	std::cout << WHITE << "CAPACITY_TEST:" << RESET << std::endl;
 	do_capacity_test();
 	std::cout << WHITE << "ACCESS_TEST:" << RESET << std::endl;
 	do_access_test();
-
+	std::cout << WHITE << "MODIFIER_TEST:" << RESET << std::endl;
+	do_modifier_test();
 	// /* --------------------------------- assign --------------------------------- */
 	// std::cout << "\033[4mvector.assign() :\033[0m" << std::endl;
 

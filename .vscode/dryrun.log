@@ -1,15 +1,18 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/hugorecolet/Desktop/42/studs/Cercle5/ft_containers'
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/nfs/homes/hrecolet/Documents/42cursus/Cercle5/ft_containers'
 mkdir -p .objs
- 
 printf "\033[0;33mGenerating vector object... %-38.38s \r" .objs/main.o
-c++ -Wall -Wextra -Werror -std=c++98 -c srcs/ft_vector/main.cpp -o .objs/main.o
+c++ -Wall -Wextra -Werror -std=c++98 -g3 -c srcs/ft_vector/main.cpp -o .objs/main.o
 printf "\033[0;33mGenerating vector object... %-38.38s \r" .objs/constructor.o
-c++ -Wall -Wextra -Werror -std=c++98 -c srcs/ft_vector/constructor.cpp -o .objs/constructor.o
+c++ -Wall -Wextra -Werror -std=c++98 -g3 -c srcs/ft_vector/constructor.cpp -o .objs/constructor.o
 printf "\033[0;33mGenerating vector object... %-38.38s \r" .objs/capacity.o
-c++ -Wall -Wextra -Werror -std=c++98 -c srcs/ft_vector/capacity.cpp -o .objs/capacity.o
-c++ -Wall -Wextra -Werror -std=c++98 .objs/main.o .objs/constructor.o .objs/capacity.o .objs/capacity.o -o vector
+c++ -Wall -Wextra -Werror -std=c++98 -g3 -c srcs/ft_vector/capacity.cpp -o .objs/capacity.o
+printf "\033[0;33mGenerating vector object... %-38.38s \r" .objs/access.o
+c++ -Wall -Wextra -Werror -std=c++98 -g3 -c srcs/ft_vector/access.cpp -o .objs/access.o
+printf "\033[0;33mGenerating vector object... %-38.38s \r" .objs/modifiers.o
+c++ -Wall -Wextra -Werror -std=c++98 -g3 -c srcs/ft_vector/modifiers.cpp -o .objs/modifiers.o
+c++ -Wall -Wextra -Werror -std=c++98 -g3 .objs/main.o .objs/constructor.o .objs/capacity.o .objs/access.o .objs/modifiers.o -o vector
 echo \n
 echo "\033[1;32mVector: Done!\033[0m"
-make: Leaving directory `/Users/hugorecolet/Desktop/42/studs/Cercle5/ft_containers'
+make: Leaving directory '/mnt/nfs/homes/hrecolet/Documents/42cursus/Cercle5/ft_containers'
  

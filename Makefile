@@ -6,12 +6,12 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2022/12/02 12:00:59 by hrecolet         ###   ########.fr        #
+#    Updated: 2022/12/03 09:46:35 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	c++
-CFLAGS			=	-Wall -Wextra -Werror -std=c++98
+CFLAGS			=	-Wall -Wextra -Werror -std=c++98 -g3
 OBJS_DIR		=	.objs
 
 
@@ -22,6 +22,7 @@ VEC_SRCS		=	srcs/ft_vector/main.cpp\
 					srcs/ft_vector/constructor.cpp\
 					srcs/ft_vector/capacity.cpp\
 					srcs/ft_vector/access.cpp\
+					srcs/ft_vector/modifiers.cpp\
 
 VEC_OBJS 		= 	$(addprefix $(OBJS_DIR)/, $(notdir $(VEC_SRCS:%.cpp=%.o)))
 

@@ -78,6 +78,7 @@
 		"stop_token": "cpp",
 		"cinttypes": "cpp",
 		"ranges": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"fstream": "cpp"
 	}
 }

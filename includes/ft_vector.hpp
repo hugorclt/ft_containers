@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/01 14:58:34 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/05 09:26:26 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@
 #include "iterator.hpp"
 #include "utility.hpp"
 
-namespace ft {
+namespace ft
+{
 	//Template : allocator<T> to allocate memory accordingly to the type of the vector
 	template <typename T, typename Alloc = std::allocator<T> >
-	class vector {
+	class vector
+	{
 		public:
 			typedef	T													value_type;
 			typedef Alloc												allocator_type;
@@ -57,7 +59,8 @@ namespace ft {
 			@fill constructor
 			Constructs a container with n elements. Each element is a copy of val.
 			*/
-			explicit	vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type()) {
+			explicit	vector(size_type n, const value_type &val = value_type(), const allocator_type &alloc = allocator_type())
+			{
 				_array = _allocator.allocate(n);
 				for (size_type i = 0; i < n; i++)
 					_allocator.construct(&_array[i], val);
@@ -73,7 +76,8 @@ namespace ft {
 			in the same order.
 			*/
 			template<class InputIterator>
-			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) {
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
+			{
 				difference_type	size = distance(first, last);
 				
 				_currentSize = size;
@@ -88,7 +92,8 @@ namespace ft {
 			@Copy constructor
 			Constructs a container with a copy of each of the elements in x, in the same order.
 			*/
-			vector(const vector& x) {
+			vector(const vector& x)
+			{
 				_array = _allocator.allocate(x._maxSize);
 				_currentSize = x._currentSize;
 				for (size_type i = 0; i < x._currentSize; i++)
@@ -96,7 +101,8 @@ namespace ft {
 				_maxSize = x._maxSize;
 			}
 
-			vector	&operator=(const vector &x) {
+			vector	&operator=(const vector &x)
+			{
 				clear();
 				_allocator.deallocate(_array, _maxSize);
 				_array = _allocator.allocate(x._maxSize);
@@ -111,7 +117,8 @@ namespace ft {
 			/*                                 destructor                                 */
 			/* -------------------------------------------------------------------------- */
 
-			~vector() {
+			~vector()
+			{
 				clear();
 				_allocator.deallocate(_array, _maxSize);
 			}
@@ -120,41 +127,49 @@ namespace ft {
 			/*                               element_access                               */
 			/* -------------------------------------------------------------------------- */
 
-			reference	operator[](size_type n) {
+			reference	operator[](size_type n)
+			{
 				return (*(_array + n));
 			}
 
-			const_reference	operator[](size_type n) const {
+			const_reference	operator[](size_type n) const
+			{
 				return (*(_array) + n);
 			}
 
-			reference	at(size_type n) {
+			reference	at(size_type n)
+			{
 				if (n > _currentSize || n < 0)
 					throw std::out_of_range("ArrayList<X>::at() : index is out of range");
 				else
 					return (*(_array + n));
 			}
 
-			const_reference	at(size_type n) const {
+			const_reference	at(size_type n) const
+			{
 				if (n > _currentSize || n < 0)
 					throw std::out_of_range("ArrayList<X>::at() : index is out of range");
 				else
 					return (*(_array + n));
 			}
 
-			reference	front() {
+			reference	front()
+			{
 				return (*_array);
 			}
 
-			const_reference	front() const {
+			const_reference	front() const
+			{
 				return (*_array);
 			}
 
-			reference	back() {
+			reference	back()
+			{
 				return (*(_array + _currentSize - 1));
 			}
 
-			const_reference	back() const {
+			const_reference	back() const
+			{
 				return (*(_array + _currentSize - 1));
 			}
 
@@ -162,19 +177,23 @@ namespace ft {
 			/*                                  iterator                                  */
 			/* -------------------------------------------------------------------------- */
 			
-			iterator	begin() {
+			iterator	begin()
+			{
 				return (iterator(_array));
 			}
 
-			iterator	end() {
+			iterator	end()
+			{
 				return (iterator(&_array[_currentSize]));
 			}
 
-			reverse_iterator	rbegin() {
+			reverse_iterator	rbegin()
+			{
 				return (reverse_iterator(_array));
 			}
 
-			reverse_iterator	rend() {
+			reverse_iterator	rend()
+			{
 				return (reverse_iterator(&_array[_currentSize]));
 			}
 			
@@ -182,29 +201,31 @@ namespace ft {
 			/*                                   capacity                                 */
 			/* -------------------------------------------------------------------------- */
 			
-			size_type	size() const {
+			size_type	size() const
+			{
 				return (_currentSize);
 			}
 
-			size_type	max_size() const {
+			size_type	max_size() const
+			{
 				return (_allocator.max_size());
 			}
 
-			size_type	capacity() const {
+			size_type	capacity() const
+			{
 				return (_maxSize);
 			}
 
-			bool	empty() const {
+			bool	empty() const
+			{
 				return (_currentSize <= 0);
 			}
 
-			/* -------------------------------------------------------------------------- */
-			/*                                  Modifiers                                 */
-			/* -------------------------------------------------------------------------- */
-
-			void	reserve(size_type n) {
-				if (n >= _maxSize)
+			void	reserve(size_type n) 
+			{
+				if (n > _maxSize)
 				{
+					size_type	save_size = _currentSize;
 					value_type	*tmp = _allocator.allocate(n);
 
 					for (size_type i = 0; i < _currentSize; i++)
@@ -212,6 +233,7 @@ namespace ft {
 					clear();
 					_allocator.deallocate(_array, _maxSize);
 					_maxSize = n;
+					_currentSize = save_size;
 					_array = tmp;
 				}
 			}
@@ -233,10 +255,97 @@ namespace ft {
 				}
 				_currentSize = n;
 			}
+			/* -------------------------------------------------------------------------- */
+			/*                                  Modifiers                                 */
+			/* -------------------------------------------------------------------------- */
 
-			void	clear() {
+			template <class InputIterator>
+			void	assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
+			{
+				difference_type	size = distance(first, last);
+				
+				reserve(size);
+				clear();
+				for (size_type i = 0; first != last; first++, i++)
+					_allocator.construct(&_array[i], *first);
+				_currentSize = size;
+			}
+
+			void	assign(size_type n, const value_type &val)
+			{
+				reserve(n);
+				clear();
+				for (size_type i = 0; i < n; i++)
+					_allocator.construct(&_array[i], value_type(val));
+				_currentSize = n;
+			}
+
+			void	push_back(const value_type &val)
+			{
+				if (_currentSize + 1 > _maxSize)
+				{
+					if (_maxSize > 0)
+						reserve(_maxSize * 2);
+					else
+						reserve(_maxSize + 1);
+				}
+				_allocator.construct(&_array[_currentSize], value_type(val));
+				_currentSize = _currentSize + 1;
+			}
+
+			void	pop_back(void)
+			{
+				if (_currentSize == 0)
+					return ; 
+				resize(_currentSize - 1, 0);
+			}
+
+			void	clear()
+			{
 				for (size_type i = 0; i < _currentSize; i++)
 					_allocator.destroy(&(_array[i]));
+				_currentSize = 0;
+			}
+
+			iterator	insert(iterator position, const value_type &val)
+			{
+				difference_type	posIt = distance(begin(), position);
+				
+				if (_currentSize + 1 > _maxSize)
+					reserve(_maxSize * 2);
+				for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
+				{
+					_allocator.construct(&_array[i + 1], _array[i]);
+					_allocator.destroy(&(_array[i]));
+				}
+				_allocator.construct(&_array[posIt], val);
+				_currentSize += 1;
+				return (iterator(&(_array[posIt])));
+			}
+
+			void	insert(iterator position, size_type n, const value_type &val)
+			{
+				difference_type	posIt = distance(begin(), position);
+				
+				while (_currentSize + n > _maxSize)
+					reserve(_maxSize * 2);
+				for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
+				{
+					_allocator.construct(&_array[i + n], _array[i]);
+					_allocator.destroy(&(_array[i]));
+				}
+				for (size_type i = posIt; i < n; i++)
+					_allocator.construct(&_array[i], val);
+				_currentSize += n;
+			}
+
+			template<class InputIterator>
+			void	insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
+			{
+				(void)position;
+				(void)first;
+				(void)last;
+				std::cout << "je suis le range" << std::endl;
 			}
 	};
 }
