@@ -20,7 +20,7 @@
 */
 template <class T, class Cont, class Func, class FuncC>
 void constructVectorList(const T (&x)[20], Func execNonConst, FuncC execConst)
-{   
+{
     int nb = 0;
     Cont c0;
 	execNonConst(c0, ++nb);
@@ -83,6 +83,7 @@ void constructVectorList(const T (&x)[20], Func execNonConst, FuncC execConst)
 
 	const Cont c14(3, x[16]);
     execConst(c14, ++nb);
+
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/28 18:36:00 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/02 22:21:34 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ namespace ft {
 			//Dereference operator
 			reference	operator*() const {return (*this->elem); };
 			pointer		operator->() const {return (this->value); };
-			reference	operator[]( const difference_type &offset) const {return (*this->elem + offset); };
+			reference	operator[]( const difference_type &offset) const {return (this->elem[offset]); };
 
 			//Increment operator
 			random_access_iterator	&operator++() {this->elem++; return (*this); };
@@ -88,9 +88,12 @@ namespace ft {
 			// random_access_iterator	operator+(const random_access_iterator &rhs) {return (random_access_iterator(this->elem + rhs.elem)); };
 			// random_access_iterator	operator-(const random_access_iterator &rhs) {return (random_access_iterator(this->elem - rhs.elem)); };
 			
+			random_access_iterator	operator+=(const int &rhs) { *this = *this + rhs; return(*this); };
+			random_access_iterator	operator-=(const int &rhs) { *this = *this - rhs; return(*this); };
+			random_access_iterator	operator-(const int &rhs) { return (random_access_iterator(this->elem - rhs)); }
+			random_access_iterator operator+(const int &rhs) {return (random_access_iterator(this->elem + rhs)); }
+			
 			difference_type	operator-(const random_access_iterator &it) { return (this->elem - it.elem); }
-			random_access_iterator	operator-(const int &nb) { return (random_access_iterator(this->elem - nb)); }
-			random_access_iterator operator+(const int &lhs) {return (random_access_iterator(this->elem + lhs)); }
 
 			//Comparison operator
 			bool	operator==(const random_access_iterator &iter) const {return (this->elem == iter.elem); };

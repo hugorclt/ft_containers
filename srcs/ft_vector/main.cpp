@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:41 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/24 09:35:02 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/02 21:53:40 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ void	do_modifier_test(void)
 
 int	main()
 {
-	std::cout << WHITE << "\t\tVECTOR:" << RESET << std::endl;
-	constructor();
-	std::cout << WHITE << "CAPACITY_TEST:" << RESET << std::endl;
-	do_capacity_test();
-	std::cout << WHITE << "ACCESS_TEST:" << RESET << std::endl;
-	do_access_test();
-	std::cout << WHITE << "MODIFIER_TEST:" << RESET << std::endl;
-	do_modifier_test();
+	// std::cout << WHITE << "\t\tVECTOR:" << RESET << std::endl;
+	// constructor();
+	// std::cout << WHITE << "CAPACITY_TEST:" << RESET << std::endl;
+	// do_capacity_test();
+	// std::cout << WHITE << "ACCESS_TEST:" << RESET << std::endl;
+	// do_access_test();
+	// std::cout << WHITE << "MODIFIER_TEST:" << RESET << std::endl;
+	// do_modifier_test();
 	// /* --------------------------------- assign --------------------------------- */
 	// std::cout << "\033[4mvector.assign() :\033[0m" << std::endl;
 

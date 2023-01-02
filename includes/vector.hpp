@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/02 14:54:14 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/02 23:05:02 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ namespace ft
 			template<class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
-				difference_type	size = distance(first, last);
+				difference_type	size = ft::distance(first, last);
 				
 				_currentSize = size;
 				_maxSize = size;
@@ -134,7 +134,7 @@ namespace ft
 
 			const_reference	operator[](size_type n) const
 			{
-				return (*(_array) + n);
+				return (_array[n]);
 			}
 
 			reference	at(size_type n)
@@ -288,7 +288,7 @@ namespace ft
 			template <class InputIterator>
 			void	assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
-				difference_type	size = distance(first, last);
+				difference_type	size = ft::distance(first, last);
 				
 				reserve(size);
 				clear();
@@ -328,6 +328,7 @@ namespace ft
 
 			void	clear()
 			{
+				std::cerr << _currentSize << std::endl;
 				for (size_type i = 0; i < _currentSize; i++)
 					_allocator.destroy(&(_array[i]));
 				_currentSize = 0;
@@ -335,10 +336,10 @@ namespace ft
 
 			iterator	insert(iterator position, const value_type &val)
 			{
-				difference_type	posIt = distance(begin(), position);
+				difference_type	posIt = ft::distance(begin(), position);
 				
 				if (_currentSize + 1 > _maxSize)
-					reserve(_maxSize * 2);
+					reserve((_maxSize) ? _maxSize * 2 : 1);
 				for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
 				{
 					_allocator.construct(&_array[i + 1], _array[i]);
@@ -351,10 +352,10 @@ namespace ft
 
 			void	insert(iterator position, size_type n, const value_type &val)
 			{
-				difference_type	posIt = distance(begin(), position);
-				
+				difference_type	posIt = ft::distance(begin(), position);
+
 				while (_currentSize + n > _maxSize)
-					reserve(_maxSize * 2);
+					reserve((_maxSize) ? _maxSize * 2 : 1);
 				for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
 				{
 					_allocator.construct(&_array[i + n], _array[i]);
@@ -368,11 +369,11 @@ namespace ft
 			template<class InputIterator>
 			void	insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
-				difference_type	posIt = distance(begin(), position);
-				difference_type	size = distance(first, last);
+				difference_type	posIt = ft::distance(begin(), position);
+				difference_type	size = ft::distance(first, last);
 				
 				while (_currentSize + size > _maxSize)
-					reserve(_maxSize * 2);
+					reserve((_maxSize) ? _maxSize * 2 : 1);
 				for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
 				{
 					_allocator.construct(&_array[i + size], _array[i]);
@@ -385,29 +386,31 @@ namespace ft
 
 			iterator	erase(iterator first, iterator last)
 			{
-				difference_type	posIt = distance(begin(), first);
-				difference_type	size = distance(first, last);
+				difference_type	posIt = ft::distance(begin(), first);
+				difference_type	size = ft::distance(first, last);
 				
 				for (size_type i = posIt; i < _currentSize; i++)
 				{
 					_allocator.destroy(&(_array[i]));
-					_allocator.construct(&_array[i], _array[i + size]);
+					if (i + size < _currentSize)
+						_allocator.construct(&_array[i], _array[i + size]);
 				}
 				_currentSize -= size;
-				return (iterator(&(_array[posIt])));
+				return (_currentSize ? iterator(&(_array[posIt])) : end());
 			}
 			
 			iterator	erase(iterator position)
 			{
-				difference_type	posIt = distance(begin(), position);
+				difference_type	posIt = ft::distance(begin(), position);
 				
 				for (size_type i = posIt; i < _currentSize; i++)
 				{
 					_allocator.destroy(&(_array[i]));
+					if (i + 1 < _currentSize)
 					_allocator.construct(&_array[i], _array[i + 1]);
 				}
 				_currentSize -= 1;
-				return (iterator(&(_array[posIt])));
+				return (_currentSize ? iterator(&(_array[posIt])) : end());
 			}
 
 			void	swap(vector &x)

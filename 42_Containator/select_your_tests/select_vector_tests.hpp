@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select_vector_tests.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:51:32 by llefranc          #+#    #+#             */
-/*   Updated: 2021/02/17 10:51:08 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/01/02 22:40:18 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void    testNotConstVec(T& v, int testNb)
     vectorTest_At(v);                       //  at
     vectorTest_Front(v);                    //  front
     vectorTest_Back(v);                     //  back
+
     vectorTest_PushBack(v);                 //  push_back
     vectorTest_PopBack(v);                  //  pop_back
     vectorTest_Clear(v);                    //  clear
@@ -36,12 +37,14 @@ void    testNotConstVec(T& v, int testNb)
     vectorTest_AssignRange(v);              //  assign an iterator range
     vectorTest_AssignNElem(v);              //  assign n elements
     vectorTest_InsertRange(v);              //  insert an iterator range
+	
     vectorTest_InsertNElem(v);              //  insert n elements
     vectorTest_Insert1Elem(v);              //  insert one element
     vectorTest_EraseRange(v);               //  erase an iterator range
     vectorTest_Erase1Elem(v);               //  erase one element
     vectorTest_OperatorEqualNotEqual(v);    //  == / !=
     vectorTest_OperatorLessAndMore(v);      //  < / <= / > / >=
+
 }
 
 template <typename T>

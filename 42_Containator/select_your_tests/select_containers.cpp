@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:37:35 by hherin            #+#    #+#             */
-/*   Updated: 2023/01/02 15:06:10 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/02 22:35:20 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ int main(void)
     // ---------------------------------------------------------------------------
     // CHOOSE HERE WHICH CONTAINERS YOU WANT TO TEST. YOU HAVE ALSO TO COMMENT
     // THE WHOLE FUNCTION BELOW.
-        
-    testVector(arrInt, arrString);  // Comment if you don't want to test VECTOR   
+    testVector(arrInt, arrString);  // Comment if you don't want to test VECTOR
+	    printf("coucou2\n");
+
    //  testList(arrInt, arrString);    // Comment if you don't want to test LIST   
-    testStack(arrInt, arrString);   // Comment if you don't want to test STACK   
+    // testStack(arrInt, arrString);   // Comment if you don't want to test STACK   
    //  testQueue(arrInt, arrString);   // Comment if you don't want to test QUEUE   
-    testMap(arrInt, arrString);     // Comment if you don't want to test MAP   
+    // testMap(arrInt, arrString);     // Comment if you don't want to test MAP   
 
     // ---------------------------------------------------------------------------
 }
@@ -63,14 +64,12 @@ void    testVector(const int (&arrInt)[20], const std::string (&arrString)[20])
     /* STL TESTS */
     constructVectorList<int, std::vector<int> >(arrInt, testNotConstVec<std::vector<int> >, testConstVec<const std::vector<int> >);
     constructVectorList<std::string, std::vector<std::string> >(arrString, testNotConstVec<std::vector<std::string> >, testConstVec<const std::vector<std::string> >);
-        
+
     //redirect std::cout to ft::vector_result.txt
     std::cout.rdbuf(ftFile.rdbuf());
-        
     /* FT TESTS */
     constructVectorList<int, ft::vector<int> >(arrInt, testNotConstVec<ft::vector<int> >, testConstVec<const ft::vector<int> >);
     constructVectorList<std::string, ft::vector<std::string> >(arrString, testNotConstVec<ft::vector<std::string> >, testConstVec<const ft::vector<std::string> >);
-
     //reset to standard output again
     std::cout.rdbuf(coutbuf);
 }

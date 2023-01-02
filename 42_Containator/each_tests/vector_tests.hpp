@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_tests.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 16:31:55 by llefranc          #+#    #+#             */
-/*   Updated: 2021/07/16 15:55:40 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/01/02 22:44:28 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,8 +410,8 @@ void    vectorTest_InsertNElem(T& cont)
         ++it;
         tmp.insert(it, 5, *x);
     }
-    tmp.insert(tmp.begin(), 5, *x);
-    tmp.insert(tmp.end(), 5, *x);
+   tmp.insert(tmp.begin(), 5, *x);
+   tmp.insert(tmp.end(), 5, *x);
         
     printTestName("416", name); std::cout << "size of tmp = " << tmp.size();
     printContainer("417", name, tmp);
