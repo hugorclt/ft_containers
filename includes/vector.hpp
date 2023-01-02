@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vector.hpp                                      :+:      :+:    :+:   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/05 17:55:25 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:54:14 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ namespace ft
 			typedef typename allocator_type::const_reference 			const_reference;
 			typedef typename allocator_type::pointer 					pointer;
 			typedef typename allocator_type::const_pointer 				const_pointer;
-			typedef random_access_iterator<value_type> 					iterator;
-			typedef random_access_iterator<const value_type>			const_iterator;
-			typedef random_access_iterator<value_type> 					reverse_iterator; //FIX
-			typedef	random_access_iterator<const value_type>			const_reverse_iterator; //FIX
-			typedef typename iterator_traits<iterator>::difference_type	difference_type;
+			typedef typename ft::random_access_iterator<value_type> 					iterator;
+			typedef typename ft::random_access_iterator<const value_type>			const_iterator;
+			typedef typename ft::random_access_iterator<value_type> 					reverse_iterator; //FIX
+			typedef	typename ft::random_access_iterator<const value_type>			const_reverse_iterator; //FIX
+			typedef typename ft::iterator_traits<iterator>::difference_type			difference_type;
 			typedef size_t 												size_type;
 		
 		private:
@@ -192,12 +192,33 @@ namespace ft
 				return (iterator(&_array[_currentSize]));
 			}
 
+			const_iterator	begin() const
+			{
+				return (iterator(_array));
+			}
+
+			const_iterator	end() const
+			{
+				return (iterator(&_array[_currentSize]));
+			}
+
+
 			reverse_iterator	rbegin()
 			{
 				return (reverse_iterator(_array));
 			}
 
 			reverse_iterator	rend()
+			{
+				return (reverse_iterator(&_array[_currentSize]));
+			}
+
+			const_reverse_iterator	rbegin() const
+			{
+				return (reverse_iterator(_array));
+			}
+
+			const_reverse_iterator	rend() const
 			{
 				return (reverse_iterator(&_array[_currentSize]));
 			}
@@ -396,5 +417,68 @@ namespace ft
 				x = *this;
 				*this = tmp;
 			}
+
+			/* -------------------------- relationnal operator -------------------------- */
+			template <class Type, class Allocator>
+			friend bool operator== (const vector<Type,Allocator>& lhs, const vector<Type,Allocator>& rhs);
+			template <class Type, class Allocator>
+			friend bool operator!= (const vector<Type,Allocator>& lhs, const vector<Type,Allocator>& rhs);
+			template <class Type, class Allocator>
+			friend bool operator<  (const vector<Type,Allocator>& lhs, const vector<Type,Allocator>& rhs);
+			template <class Type, class Allocator>
+			friend bool operator<= (const vector<Type,Allocator>& lhs, const vector<Type,Allocator>& rhs);
+			template <class Type, class Allocator>
+			friend bool operator>  (const vector<Type,Allocator>& lhs, const vector<Type,Allocator>& rhs);
+			template <class Type, class Allocator>
+			friend bool operator>= (const vector<Type,Allocator>& lhs, const vector<Type,Allocator>& rhs);
 	};
+
+	template <class T, class Alloc>
+	bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		typename vector<const T,Alloc>::iterator it2 = rhs.begin();
+		for (typename vector<const T,Alloc>::iterator it = lhs.begin(); it != lhs.end(); it++, it2++)
+		{
+			if ((*it) != (*it2))
+				return (false);
+		}
+		return (true);
+	}
+
+	template <class T, class Alloc>
+	bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return (true);
+		typename vector<const T,Alloc>::iterator it2 = rhs.begin();
+		for (typename vector<const T,Alloc>::iterator it = lhs.begin(); it != lhs.end(); it++, it2++)
+		{
+			if ((*it) != (*it2))
+				return (true);
+		}
+		return (false);
+	}
+
+	template <class T, class Alloc>
+	bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		return (lexixographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+	template <class T, class Alloc>
+	bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		return (!lexixographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+	}
+	template <class T, class Alloc>
+	bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		return (lexixographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+	}
+	template <class T, class Alloc>
+	bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	{
+		return (!lexixographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
 }

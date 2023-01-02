@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/11/28 22:32:09 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/28 18:36:00 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,13 @@ namespace ft {
 			random_access_iterator	&operator--() {this->elem--; return (*this); };
 			random_access_iterator	operator--(int) {random_access_iterator tmp = *this; --(*this); return (tmp); }
 
-			//Arithmetic operator
-			//random_access_iterator	operator+(const random_access_iterator &rhs) {return (random_access_iterator(this->elem + rhs.elem)); };
-			//random_access_iterator	operator-(const random_access_iterator &rhs) {return (random_access_iterator(this->elem - rhs.elem)); };
+			// Arithmetic operator
+			// random_access_iterator	operator+(const random_access_iterator &rhs) {return (random_access_iterator(this->elem + rhs.elem)); };
+			// random_access_iterator	operator-(const random_access_iterator &rhs) {return (random_access_iterator(this->elem - rhs.elem)); };
 			
 			difference_type	operator-(const random_access_iterator &it) { return (this->elem - it.elem); }
+			random_access_iterator	operator-(const int &nb) { return (random_access_iterator(this->elem - nb)); }
+			random_access_iterator operator+(const int &lhs) {return (random_access_iterator(this->elem + lhs)); }
 
 			//Comparison operator
 			bool	operator==(const random_access_iterator &iter) const {return (this->elem == iter.elem); };

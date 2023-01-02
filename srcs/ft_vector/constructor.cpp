@@ -6,11 +6,11 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 10:17:32 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/12/03 09:09:09 by hrecolet         ###   ########.fr       */
+/*   Updated: 2022/12/24 09:34:46 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_vector.hpp"
+#include "../../includes/vector.hpp"
 #include <vector>
 
 int	constructor_test(ft::vector<int> &ftVec, std::vector<int> &stdVec)
