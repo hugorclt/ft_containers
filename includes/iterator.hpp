@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/02 22:21:34 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:04:17 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ namespace ft {
 
 			//Increment operator
 			random_access_iterator	&operator++() {this->elem++; return (*this); };
-			random_access_iterator	operator++(int) {random_access_iterator tmp = *this; ++(*this); return (tmp); }
+			random_access_iterator	operator++(int) {random_access_iterator tmp = *this; ++elem; return (tmp); }
 			random_access_iterator	&operator--() {this->elem--; return (*this); };
-			random_access_iterator	operator--(int) {random_access_iterator tmp = *this; --(*this); return (tmp); }
+			random_access_iterator	operator--(int) {random_access_iterator tmp = *this; --elem; return (tmp); }
 
 			// Arithmetic operator
 			// random_access_iterator	operator+(const random_access_iterator &rhs) {return (random_access_iterator(this->elem + rhs.elem)); };
@@ -109,6 +109,65 @@ namespace ft {
 			private:
 				pointer	elem;
 	};
+
+	template <typename T>
+	class reverse_random_access_iterator : public ft::iterator<ft::random_access_iterator_tag, T> {
+		public:
+			//Definition
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer			pointer;
+			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
+			
+			//Constructor - Destructor
+			reverse_random_access_iterator(pointer	pointee = NULL) : elem(pointee) {};
+			reverse_random_access_iterator(const reverse_random_access_iterator &cpy) : elem(cpy.elem) {};
+			virtual ~reverse_random_access_iterator() {}
+
+			//operator
+			reverse_random_access_iterator &operator=(const reverse_random_access_iterator &to_cpy) {
+				this->elem = to_cpy.elem;
+				return (*this);
+			}
+
+			//Dereference operator
+			reference	operator*() const {return (*this->elem); };
+			pointer		operator->() const {return (this->value); };
+			reference	operator[]( const difference_type &offset) const {return (this->elem[offset * -1]); };
+
+			//Increment operator
+			reverse_random_access_iterator	&operator++() {this->elem--; return (*this); };
+			reverse_random_access_iterator	operator++(int) {reverse_random_access_iterator tmp = *this; --elem; return (tmp); }
+			reverse_random_access_iterator	&operator--() {this->elem++; return (*this); };
+			reverse_random_access_iterator	operator--(int) {reverse_random_access_iterator tmp = *this; ++elem; return (tmp); }
+
+			// Arithmetic operator
+			// reverse_random_access_iterator	operator+(const reverse_random_access_iterator &rhs) {return (reverse_random_access_iterator(this->elem + rhs.elem)); };
+			// reverse_random_access_iterator	operator-(const reverse_random_access_iterator &rhs) {return (reverse_random_access_iterator(this->elem - rhs.elem)); };
+			
+			reverse_random_access_iterator	operator+=(const int &rhs) { elem = elem - rhs; return(*this); };
+			reverse_random_access_iterator	operator-=(const int &rhs) { elem = elem + rhs; return(*this); };
+			reverse_random_access_iterator	operator-(const int &rhs) { return (reverse_random_access_iterator(this->elem + rhs)); }
+			reverse_random_access_iterator operator+(const int &rhs) {return (reverse_random_access_iterator(this->elem - rhs)); }
+			
+			difference_type	operator-(const reverse_random_access_iterator &it) { return (this->elem - it.elem); }
+
+			//Comparison operator
+			bool	operator==(const reverse_random_access_iterator &iter) const {return (this->elem == iter.elem); };
+			bool	operator!=(const reverse_random_access_iterator &iter) const {return (this->elem != iter.elem); };
+			bool	operator>=(const reverse_random_access_iterator &iter) const {return (this->elem >= iter.elem); };
+			bool	operator<=(const reverse_random_access_iterator &iter) const {return (this->elem <= iter.elem); };
+			bool	operator>(const reverse_random_access_iterator &iter) const {return (this->elem < iter.elem); };
+			bool	operator<(const reverse_random_access_iterator &iter) const {return (this->elem > iter.elem); };
+
+			//create const iterator
+			operator reverse_random_access_iterator<const value_type>() const {return (reverse_random_access_iterator<const value_type>(this->elem)); };
+
+			private:
+				pointer	elem;
+	};
+
 
 	template<class It>
 	typename ft::iterator_traits<It>::difference_type

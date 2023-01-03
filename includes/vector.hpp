@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/02 23:05:02 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/03 14:57:51 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ namespace ft
 			typedef typename allocator_type::const_pointer 				const_pointer;
 			typedef typename ft::random_access_iterator<value_type> 					iterator;
 			typedef typename ft::random_access_iterator<const value_type>			const_iterator;
-			typedef typename ft::random_access_iterator<value_type> 					reverse_iterator; //FIX
-			typedef	typename ft::random_access_iterator<const value_type>			const_reverse_iterator; //FIX
+			typedef typename ft::reverse_random_access_iterator<value_type> 					reverse_iterator; //FIX
+			typedef	typename ft::reverse_random_access_iterator<const value_type>			const_reverse_iterator; //FIX
 			typedef typename ft::iterator_traits<iterator>::difference_type			difference_type;
 			typedef size_t 												size_type;
 		
@@ -119,6 +119,7 @@ namespace ft
 
 			~vector()
 			{
+				
 				clear();
 				_allocator.deallocate(_array, _maxSize);
 			}
@@ -205,22 +206,22 @@ namespace ft
 
 			reverse_iterator	rbegin()
 			{
-				return (reverse_iterator(_array));
+				return (reverse_iterator(&_array[_currentSize - 1]));
 			}
 
 			reverse_iterator	rend()
 			{
-				return (reverse_iterator(&_array[_currentSize]));
+				return (reverse_iterator(_array - 1));
 			}
 
 			const_reverse_iterator	rbegin() const
 			{
-				return (reverse_iterator(_array));
+				return (reverse_iterator(&_array[_currentSize - 1]));
 			}
 
 			const_reverse_iterator	rend() const
 			{
-				return (reverse_iterator(&_array[_currentSize]));
+				return (reverse_iterator(_array - 1));
 			}
 			
 			/* -------------------------------------------------------------------------- */
@@ -328,9 +329,10 @@ namespace ft
 
 			void	clear()
 			{
-				std::cerr << _currentSize << std::endl;
 				for (size_type i = 0; i < _currentSize; i++)
+				{
 					_allocator.destroy(&(_array[i]));
+				}
 				_currentSize = 0;
 			}
 
@@ -361,7 +363,7 @@ namespace ft
 					_allocator.construct(&_array[i + n], _array[i]);
 					_allocator.destroy(&(_array[i]));
 				}
-				for (size_type i = posIt; i < n; i++)
+				for (size_type i = posIt; i < _currentSize + n; i++)
 					_allocator.construct(&_array[i], val);
 				_currentSize += n;
 			}

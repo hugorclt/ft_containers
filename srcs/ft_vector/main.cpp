@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:41 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/02 21:53:40 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:54:45 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ void	do_modifier_test(void)
 
 int	main()
 {
+	ft::vector<int>	test(100, 1);
+
+	for (std::pair<size_t, ft::vector<int>::const_reverse_iterator> i(0, test.rbegin()); i.first < test.size(); ++i.first)
+	{
+		std::cout << i.first << " for i: " << i.second[i.first] << std::endl;
+	}
 	// std::cout << WHITE << "\t\tVECTOR:" << RESET << std::endl;
 	// constructor();
 	// std::cout << WHITE << "CAPACITY_TEST:" << RESET << std::endl;
