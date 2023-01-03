@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/03 14:57:51 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:22:27 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,7 +324,7 @@ namespace ft
 			{
 				if (_currentSize == 0)
 					return ; 
-				resize(_currentSize - 1, 0);
+				resize(_currentSize - 1);
 			}
 
 			void	clear()

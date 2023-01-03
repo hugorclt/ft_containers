@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:37:35 by hherin            #+#    #+#             */
-/*   Updated: 2023/01/02 22:35:20 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:46:45 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int main(void)
     // CHOOSE HERE WHICH CONTAINERS YOU WANT TO TEST. YOU HAVE ALSO TO COMMENT
     // THE WHOLE FUNCTION BELOW.
     testVector(arrInt, arrString);  // Comment if you don't want to test VECTOR
-	    printf("coucou2\n");
 
    //  testList(arrInt, arrString);    // Comment if you don't want to test LIST   
     // testStack(arrInt, arrString);   // Comment if you don't want to test STACK   

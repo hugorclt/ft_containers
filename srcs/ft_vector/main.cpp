@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:41 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/03 16:54:45 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:14:47 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,22 @@ void	do_modifier_test(void)
 
 int	main()
 {
-	ft::vector<int>	test(100, 1);
+	ft::vector<int>	test(6, 10);
 
-	for (std::pair<size_t, ft::vector<int>::const_reverse_iterator> i(0, test.rbegin()); i.first < test.size(); ++i.first)
-	{
-		std::cout << i.first << " for i: " << i.second[i.first] << std::endl;
-	}
+	test.insert(test.begin(), 5, 2);
+	test.insert(test.end(), 5, 3);
+
+	for (ft::vector<int>::iterator it = test.begin(); it != test.end(); ++it)
+		std::cout << *it << std::endl;
+
+	std::cout << std::endl;
+	std::vector<int>	test2(6, 10);
+
+	test2.insert(test2.begin(), 5, 2);
+	test2.insert(test2.end(), 5, 3);
+
+	for (std::vector<int>::iterator it = test2.begin(); it != test2.end(); ++it)
+		std::cout << *it << std::endl;
 	// std::cout << WHITE << "\t\tVECTOR:" << RESET << std::endl;
 	// constructor();
 	// std::cout << WHITE << "CAPACITY_TEST:" << RESET << std::endl;
