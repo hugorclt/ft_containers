@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/04 18:47:19 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/04 20:45:08 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ namespace ft
 
 			~vector()
 			{
-				
 				clear();
 				_allocator.deallocate(_array, _maxSize);
 			}

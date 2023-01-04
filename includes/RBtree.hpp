@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/04 20:03:12 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/04 20:57:20 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,38 @@ namespace ft {
 			Node<Type>	_nllnode;
 			Alloc		_allocator;
 
-		public:
-			RBtree(Type &elem)
+			void	_allocateRoot(Type &elem)
 			{
-				_root = _allocator.allocate(1);
-				_allocator.construct(_root, Node<Type>(elem));
-				_nllnode = Node<Type>();
+				Node<Type>	*node;
+				
+				node = _allocator.allocate(1);
+				_allocator.construct(&_root, Node(elem));
+				return (node);
+			}
+
+			void	_allocateNode(Type &elem, int type, Node<Type> parent)
+			{
+				Node<Type>	*node;
+				
+				node = _allocator.allocate(1);
+				_allocator.construct(&_root, Node(elem, type, parent));
+				return (node);
+			}
+
+		public:
+			RBtree(const Alloc& alloc = Alloc())
+			{
+				_root = NULL;
+				_nllnode = Node();
+				_allocator = alloc;
 			}
 
 			~RBtree(void)
 			{
-				destroyNode(_root);
+				clear(_root);
 			}
 
-			void destroyNode(Node<Type>	*node)
+			void clear(Node<Type>	*node)
 			{
 				if (node == NULL)
 					return ;
@@ -62,6 +80,12 @@ namespace ft {
 				destroyNode(node->_left);
 				_allocator.destroy(node);
 				_allocator.deallocate(node, 1);
+			}
+
+			void	addNode(Type &elem)
+			{
+				if (_root == NULL)
+					_root = _allocateRoot(elem);
 			}
 	};
 }
