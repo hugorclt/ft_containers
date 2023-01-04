@@ -6,7 +6,7 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2022/12/03 09:46:35 by hrecolet         ###   ########.fr        #
+#    Updated: 2023/01/04 18:06:21 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,27 +43,53 @@ vector			: 	$(OBJS_DIR) $(VEC_OBJS)
 #						STACK						#
 #===================================================#
 
+STACK_SRCS		=	srcs/ft_stack/stack.cpp\
+
+STACK_OBJS 		= 	$(addprefix $(OBJS_DIR)/, $(notdir $(STACK_SRCS:%.cpp=%.o)))
+
+$(OBJS_DIR)/%.o	: 	srcs/ft_stack/%.cpp
+					@printf "\033[0;33mGenerating stack object... %-38.38s \r" $@
+					@$(CC) $(CFLAGS) -c $< -o $@
+
+stack			: 	$(OBJS_DIR) $(STACK_OBJS)
+		      		@$(CC) $(CFLAGS) $(STACK_OBJS) -o stack
+					@echo \n
+					@echo "\033[1;32mStack: Done!\033[0m"
+
 #===================================================#
 #						MAP							#
 #===================================================#
 
+MAP_SRCS		=	srcs/ft_map/map.cpp\
+
+MAP_OBJS 		= 	$(addprefix $(OBJS_DIR)/, $(notdir $(MAP_SRCS:%.cpp=%.o)))
+
+$(OBJS_DIR)/%.o	: 	srcs/ft_map/%.cpp
+					@printf "\033[0;33mGenerating map object... %-38.38s \r" $@
+					@$(CC) $(CFLAGS) -c $< -o $@
+
+map				: 	$(OBJS_DIR) $(MAP_OBJS)
+		      		@$(CC) $(CFLAGS) $(MAP_OBJS) -o map
+					@echo \n
+					@echo "\033[1;32mMap: Done!\033[0m"
+
 #===================================================#
 #						GENERAL						#
 #===================================================#
-all				:	vector
+all				:	vector stack map
 
 clean			:
-		      		@rm -f $(VEC_OBJS)
 					@rm -rf $(OBJS_DIR)
 					@echo "\033[1;31mObject cleaned!\033[0m"
 					
 fclean			:	
-					@rm -f $(VEC_OBJS)
 					@rm -rf $(OBJS_DIR)
 					@rm -f vector
+					@rm -f stack
+					@rm -f map
 					@echo "\033[1;31mProgram and object cleaned!\033[0m"
 
 re				:	fclean all
 
 .PHONY			:
-					all clean fclean re
+					all clean fclean re vector stack map

@@ -6,12 +6,11 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/03 19:22:27 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/04 18:47:19 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <string>
 #include <memory>
 #include <iostream>
 #include "define.hpp"
@@ -21,8 +20,10 @@
 
 namespace ft
 {
-	//Template : allocator<T> to allocate memory accordingly to the type of the vector
-	template <typename T, typename Alloc = std::allocator<T> >
+	template <
+		typename T,
+		typename Alloc = std::allocator<T> 
+	> 
 	class vector
 	{
 		public:
@@ -34,10 +35,10 @@ namespace ft
 			typedef typename allocator_type::const_pointer 				const_pointer;
 			typedef typename ft::random_access_iterator<value_type> 					iterator;
 			typedef typename ft::random_access_iterator<const value_type>			const_iterator;
-			typedef typename ft::reverse_random_access_iterator<value_type> 					reverse_iterator; //FIX
-			typedef	typename ft::reverse_random_access_iterator<const value_type>			const_reverse_iterator; //FIX
+			typedef typename ft::reverse_random_access_iterator<value_type> 					reverse_iterator;
+			typedef	typename ft::reverse_random_access_iterator<const value_type>			const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type			difference_type;
-			typedef size_t 												size_type;
+			typedef size_t 															size_type;
 		
 		private:
 			T				*_array;
@@ -358,14 +359,24 @@ namespace ft
 
 				while (_currentSize + n > _maxSize)
 					reserve((_maxSize) ? _maxSize * 2 : 1);
-				for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
+				for (difference_type i = _currentSize - 1; i > posIt - 1; --i)
 				{
 					_allocator.construct(&_array[i + n], _array[i]);
 					_allocator.destroy(&(_array[i]));
 				}
-				for (size_type i = posIt; i < _currentSize + n; i++)
-					_allocator.construct(&_array[i], val);
 				_currentSize += n;
+				for (difference_type i = posIt; n > 0; --n, ++i)
+				{
+					_allocator.construct(&_array[i], val);
+				}
+
+				// for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
+				// {
+				// 	_allocator.construct(&_array[i + n], _array[i]);
+				// 	_allocator.destroy(&(_array[i]));
+				// }
+				// for (size_type i = posIt; i < _currentSize + n; i++)
+				// 	_allocator.construct(&_array[i], val);
 			}
 
 			template<class InputIterator>
@@ -391,6 +402,8 @@ namespace ft
 				difference_type	posIt = ft::distance(begin(), first);
 				difference_type	size = ft::distance(first, last);
 				
+				if (size == 0)
+					return (iterator(&(_array[posIt])));
 				for (size_type i = posIt; i < _currentSize; i++)
 				{
 					_allocator.destroy(&(_array[i]));
@@ -436,6 +449,9 @@ namespace ft
 			friend bool operator>  (const vector<Type,Allocator>& lhs, const vector<Type,Allocator>& rhs);
 			template <class Type, class Allocator>
 			friend bool operator>= (const vector<Type,Allocator>& lhs, const vector<Type,Allocator>& rhs);
+
+			template <class Type, class Allocator>
+			friend void swap (vector<Type,Allocator>& x, vector<Type,Allocator>& y);
 	};
 
 	template <class T, class Alloc>
@@ -485,5 +501,14 @@ namespace ft
 	bool operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
 		return (!lexixographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template <class T, class Alloc>
+	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+	{
+		vector<T,Alloc> tmp = x;
+
+		x = y;
+		y = x;
 	}
 }

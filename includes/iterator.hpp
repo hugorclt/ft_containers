@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/03 17:04:17 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/04 19:41:03 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 #include <stddef.h>
 
 namespace ft {
-
-	/*
-	@Tag used for algorithm to know the type of iterator, in iterator_category
-	They are just used to know the type of the iterator so they are empty.
-	*/
-	struct input_iterator_tag {};
-	struct output_iterator_tag {};
-	struct forward_iterator_tag {};
-	struct bidirectional_iterator_tag {};
-	struct random_access_iterator_tag {};
 	
 	/*
 	@Definition of iterator struct, it's a base class template so it does not provide
@@ -53,14 +43,14 @@ namespace ft {
 	};
 
 	template <typename T>
-	class random_access_iterator : public ft::iterator<ft::random_access_iterator_tag, T> {
+	class random_access_iterator : public ft::iterator<std::random_access_iterator_tag, T> {
 		public:
 			//Definition
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer			pointer;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type	difference_type;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type		value_type;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer			pointer;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference			reference;
 			
 			//Constructor - Destructor
 			random_access_iterator(pointer	pointee = NULL) : elem(pointee) {};
@@ -111,14 +101,14 @@ namespace ft {
 	};
 
 	template <typename T>
-	class reverse_random_access_iterator : public ft::iterator<ft::random_access_iterator_tag, T> {
+	class reverse_random_access_iterator : public ft::iterator<std::random_access_iterator_tag, T> {
 		public:
 			//Definition
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::difference_type	difference_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::pointer			pointer;
-			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::reference			reference;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type	difference_type;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type		value_type;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer			pointer;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference			reference;
 			
 			//Constructor - Destructor
 			reverse_random_access_iterator(pointer	pointee = NULL) : elem(pointee) {};
@@ -171,7 +161,7 @@ namespace ft {
 
 	template<class It>
 	typename ft::iterator_traits<It>::difference_type
-	do_distance(It first, It last, ft::input_iterator_tag)
+	do_distance(It first, It last, std::input_iterator_tag)
 	{
 		typename ft::iterator_traits<It>::difference_type result = 0;
 		while (first != last)
@@ -184,7 +174,7 @@ namespace ft {
 
 	template<class It>
 	typename ft::iterator_traits<It>::difference_type
-	do_distance(It first, It last, ft::random_access_iterator_tag)
+	do_distance(It first, It last, std::random_access_iterator_tag)
 	{
 		return last - first;
 	}

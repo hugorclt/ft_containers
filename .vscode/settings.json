@@ -79,6 +79,7 @@
 		"cinttypes": "cpp",
 		"ranges": "cpp",
 		"map": "cpp",
-		"fstream": "cpp"
+		"fstream": "cpp",
+		"span": "cpp"
 	}
 }
