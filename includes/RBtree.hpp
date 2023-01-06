@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/06 04:13:30 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/06 05:40:08 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,31 @@ namespace ft {
 				_printTree(_root, 0);
 			}
 
+			NodePtr	minimum(NodePtr node)
+			{
+				std::cout << "value:" << node->_pair.first << std::endl; //to fix le node va trop loiin
+				node = node->_right;
+				while (node)
+					node = node->_left;
+				return (node);
+			}
+
+			NodePtr	search(Type &value)
+			{
+				NodePtr node = _root;
+				
+				while (node)
+				{
+					if (node->_pair.first == value.first)
+						return (node);
+					if (node->_pair.first > value.first)
+						node = node->_left;
+					else
+						node = node->_right;
+				}
+				return (NULL);
+			}
+
 			/* -------------------------------------------------------------------------- */
 			/*                                add / delete                                */
 			/* -------------------------------------------------------------------------- */
@@ -192,6 +217,7 @@ namespace ft {
 					return ;
 
 				insertFix(newNode);
+				std::cout << minimum(_root) << std::endl;
 			}
 
 			/* -------------------------------------------------------------------------- */
