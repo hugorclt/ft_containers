@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:28:10 by hrecolet          #+#    #+#             */
-/*   Updated: 2022/09/17 14:35:17 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:27:56 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,13 @@ namespace ft {
 	template<class T>
 	struct enable_if<true, T> {
 		typedef T	type;
+	};
+
+	/* -------------------------------------------------------------------------- */
+	/*                                    less                                    */
+	/* -------------------------------------------------------------------------- */
+	template <class T>
+	struct less : std::binary_function <T,T,bool> {
+  		bool operator() (const T& x, const T& y) const {return x<y;}
 	};
 }

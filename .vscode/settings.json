@@ -80,6 +80,7 @@
 		"ranges": "cpp",
 		"map": "cpp",
 		"fstream": "cpp",
-		"span": "cpp"
+		"span": "cpp",
+		"set": "cpp"
 	}
 }

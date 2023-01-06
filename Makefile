@@ -6,7 +6,7 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2023/01/04 18:06:21 by hrecolet         ###   ########.fr        #
+#    Updated: 2023/01/05 16:25:18 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ map				: 	$(OBJS_DIR) $(MAP_OBJS)
 #===================================================#
 #						GENERAL						#
 #===================================================#
-all				:	vector stack map
+all				:	map #vector stack map
 
 clean			:
 					@rm -rf $(OBJS_DIR)
