@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/06 05:40:08 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/07 18:57:53 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,16 +108,163 @@ namespace ft {
 				if (childToChange->_right)
 					childToChange->_right->_parent = node;
 				childToChange->_parent = node->_parent;
-				if (childToChange->_parent)
+				if (childToChange->_parent == NULL)
 					_root = childToChange;
 				else if (node == node->_parent->_left)
 					node->_parent->_left = childToChange;
 				else
 					node->_parent->_right = childToChange;
-				childToChange->_left = node;
+				childToChange->_right = node;
 				node->_parent = childToChange;
 			}
 
+			void	_transplantNode(NodePtr from, NodePtr to)
+			{
+				if (!from->_parent)
+					_root = to;
+				else if (from->_parent->_left == from)
+					from->_parent->_left = to;
+				else
+					from->_parent->_right = to;
+				if (!to)
+					return ;
+				to->_parent = from->_parent;
+			}
+
+			/* -------------------------------------------------------------------------- */
+			/*                               fix delete node                              */
+			/* -------------------------------------------------------------------------- */
+			void	_deleteNodeFix(NodePtr nodeToFix)
+			{
+				NodePtr sibling;
+				
+				std::cout << nodeToFix->_pair.first << std::endl;
+				while (nodeToFix != _root && nodeToFix->_type == BLACK)
+				{
+					if (nodeToFix == nodeToFix->_parent->_left)
+					{
+						sibling = nodeToFix->_parent->_right;
+						if (sibling->_type == RED)
+						{
+							sibling->_type = BLACK;
+							sibling->_parent = RED;
+							_leftRotate(sibling->_parent);
+							sibling = nodeToFix->_parent->_right;
+						}
+						if (sibling->_left->_type == BLACK && sibling->_right->_type == BLACK)
+						{
+							sibling->_type = RED;
+							nodeToFix = nodeToFix->_parent;
+						}
+						else
+						{
+							if (sibling->_right->_type == BLACK)
+							{
+								sibling->_left->_type = BLACK;
+								sibling->_type = RED;
+								_rightRotate(sibling);
+								sibling = nodeToFix->_parent->_right;
+							}
+							nodeToFix->_parent->_type = sibling->_type;
+							nodeToFix->_parent->_type = BLACK;
+							sibling->_right->_type = BLACK;
+							_leftRotate(nodeToFix->_parent);
+							nodeToFix = _root;
+						}
+					}
+					else
+					{
+						sibling = nodeToFix->_parent->_left;
+						if (sibling->_type == RED)
+						{
+							sibling->_type = BLACK;
+							nodeToFix->_parent->_type = RED;
+							_rightRotate(nodeToFix->_parent);
+							sibling = nodeToFix->_parent->_left;
+						}
+						if (sibling->_right->_type == BLACK && sibling->_right->_type == BLACK)
+						{
+							sibling->_type = RED;
+							nodeToFix = nodeToFix->_parent;
+						}
+						else
+						{
+							if (sibling->_left->_type == BLACK)
+							{
+								sibling->_right->_type = BLACK;
+								sibling->_type = RED;
+								_leftRotate(sibling);
+								sibling = nodeToFix->_parent->_left;
+							}
+							sibling->_type = nodeToFix->_parent->_type;
+							nodeToFix->_parent->_type = BLACK;
+							sibling->_left->_type = BLACK;
+							_rightRotate(nodeToFix->_parent);
+							nodeToFix = _root;
+						}
+					}
+				}
+				nodeToFix->_type = BLACK;
+			}
+
+			/* -------------------------------------------------------------------------- */
+			/*                                 fix insert                                 */
+			/* -------------------------------------------------------------------------- */			
+			void	_insertFix(NodePtr &newNode)
+			{
+				NodePtr uncle;
+				
+				while (newNode->_parent->_type == RED)
+				{
+					if (newNode->_parent == newNode->_parent->_parent->_right)
+					{
+						uncle = newNode->_parent->_parent->_left;
+						if (uncle && uncle->_type == RED)
+						{
+							uncle->_type = BLACK;
+							newNode->_parent->_type = BLACK;
+							newNode->_parent->_parent->_type = RED;
+							newNode = newNode->_parent->_parent;
+						}
+						else
+						{
+							if (newNode == newNode->_parent->_left)
+							{
+								newNode = newNode->_parent;
+								_rightRotate(newNode);
+							}
+							newNode->_parent->_type = BLACK;
+							newNode->_parent->_parent->_type = RED;
+							_leftRotate(newNode->_parent->_parent);
+						}
+					}
+					else
+					{
+						uncle = newNode->_parent->_parent->_right;
+						if (uncle && uncle->_type == RED)
+						{
+							uncle->_type = BLACK;
+							newNode->_parent->_type = BLACK;
+							newNode->_parent->_parent->_type = RED;
+							newNode = newNode->_parent->_parent;
+						}
+						else
+						{
+							if (newNode == newNode->_parent->_right)
+							{
+								newNode = newNode->_parent;
+								_leftRotate(newNode);
+							}
+							newNode->_parent->_type = BLACK;
+							newNode->_parent->_parent->_type = RED;
+							_rightRotate(newNode->_parent->_parent);
+						}
+					}
+					if (newNode == _root)
+						break ;
+				}
+				_root->_type = BLACK;
+			}
 
 		public:
 
@@ -157,9 +304,12 @@ namespace ft {
 
 			NodePtr	minimum(NodePtr node)
 			{
-				std::cout << "value:" << node->_pair.first << std::endl; //to fix le node va trop loiin
+				if (!node)
+					return (NULL);
+				if (!node->_right)
+					return (node);
 				node = node->_right;
-				while (node)
+				while (node && node->_left)
 					node = node->_left;
 				return (node);
 			}
@@ -173,6 +323,22 @@ namespace ft {
 					if (node->_pair.first == value.first)
 						return (node);
 					if (node->_pair.first > value.first)
+						node = node->_left;
+					else
+						node = node->_right;
+				}
+				return (NULL);
+			}
+
+			NodePtr	search(NodePtr nodeToSearch)
+			{
+				NodePtr node = _root;
+				
+				while (node)
+				{
+					if (node->_pair.first == nodeToSearch->_pair.first)
+						return (node);
+					if (node->_pair.first > nodeToSearch->_pair.first)
 						node = node->_left;
 					else
 						node = node->_right;
@@ -216,55 +382,51 @@ namespace ft {
 				if (newNode->_parent->_parent == NULL)
 					return ;
 
-				insertFix(newNode);
-				std::cout << minimum(_root) << std::endl;
+				_insertFix(newNode);
 			}
 
-			/* -------------------------------------------------------------------------- */
-			/*                                 fix insert                                 */
-			/* -------------------------------------------------------------------------- */
-			
-			void	insertFixHelper(NodePtr &newNode, NodePtr &uncle, void (RBtree::*rotateA)(NodePtr), void (RBtree::*rotateB)(NodePtr))
+			void	deleteNode(NodePtr nodeToDelete)
 			{
-				if (uncle && uncle->_type == RED)
+				if (!nodeToDelete)
+					return ;
+				int	nodeDelType = nodeToDelete->_type;
+				NodePtr toTransplant;
+				
+				if (!nodeToDelete->_left)
 				{
-					newNode->_parent->_parent->_right->_type = BLACK;
-					newNode->_parent->_parent->_left->_type = BLACK;
-					newNode->_parent->_parent->_type = RED;
-					newNode = newNode->_parent->_parent;
+					toTransplant = nodeToDelete->_right;
+					_transplantNode(nodeToDelete, toTransplant);
+				}
+				else if (!nodeToDelete->_right)
+				{
+					toTransplant = nodeToDelete->_left;
+					_transplantNode(nodeToDelete, toTransplant);
 				}
 				else
 				{
-					if (newNode == newNode->_parent->_left)
-					{
-						newNode = newNode->_parent;
-						(this->*rotateA)(newNode);
-					}
-					newNode->_parent->_type = BLACK;
-					newNode->_parent->_parent->_type = RED;
-					(this->*rotateB)(newNode->_parent->_parent);
-				}
-			}
-
-			void	insertFix(NodePtr &newNode)
-			{
-				while (newNode->_parent->_type == RED)
-				{
-					if (newNode->_parent == newNode->_parent->_parent->_right)
-					{
-						NodePtr uncle = newNode->_parent->_parent->_left;
-						insertFixHelper(newNode, uncle, &RBtree::_rightRotate, &RBtree::_leftRotate);
-					}
+					NodePtr min = minimum(nodeToDelete);
+					nodeDelType = min->_type;
+					toTransplant = min->_right;
+					if (toTransplant && min->_parent == nodeToDelete)
+						toTransplant->_parent = min;
 					else
 					{
-						NodePtr uncle = newNode->_parent->_parent->_right;
-						insertFixHelper(newNode, uncle, &RBtree::_leftRotate, &RBtree::_rightRotate);
+						_transplantNode(min, min->_right);
+						min->_right = nodeToDelete->_right;
+						if (min->_right)
+							min->_right->_parent = min;
 					}
-					if (newNode == _root)
-						break ;
+					_transplantNode(nodeToDelete, min);
+					min->_left = nodeToDelete->_left;
+					min->_left->_parent = min;
+					min->_type = nodeDelType;
 				}
-				_root->_type = BLACK;
+				
+				_allocator.destroy(nodeToDelete);
+				_allocator.deallocate(nodeToDelete, 1);
+				
+				if (nodeDelType == BLACK)
+					_deleteNodeFix(toTransplant);
 			}
-
 	};
 }
