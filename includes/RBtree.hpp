@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/07 18:57:53 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/09 16:59:09 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ namespace ft {
 		private:
 			typedef Node<Type>	*NodePtr;
 			Node<Type>	*_root;
-			Node<Type>	_nllnode;
+			Node<Type>	*_nllnode;
 			Alloc		_allocator;
 
 			NodePtr	_allocateNode(Type &elem, int type, NodePtr parent)
@@ -52,15 +52,8 @@ namespace ft {
 				
 				node = _allocator.allocate(1);
 				_allocator.construct(node, Node<Type>(elem, type, parent));
-				return (node);
-			}
-
-			NodePtr	_allocateLeaf(NodePtr parent)
-			{
-				NodePtr	node;
-				
-				node = _allocator.allocate(1);
-				_allocator.construct(node, Node<Type>(parent));
+				node->_left = _nllnode;
+				node->_right = _nllnode;
 				return (node);
 			}
 
@@ -69,7 +62,7 @@ namespace ft {
 				int	i;
 
 				i = STEP_PRINT_TREE;
-				if (!node || node->_type == LEAF)
+				if (!node || node == _nllnode)
 					return ;
 				space += STEP_PRINT_TREE;
 				_printTree(node->_right, space);
@@ -88,7 +81,7 @@ namespace ft {
 			{
 				NodePtr childToChange = node->_right;
 				node->_right = childToChange->_left;
-				if (childToChange->_left)
+				if (childToChange->_left != _nllnode)
 					childToChange->_left->_parent = node;
 				childToChange->_parent = node->_parent;
 				if (node->_parent == NULL)
@@ -105,7 +98,7 @@ namespace ft {
 			{
 				NodePtr childToChange = node->_left;
 				node->_left = childToChange->_right;
-				if (childToChange->_right)
+				if (childToChange->_right != _nllnode)
 					childToChange->_right->_parent = node;
 				childToChange->_parent = node->_parent;
 				if (childToChange->_parent == NULL)
@@ -126,8 +119,6 @@ namespace ft {
 					from->_parent->_left = to;
 				else
 					from->_parent->_right = to;
-				if (!to)
-					return ;
 				to->_parent = from->_parent;
 			}
 
@@ -138,7 +129,6 @@ namespace ft {
 			{
 				NodePtr sibling;
 				
-				std::cout << nodeToFix->_pair.first << std::endl;
 				while (nodeToFix != _root && nodeToFix->_type == BLACK)
 				{
 					if (nodeToFix == nodeToFix->_parent->_left)
@@ -273,19 +263,22 @@ namespace ft {
 			/* -------------------------------------------------------------------------- */
 			RBtree(const Alloc& alloc = Alloc())
 			{
-				_root = NULL;
-				_nllnode = Node<Type>();
+				_nllnode = _allocator.allocate(1);
+				_allocator.construct(_nllnode, Node<Type>(NULL));
+				_root = _nllnode;
 				_allocator = alloc;
 			}
 
 			~RBtree(void)
 			{
 				clear(_root);
+				_allocator.deallocate(_nllnode, 1);
 			}
 
 			void clear(NodePtr	node)
 			{
-				if (node == NULL)
+				(void)node;
+				if (node == NULL || node == _nllnode)
 					return ;
 				clear(node->_right);
 				clear(node->_left);
@@ -304,21 +297,17 @@ namespace ft {
 
 			NodePtr	minimum(NodePtr node)
 			{
-				if (!node)
-					return (NULL);
-				if (!node->_right)
-					return (node);
-				node = node->_right;
-				while (node && node->_left)
+				while (node->_left != _nllnode) {
 					node = node->_left;
-				return (node);
+				}
+				return node;
 			}
 
 			NodePtr	search(Type &value)
 			{
 				NodePtr node = _root;
 				
-				while (node)
+				while (node != _nllnode)
 				{
 					if (node->_pair.first == value.first)
 						return (node);
@@ -334,7 +323,7 @@ namespace ft {
 			{
 				NodePtr node = _root;
 				
-				while (node)
+				while (node != _nllnode)
 				{
 					if (node->_pair.first == nodeToSearch->_pair.first)
 						return (node);
@@ -356,7 +345,7 @@ namespace ft {
 				NodePtr parentNode = NULL;
 				NodePtr leafNode = _root;
 				
-				while (leafNode != NULL)
+				while (leafNode != _nllnode)
 				{
 					parentNode = leafNode;
 					if (newNode->_pair.first < leafNode->_pair.first)
@@ -392,19 +381,19 @@ namespace ft {
 				int	nodeDelType = nodeToDelete->_type;
 				NodePtr toTransplant;
 				
-				if (!nodeToDelete->_left)
+				if (nodeToDelete->_left == _nllnode)
 				{
 					toTransplant = nodeToDelete->_right;
-					_transplantNode(nodeToDelete, toTransplant);
+					_transplantNode(nodeToDelete, nodeToDelete->_right);
 				}
-				else if (!nodeToDelete->_right)
+				else if (nodeToDelete->_right == _nllnode)
 				{
 					toTransplant = nodeToDelete->_left;
-					_transplantNode(nodeToDelete, toTransplant);
+					_transplantNode(nodeToDelete, nodeToDelete->_left);
 				}
 				else
 				{
-					NodePtr min = minimum(nodeToDelete);
+					NodePtr min = minimum(nodeToDelete->_right);
 					nodeDelType = min->_type;
 					toTransplant = min->_right;
 					if (toTransplant && min->_parent == nodeToDelete)
@@ -413,8 +402,7 @@ namespace ft {
 					{
 						_transplantNode(min, min->_right);
 						min->_right = nodeToDelete->_right;
-						if (min->_right)
-							min->_right->_parent = min;
+						min->_right->_parent = min;
 					}
 					_transplantNode(nodeToDelete, min);
 					min->_left = nodeToDelete->_left;
