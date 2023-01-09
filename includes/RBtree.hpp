@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/09 16:59:09 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:45:04 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -416,5 +416,19 @@ namespace ft {
 				if (nodeDelType == BLACK)
 					_deleteNodeFix(toTransplant);
 			}
+
+			// NodePtr	nextNode(NodePtr node)
+			// {
+			// 	if (node->_right != _nllnode)
+			// 		return (node->_right);
+			// 	return (node->_parent);
+			// }
+			
+			// NodePtr	previousNode(NodePtr node)
+			// {
+			// 	if (node->_left != _nllnode)
+			// 		return (node->_left);
+			// 	return (node->_parent);
+			// }
 	};
 }

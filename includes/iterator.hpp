@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/04 19:41:03 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/09 18:19:31 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,87 @@ namespace ft {
 		
 	};
 
+	template<typename T>
+	class bidirectionnal_iterator : public ft::iterator<std::bidirectional_iterator_tag, T>
+	{
+		public:
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type		difference_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::value_type			value_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::pointer				pointer;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::reference			reference;
+
+			//Constructor - Destructor
+			bidirectionnal_iterator(pointer	pointee = NULL) : elem(pointee) {};
+			bidirectionnal_iterator(const bidirectionnal_iterator &cpy) : elem(cpy.elem) {};
+			virtual ~bidirectionnal_iterator() {}
+
+			//operator
+			bidirectionnal_iterator &operator=(const bidirectionnal_iterator &to_cpy) {
+				this->elem = to_cpy.elem;
+				return (*this);
+			}
+
+			//Dereference operator
+			reference	operator*() const {return (*this->elem); };
+			pointer		operator->() const {return (this->elem); };
+
+			//Increment operator
+			bidirectionnal_iterator	&operator++() { 
+				if (!elem->_right->_right)
+					return (elem->_right)
+				return (elem->_parent);
+			}
+			// toute ces conneries la ca marche pas c sur abruti
+			bidirectionnal_iterator	operator++(int) {
+				bidirectionnal_iterator tmp = *this; 
+				if (!elem->_right->_right)
+					return (tmp->_right)
+				return (tmp->_parent);
+			}
+			
+			bidirectionnal_iterator	&operator--() {
+				if (!elem->_left->_right)
+					return (elem->_left)
+				return (elem->_parent);
+			}
+			
+			bidirectionnal_iterator	operator--(int) {bidirectionnal_iterator tmp = *this; --elem; return (tmp); }
+
+			// Arithmetic operator
+			// bidirectionnal_iterator	operator+(const bidirectionnal_iterator &rhs) {return (bidirectionnal_iterator(this->elem + rhs.elem)); };
+			// bidirectionnal_iterator	operator-(const bidirectionnal_iterator &rhs) {return (bidirectionnal_iterator(this->elem - rhs.elem)); };
+			
+			bidirectionnal_iterator	operator+=(const int &rhs) { *this = *this + rhs; return(*this); };
+			bidirectionnal_iterator	operator-=(const int &rhs) { *this = *this - rhs; return(*this); };
+			bidirectionnal_iterator	operator-(const int &rhs) { return (bidirectionnal_iterator(this->elem - rhs)); }
+			bidirectionnal_iterator operator+(const int &rhs) {return (bidirectionnal_iterator(this->elem + rhs)); }
+			
+			difference_type	operator-(const bidirectionnal_iterator &it) { return (this->elem - it.elem); }
+
+			//Comparison operator
+			bool	operator==(const bidirectionnal_iterator &iter) const {return (this->elem == iter.elem); };
+			bool	operator!=(const bidirectionnal_iterator &iter) const {return (this->elem != iter.elem); };
+			bool	operator>=(const bidirectionnal_iterator &iter) const {return (this->elem >= iter.elem); };
+			bool	operator<=(const bidirectionnal_iterator &iter) const {return (this->elem <= iter.elem); };
+			bool	operator>(const bidirectionnal_iterator &iter) const {return (this->elem < iter.elem); };
+			bool	operator<(const bidirectionnal_iterator &iter) const {return (this->elem > iter.elem); };
+
+			//create const iterator
+			operator bidirectionnal_iterator<const value_type>() const {return (bidirectionnal_iterator<const value_type>(this->elem)); };
+
+			private:
+				pointer	elem;
+	};
+
 	template <typename T>
 	class random_access_iterator : public ft::iterator<std::random_access_iterator_tag, T> {
 		public:
 			//Definition
 			typedef typename ft::iterator<std::random_access_iterator_tag, T>::iterator_category	iterator_category;
-			typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type	difference_type;
-			typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type		value_type;
-			typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer			pointer;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::difference_type		difference_type;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type			value_type;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::pointer				pointer;
 			typedef typename ft::iterator<std::random_access_iterator_tag, T>::reference			reference;
 			
 			//Constructor - Destructor
@@ -65,7 +138,7 @@ namespace ft {
 
 			//Dereference operator
 			reference	operator*() const {return (*this->elem); };
-			pointer		operator->() const {return (this->value); };
+			pointer		operator->() const {return (this->elem); };
 			reference	operator[]( const difference_type &offset) const {return (this->elem[offset]); };
 
 			//Increment operator
@@ -123,7 +196,7 @@ namespace ft {
 
 			//Dereference operator
 			reference	operator*() const {return (*this->elem); };
-			pointer		operator->() const {return (this->value); };
+			pointer		operator->() const {return (this->elem); };
 			reference	operator[]( const difference_type &offset) const {return (this->elem[offset * -1]); };
 
 			//Increment operator
