@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/10 18:19:45 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 20:07:34 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ namespace ft {
 
 		Node(Node<Type> *nllnode) : _type(LEAF), _parent(NULL), _left(NULL), _right(NULL), _nllnode(nllnode) {}
 		
-		Node(Type &elem) : _pair(elem), _type(BLACK), _parent(NULL), _left(NULL), _right(NULL) {}
+		Node(const Type &elem) : _pair(elem), _type(BLACK), _parent(NULL), _left(NULL), _right(NULL) {}
 
-		Node(Type &elem, int type, Node<Type> *parent, Node<Type> *nllnode) : _pair(elem), _type(type), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
+		Node(const Type &elem, int type, Node<Type> *parent, Node<Type> *nllnode) : _pair(elem), _type(type), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 
 		Node(Node<Type> *parent, Node<Type> *nllnode) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 	};
@@ -48,7 +48,7 @@ namespace ft {
 			Node<Type>	*_nllnode;
 			Alloc		_allocator;
 
-			NodePtr	_allocateNode(Type &elem, int type, NodePtr parent)
+			NodePtr	_allocateNode(const Type &elem, int type, NodePtr parent)
 			{
 				NodePtr	node;
 				

@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/10 18:03:15 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 20:12:02 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ namespace ft {
 			typedef typename allocator_type::const_reference 						const_reference;
 			typedef typename allocator_type::pointer 								pointer;
 			typedef typename allocator_type::const_pointer 							const_pointer;
-			typedef typename ft::bidirectionnal_iterator<value_type> 				iterator;
-			typedef typename ft::bidirectionnal_iterator<const value_type>			const_iterator;
-			// typedef typename ft::reverse_bidirectionnal_iterator<value_type> 		reverse_iterator;
-			// typedef typename ft::reverse_bidirectionnal_iterator<const value_type>	const_reverse_iterator;
+			typedef typename ft::bidirectionnal_iterator<typename ft::RBtree<value_type>::NodePtr> 				iterator;
+			typedef typename ft::bidirectionnal_iterator<const typename ft::RBtree<value_type>::NodePtr>			const_iterator;
+			// typedef typename ft::reverse_bidirectionnal_iterator<ft::RBtree<value_type>::NodePtr> 		reverse_iterator;
+			// typedef typename ft::reverse_bidirectionnal_iterator<ft::RBtree<value_type>::NodePtr value_type>	const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type			difference_type;
 			typedef size_t 															size_type;
 			
