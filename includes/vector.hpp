@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/04 20:45:08 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:09:47 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,12 +195,12 @@ namespace ft
 
 			const_iterator	begin() const
 			{
-				return (iterator(_array));
+				return (const_iterator(_array));
 			}
 
 			const_iterator	end() const
 			{
-				return (iterator(&_array[_currentSize]));
+				return (const_iterator(&_array[_currentSize]));
 			}
 
 
@@ -216,12 +216,12 @@ namespace ft
 
 			const_reverse_iterator	rbegin() const
 			{
-				return (reverse_iterator(&_array[_currentSize - 1]));
+				return (const_reverse_iterator(&_array[_currentSize - 1]));
 			}
 
 			const_reverse_iterator	rend() const
 			{
-				return (reverse_iterator(_array - 1));
+				return (const_reverse_iterator(_array - 1));
 			}
 			
 			/* -------------------------------------------------------------------------- */

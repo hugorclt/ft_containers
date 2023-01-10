@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/09 17:45:04 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:19:01 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ namespace ft {
 		Node<Type>	*_parent;
 		Node<Type>	*_left;
 		Node<Type>	*_right;
+		Node<Type>	*_nllnode;
 
-		Node() : _type(LEAF), _parent(NULL), _left(NULL), _right(NULL) {}
+		Node(Node<Type> *nllnode) : _type(LEAF), _parent(NULL), _left(NULL), _right(NULL), _nllnode(nllnode) {}
 		
 		Node(Type &elem) : _pair(elem), _type(BLACK), _parent(NULL), _left(NULL), _right(NULL) {}
 
-		Node(Type &elem, int type, Node<Type> *parent) : _pair(elem), _type(type), _parent(parent), _left(NULL), _right(NULL)  {}
+		Node(Type &elem, int type, Node<Type> *parent, Node<Type> *nllnode) : _pair(elem), _type(type), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 
-		Node(Node<Type> *parent) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL)  {}
+		Node(Node<Type> *parent, Node<Type> *nllnode) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 	};
 
 	template<class Type, class Alloc = std::allocator< Node<Type> > >
@@ -51,7 +52,7 @@ namespace ft {
 				NodePtr	node;
 				
 				node = _allocator.allocate(1);
-				_allocator.construct(node, Node<Type>(elem, type, parent));
+				_allocator.construct(node, Node<Type>(elem, type, parent, _nllnode));
 				node->_left = _nllnode;
 				node->_right = _nllnode;
 				return (node);
@@ -256,6 +257,15 @@ namespace ft {
 				_root->_type = BLACK;
 			}
 
+			int	_getSizeHelper(NodePtr node)
+			{
+				if (node == _nllnode)
+					return (0);
+				else
+					return (_getSizeHelper(node->_left) + 1 + _getSizeHelper(node->_right));
+				
+			}
+
 		public:
 
 			/* -------------------------------------------------------------------------- */
@@ -264,7 +274,7 @@ namespace ft {
 			RBtree(const Alloc& alloc = Alloc())
 			{
 				_nllnode = _allocator.allocate(1);
-				_allocator.construct(_nllnode, Node<Type>(NULL));
+				_allocator.construct(_nllnode, Node<Type>(_nllnode));
 				_root = _nllnode;
 				_allocator = alloc;
 			}
@@ -417,18 +427,32 @@ namespace ft {
 					_deleteNodeFix(toTransplant);
 			}
 
-			// NodePtr	nextNode(NodePtr node)
-			// {
-			// 	if (node->_right != _nllnode)
-			// 		return (node->_right);
-			// 	return (node->_parent);
-			// }
-			
-			// NodePtr	previousNode(NodePtr node)
-			// {
-			// 	if (node->_left != _nllnode)
-			// 		return (node->_left);
-			// 	return (node->_parent);
-			// }
+			NodePtr	leftMost(void)
+			{
+				NodePtr node = _root;
+
+				while(node->_left != _nllnode)
+					node = node->_left;
+				return (node);
+			}
+
+			NodePtr	rightMost(void)
+			{
+				NodePtr node = _root;
+
+				while(node->_right != _nllnode)
+					node = node->_right;
+				return (node);
+			}
+
+			NodePtr getRoot(void)
+			{
+				return (_root);
+			}
+
+			int getSize(void)
+			{
+				return (_getSizeHelper(_root));
+			}
 	};
 }

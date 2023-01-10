@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/09 18:19:31 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 10:45:37 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,29 @@ namespace ft {
 
 			//Increment operator
 			bidirectionnal_iterator	&operator++() { 
-				if (!elem->_right->_right)
-					return (elem->_right)
-				return (elem->_parent);
+				if (elem->_right != elem->_nllnode)
+				{
+					elem = elem->_right;
+					while (elem->_left != elem->_nllnode)
+					{
+						elem = elem->_left;
+					}
+				}
+				else
+				{
+					while (elem->_parent && elem == elem->_parent->_right)
+					{
+						elem = elem->_parent;
+					}
+					elem = elem->_parent;
+				}
+				return (*this);
 			}
-			// toute ces conneries la ca marche pas c sur abruti
+			
 			bidirectionnal_iterator	operator++(int) {
-				bidirectionnal_iterator tmp = *this; 
-				if (!elem->_right->_right)
-					return (tmp->_right)
-				return (tmp->_parent);
 			}
 			
 			bidirectionnal_iterator	&operator--() {
-				if (!elem->_left->_right)
-					return (elem->_left)
-				return (elem->_parent);
 			}
 			
 			bidirectionnal_iterator	operator--(int) {bidirectionnal_iterator tmp = *this; --elem; return (tmp); }

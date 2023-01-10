@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:27 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/09 17:30:32 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 11:19:42 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../includes/RBtree.hpp"
 #include <iostream>
 #include <string>
+#include <map>
 #include "../../includes/vector.hpp"
 
 int	main()
@@ -45,4 +46,12 @@ int	main()
 	tree.addNode(pair12);
 	tree.deleteNode(tree.search(pair2));
 	tree.printTree();
+	
+	// ft::map<int, int>::iterator it = tree.begin();
+	// for (int i = 0; i < 10; i++)
+	// {
+	// 	it++;	
+	// }
+
+	std::cout << tree.getSize() << std::endl;
 }
