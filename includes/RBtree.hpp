@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/10 11:19:01 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:19:45 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ namespace ft {
 
 	template<class Type, class Alloc = std::allocator< Node<Type> > >
 	class RBtree {
-		private:
+		public:
 			typedef Node<Type>	*NodePtr;
+		private:
 			Node<Type>	*_root;
 			Node<Type>	*_nllnode;
 			Alloc		_allocator;
@@ -313,7 +314,7 @@ namespace ft {
 				return node;
 			}
 
-			NodePtr	search(Type &value)
+			NodePtr	search(const Type &value)
 			{
 				NodePtr node = _root;
 				
@@ -349,7 +350,7 @@ namespace ft {
 			/*                                add / delete                                */
 			/* -------------------------------------------------------------------------- */
 
-			void	addNode(Type &elem)
+			void	addNode(const Type &elem)
 			{
 				NodePtr	newNode = _allocateNode(elem, RED, NULL);
 				NodePtr parentNode = NULL;

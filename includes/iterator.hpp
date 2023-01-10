@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/10 10:45:37 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:04:43 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ namespace ft {
 			}
 
 			//Dereference operator
-			reference	operator*() const {return (*this->elem); };
-			pointer		operator->() const {return (this->elem); };
+			reference	operator*() const {return (*this->elem->_pair); };
+			pointer		operator->() const {return (this->elem->_pair); };
 
 			//Increment operator
 			bidirectionnal_iterator	&operator++() { 

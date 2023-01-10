@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/10 12:16:06 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:03:15 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ namespace ft {
 			
 		private:
 			RBtree<value_type>	_data;
-			allocator_type		_alloc;
 			key_compare			_comp;
+			allocator_type		_alloc;
 			
 		public:
 			/* -------------------------------------------------------------------------- */
@@ -108,12 +108,22 @@ namespace ft {
 			/* -------------------------------------------------------------------------- */
 			iterator begin(void)
 			{
-				return (iterator(_data._leftMost()));
+				return (iterator(_data.leftMost()));
 			}
 
 			const_iterator begin(void) const
 			{
-				return (const_iterator(_data._leftMost()));
+				return (const_iterator(_data.leftMost()));
+			}
+
+			iterator end(void)
+			{
+				return (iterator(_data.rightMost()->_right));
+			}
+
+			const_iterator end(void) const
+			{
+				return (const_iterator(_data.rightMost()->_right));
 			}
 
 			/* -------------------------------------------------------------------------- */
@@ -141,7 +151,7 @@ namespace ft {
 			{
 				value_type	pair = ft::make_pair(k, mapped_type());
 
-				RBtree::NodePtr node = _data.search(pair);
+				typename ft::RBtree<value_type>::NodePtr node = _data.search(pair);
 				if (!node)
 				{
 					_data.addNode(pair);
@@ -155,16 +165,17 @@ namespace ft {
 			/* -------------------------------------------------------------------------- */
 			pair<iterator, bool> insert(const value_type &val)
 			{
-				NodePtr	nodeFound = _data.find(val);
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(val);
 				if (nodeFound)
 					return (ft::make_pair(iterator(nodeFound), false));
 				_data.addNode(val);
-				return (ft::make_pair(iterator(_data.find(val), true)));
+				return (ft::make_pair(iterator(_data.search(val)), true));
 			}
 
 			iterator	insert(iterator position, const value_type &val)
 			{
-				NodePtr	nodeFound = _data.find(val);
+				(void)position;
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.find(val);
 				if (nodeFound)
 					return (iterator(nodeFound));
 				_data.addNode(val);
@@ -190,7 +201,7 @@ namespace ft {
 			{
 				value_type	pair = ft::make_pair(key, mapped_type());
 
-				RBtree::NodePtr nodeFound = _data.search(pair);
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(pair);
 				if (!nodeFound)
 					return (0);
 				_data.deleteNode(nodeFound);
@@ -241,7 +252,7 @@ namespace ft {
 
 			iterator lower_bound(const key_type& k)
 			{
-				return (iterator(_data.search(ft::make_pair(k, mapped_type()))))
+				return (iterator(_data.search(ft::make_pair(k, mapped_type()))));
 			}
 
 			const_iterator lower_bound(const key_type& k) const
@@ -249,36 +260,36 @@ namespace ft {
 				return (const_iterator(_data.search(ft::make_pair(k, mapped_type()))));
 			}
 
-			iterator upper_bound (const key_type& k)
+			iterator upper_bound(const key_type& k)
 			{
-				return (iterator(_data.search(ft::make_pair(k, mapped_type())))++)
+				return (iterator(_data.search(ft::make_pair(k, mapped_type())))++);
 			}
 
-			const_iterator lower_bound(const key_type& k) const
+			const_iterator upper_bound(const key_type& k) const
 			{
 				return (const_iterator(_data.search(ft::make_pair(k, mapped_type())))++);
 			}
 
-			pair<iterator,iterator> equal_range (const key_type& k) const
+			pair<iterator,iterator> equal_range(const key_type& k)
 			{
-				NodePtr	nodeFound = _data.find(std::make_pair(k, mapped_type()));
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.find(std::make_pair(k, mapped_type()));
 				if (nodeFound)
 					return (ft::make_pair(iterator(nodeFound), iterator(nodeFound)));
-				iterator it = begin()
+				iterator it = begin();
 				for (; _comp(k, it->first); it++)
 				{}
-				return (ft::make_pair(it, it))
+				return (ft::make_pair(it, it));
 			}
 
-			pair<const_iterator,const_iterator> equal_range (const key_type& k) const
+			pair<const_iterator,const_iterator> equal_range(const key_type& k) const
 			{
-				NodePtr	nodeFound = _data.find(std::make_pair(k, mapped_type()));
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.find(std::make_pair(k, mapped_type()));
 				if (nodeFound)
 					return (ft::make_pair(const_iterator(nodeFound), const_iterator(nodeFound)));
-				const_iterator it = begin()
+				const_iterator it = begin();
 				for (; _comp(k, it->first); it++)
 				{}
-				return (ft::make_pair(it, it))
+				return (ft::make_pair(it, it));
 			}
 
 			allocator_type get_allocator() const

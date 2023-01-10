@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:28:10 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/05 15:27:56 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/10 13:42:58 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ namespace ft {
 		T2 second;
 		/* ------------------------------- Constructor ------------------------------ */
 		//Default Constructor
-		pair() {};
+		pair() : first(), second() {};
 		//Copy Constructor
 		template<class U, class V>
-		pair(const pair<U,V> &oth) { *this = oth; };
+		pair(const pair<U,V> &oth) : first(oth.first), second(oth.second) {}
 		//Initialization Constructor
 		pair(const T1 &first, const T2 &second) : first(first), second(second) {};
 		/* -------------------------------- Operator -------------------------------- */
