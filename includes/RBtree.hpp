@@ -23,6 +23,7 @@
 namespace ft {
 	template<class Type>
 	struct Node {
+		typedef		Type	value_type;
 		Type		_pair;
 		int			_type;
 		Node<Type>	*_parent;

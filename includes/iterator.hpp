@@ -46,11 +46,11 @@ namespace ft {
 	class bidirectionnal_iterator : public ft::iterator<std::bidirectional_iterator_tag, T>
 	{
 		public:
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type		difference_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::value_type			value_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::pointer				pointer;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::reference			reference;
+			typedef typename T::value_type																			value_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, value_type>::iterator_category	iterator_category;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, value_type>::difference_type		difference_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, value_type>::pointer				pointer;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, value_type>::reference			reference;
 
 			//Constructor - Destructor
 			bidirectionnal_iterator(pointer	pointee = NULL) : elem(pointee) {};
@@ -64,8 +64,8 @@ namespace ft {
 			}
 
 			//Dereference operator
-			reference	operator*() const {return (*this->elem->_pair); };
-			pointer		operator->() const {return (this->elem->_pair); };
+			reference	operator*() const {return (this->elem->_pair); };
+			pointer	operator->() const {return (&(this->elem->_pair)); };
 
 			//Increment operator
 			bidirectionnal_iterator	&operator++() { 
@@ -89,6 +89,9 @@ namespace ft {
 			}
 			
 			bidirectionnal_iterator	operator++(int) {
+				bidirectionnal_iterator	tmp = *this;
+				operator++();
+				return (tmp);
 			}
 			
 			bidirectionnal_iterator	&operator--() {
@@ -96,24 +99,11 @@ namespace ft {
 			
 			bidirectionnal_iterator	operator--(int) {bidirectionnal_iterator tmp = *this; --elem; return (tmp); }
 
-			// Arithmetic operator
-			// bidirectionnal_iterator	operator+(const bidirectionnal_iterator &rhs) {return (bidirectionnal_iterator(this->elem + rhs.elem)); };
-			// bidirectionnal_iterator	operator-(const bidirectionnal_iterator &rhs) {return (bidirectionnal_iterator(this->elem - rhs.elem)); };
 			
-			bidirectionnal_iterator	operator+=(const int &rhs) { *this = *this + rhs; return(*this); };
-			bidirectionnal_iterator	operator-=(const int &rhs) { *this = *this - rhs; return(*this); };
-			bidirectionnal_iterator	operator-(const int &rhs) { return (bidirectionnal_iterator(this->elem - rhs)); }
-			bidirectionnal_iterator operator+(const int &rhs) {return (bidirectionnal_iterator(this->elem + rhs)); }
-			
-			difference_type	operator-(const bidirectionnal_iterator &it) { return (this->elem - it.elem); }
 
 			//Comparison operator
 			bool	operator==(const bidirectionnal_iterator &iter) const {return (this->elem == iter.elem); };
 			bool	operator!=(const bidirectionnal_iterator &iter) const {return (this->elem != iter.elem); };
-			bool	operator>=(const bidirectionnal_iterator &iter) const {return (this->elem >= iter.elem); };
-			bool	operator<=(const bidirectionnal_iterator &iter) const {return (this->elem <= iter.elem); };
-			bool	operator>(const bidirectionnal_iterator &iter) const {return (this->elem < iter.elem); };
-			bool	operator<(const bidirectionnal_iterator &iter) const {return (this->elem > iter.elem); };
 
 			//create const iterator
 			operator bidirectionnal_iterator<const value_type>() const {return (bidirectionnal_iterator<const value_type>(this->elem)); };

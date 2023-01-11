@@ -55,8 +55,8 @@ namespace ft {
 			typedef typename allocator_type::const_reference 						const_reference;
 			typedef typename allocator_type::pointer 								pointer;
 			typedef typename allocator_type::const_pointer 							const_pointer;
-			typedef typename ft::bidirectionnal_iterator<typename ft::RBtree<value_type>::NodePtr> 				iterator;
-			typedef typename ft::bidirectionnal_iterator<const typename ft::RBtree<value_type>::NodePtr>			const_iterator;
+			typedef typename ft::bidirectionnal_iterator<ft::Node<value_type> > 				iterator;
+			typedef typename ft::bidirectionnal_iterator<const ft::Node<value_type> >			const_iterator;
 			// typedef typename ft::reverse_bidirectionnal_iterator<ft::RBtree<value_type>::NodePtr> 		reverse_iterator;
 			// typedef typename ft::reverse_bidirectionnal_iterator<ft::RBtree<value_type>::NodePtr value_type>	const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type			difference_type;
