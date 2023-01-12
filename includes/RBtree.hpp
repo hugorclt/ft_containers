@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/10 20:07:34 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/12 19:27:46 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ namespace ft {
 
 		Node(const Type &elem, int type, Node<Type> *parent, Node<Type> *nllnode) : _pair(elem), _type(type), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 
-		Node(Node<Type> *parent, Node<Type> *nllnode) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
+		Node(Node<Type> *parent, Node<Type> *nllnode) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}\
 	};
+		
 
 	template<class Type, class Alloc = std::allocator< Node<Type> > >
 	class RBtree {
 		public:
-			typedef Node<Type>	*NodePtr;
+			typedef Node<Type>												*NodePtr;
+			typedef typename ft::bidirectionnal_iterator<Node<Type> > 		iterator;
+			typedef typename ft::bidirectionnal_iterator<const Node<Type> >	const_iterator;
 		private:
 			Node<Type>	*_root;
 			Node<Type>	*_nllnode;
@@ -455,6 +458,26 @@ namespace ft {
 			int getSize(void)
 			{
 				return (_getSizeHelper(_root));
+			}
+
+			iterator begin(void)
+			{
+				return (iterator(leftMost()));
+			}
+
+			const_iterator begin(void) const
+			{
+				return (const_iterator(leftMost()));
+			}
+
+			iterator end(void)
+			{
+				return (iterator(rightMost()->_right));
+			}
+
+			const_iterator end(void) const
+			{
+				return (iterator(rightMost()->_right));
 			}
 	};
 }

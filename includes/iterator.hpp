@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/10 18:04:43 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/12 19:26:27 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ namespace ft {
 	class bidirectionnal_iterator : public ft::iterator<std::bidirectional_iterator_tag, T>
 	{
 		public:
-			typedef typename T::value_type																			value_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, value_type>::iterator_category	iterator_category;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, value_type>::difference_type		difference_type;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, value_type>::pointer				pointer;
-			typedef typename ft::iterator<std::bidirectional_iterator_tag, value_type>::reference			reference;
+			typedef typename ft::iterator<std::random_access_iterator_tag, T>::value_type			value_type;
+			typedef typename value_type::value_type													node_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type		difference_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::pointer				pointer;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::reference			reference;
 
 			//Constructor - Destructor
 			bidirectionnal_iterator(pointer	pointee = NULL) : elem(pointee) {};
@@ -64,11 +65,14 @@ namespace ft {
 			}
 
 			//Dereference operator
-			reference	operator*() const {return (this->elem->_pair); };
-			pointer	operator->() const {return (&(this->elem->_pair)); };
+			node_type	operator*() const {return (this->elem->_pair); };
+			node_type	*operator->() const {return (&(this->elem->_pair)); };
 
 			//Increment operator
-			bidirectionnal_iterator	&operator++() { 
+			bidirectionnal_iterator	&operator++() {
+				value_type	*nllnode = elem->_nllnode;
+				if (elem == elem->_nllnode)
+					return (*this);
 				if (elem->_right != elem->_nllnode)
 				{
 					elem = elem->_right;
@@ -85,6 +89,8 @@ namespace ft {
 					}
 					elem = elem->_parent;
 				}
+				if (elem == NULL)
+					elem = nllnode;
 				return (*this);
 			}
 			
@@ -97,13 +103,20 @@ namespace ft {
 			bidirectionnal_iterator	&operator--() {
 			}
 			
-			bidirectionnal_iterator	operator--(int) {bidirectionnal_iterator tmp = *this; --elem; return (tmp); }
+			bidirectionnal_iterator	operator--(int) {
+				bidirectionnal_iterator	tmp = *this;
+				operator--();
+				return (tmp);
+			}
 
 			
 
 			//Comparison operator
 			bool	operator==(const bidirectionnal_iterator &iter) const {return (this->elem == iter.elem); };
-			bool	operator!=(const bidirectionnal_iterator &iter) const {return (this->elem != iter.elem); };
+			bool	operator!=(const bidirectionnal_iterator &iter) const 
+			{
+				return (this->elem != iter.elem);
+			};
 
 			//create const iterator
 			operator bidirectionnal_iterator<const value_type>() const {return (bidirectionnal_iterator<const value_type>(this->elem)); };
