@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/12 19:26:27 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:51:22 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,28 @@ namespace ft {
 			}
 			
 			bidirectionnal_iterator	&operator--() {
+				value_type	*nllnode = elem->_nllnode;
+				if (elem == elem->_nllnode)
+					return (*this);
+				if (elem->_left != elem->_nllnode)
+				{
+					elem = elem->_left;
+					while (elem->_right != elem->_nllnode)
+					{
+						elem = elem->_right;
+					}
+				}
+				else
+				{
+					while (elem->_parent && elem == elem->_parent->_left)
+					{
+						elem = elem->_parent;
+					}
+					elem = elem->_parent;
+				}
+				if (elem == NULL)
+					elem = nllnode;
+				return (*this);
 			}
 			
 			bidirectionnal_iterator	operator--(int) {
