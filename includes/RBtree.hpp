@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/13 17:14:21 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:40:29 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -532,6 +532,13 @@ namespace ft {
 			const_reverse_iterator rend(void) const
 			{
 				return (const_reverse_iterator(leftMost()->_left));
+			}
+
+			void	swap(RBtree &rhs)
+			{
+				ft::swapT(this->_root, rhs._root);
+				ft::swapT(this->_allocator, rhs._allocator);
+				ft::swapT(this->_nllnode, rhs._nllnode);
 			}
 	};
 }

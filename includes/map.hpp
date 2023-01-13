@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/13 17:20:45 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:40:18 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ namespace ft {
 
 			pair<iterator,iterator> equal_range(const key_type& k)
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(std::make_pair(k, mapped_type()));
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
 				if (nodeFound)
 					return (ft::make_pair(iterator(nodeFound), iterator(nodeFound)));
 				iterator it = begin();
@@ -300,7 +300,7 @@ namespace ft {
 
 			pair<const_iterator,const_iterator> equal_range(const key_type& k) const
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(std::make_pair(k, mapped_type()));
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
 				if (nodeFound)
 					return (ft::make_pair(const_iterator(nodeFound), const_iterator(nodeFound)));
 				const_iterator it = begin();
@@ -312,6 +312,13 @@ namespace ft {
 			allocator_type get_allocator() const
 			{
 				return (_alloc);
+			}
+
+			void	swap (map &x)
+			{
+				ft::swapT(this->_alloc, x._alloc);
+				ft::swapT(this->_comp, x._comp);
+				_data.swap(x._data);
 			}
 	};
 }

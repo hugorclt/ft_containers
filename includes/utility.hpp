@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:28:10 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/13 17:19:42 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:40:07 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,4 +185,12 @@ namespace ft {
 	struct less : std::binary_function <T,T,bool> {
   		bool operator() (const T& x, const T& y) const {return x<y;}
 	};
+
+	template<typename T>
+	void swapT(T &a, T &b)
+	{
+		T c(a);
+		a = b;
+		b = c;
+	}
 }
