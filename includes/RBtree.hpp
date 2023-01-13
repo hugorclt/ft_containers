@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/12 19:27:46 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/13 17:06:21 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ namespace ft {
 	template<class Type, class Alloc = std::allocator< Node<Type> > >
 	class RBtree {
 		public:
-			typedef Node<Type>												*NodePtr;
-			typedef typename ft::bidirectionnal_iterator<Node<Type> > 		iterator;
-			typedef typename ft::bidirectionnal_iterator<const Node<Type> >	const_iterator;
+			typedef Node<Type>														*NodePtr;
+			typedef typename ft::bidirectionnal_iterator<Node<Type> > 				iterator;
+			typedef typename ft::bidirectionnal_iterator<const Node<Type> >			const_iterator;
+			typedef typename ft::reverse_bidirectionnal_iterator<Node<Type> > 		reverse_iterator;
+			typedef typename ft::reverse_bidirectionnal_iterator<const Node<Type> >	const_reverse_iterator;
 		private:
 			Node<Type>	*_root;
 			Node<Type>	*_nllnode;
@@ -262,7 +264,7 @@ namespace ft {
 				_root->_type = BLACK;
 			}
 
-			int	_getSizeHelper(NodePtr node)
+			int	_getSizeHelper(NodePtr node) const
 			{
 				if (node == _nllnode)
 					return (0);
@@ -334,7 +336,39 @@ namespace ft {
 				return (NULL);
 			}
 
+			NodePtr	search(const Type &value) const
+			{
+				NodePtr node = _root;
+				
+				while (node != _nllnode)
+				{
+					if (node->_pair.first == value.first)
+						return (node);
+					if (node->_pair.first > value.first)
+						node = node->_left;
+					else
+						node = node->_right;
+				}
+				return (NULL);
+			}
+
 			NodePtr	search(NodePtr nodeToSearch)
+			{
+				NodePtr node = _root;
+				
+				while (node != _nllnode)
+				{
+					if (node->_pair.first == nodeToSearch->_pair.first)
+						return (node);
+					if (node->_pair.first > nodeToSearch->_pair.first)
+						node = node->_left;
+					else
+						node = node->_right;
+				}
+				return (NULL);
+			}
+
+			NodePtr	search(NodePtr nodeToSearch) const
 			{
 				NodePtr node = _root;
 				
@@ -432,7 +466,7 @@ namespace ft {
 					_deleteNodeFix(toTransplant);
 			}
 
-			NodePtr	leftMost(void)
+			NodePtr	leftMost(void) const
 			{
 				NodePtr node = _root;
 
@@ -441,7 +475,7 @@ namespace ft {
 				return (node);
 			}
 
-			NodePtr	rightMost(void)
+			NodePtr	rightMost(void) const
 			{
 				NodePtr node = _root;
 
@@ -455,7 +489,7 @@ namespace ft {
 				return (_root);
 			}
 
-			int getSize(void)
+			size_t getSize(void) const
 			{
 				return (_getSizeHelper(_root));
 			}
@@ -477,7 +511,27 @@ namespace ft {
 
 			const_iterator end(void) const
 			{
-				return (iterator(rightMost()->_right));
+				return (const_iterator(rightMost()->_right));
+			}
+
+			reverse_iterator rbegin(void)
+			{
+				return (reverse_iterator(rightMost()));
+			}
+
+			const_reverse_iterator rbegin(void) const
+			{
+				return (const_reverse_iterator(rightMost()));
+			}
+
+			reverse_iterator rend(void)
+			{
+				return (reverse_iterator(leftMost()->_left));
+			}
+
+			const_reverse_iterator rend(void) const
+			{
+				return (const_reverse_iterator(leftMost()->_left));
 			}
 	};
 }

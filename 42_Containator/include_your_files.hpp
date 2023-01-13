@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 11:23:23 by llefranc          #+#    #+#             */
-/*   Updated: 2023/01/02 15:04:46 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/12 19:37:56 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 #include "../includes/vector.hpp"   // Comment if you don't want to test VECTOR   
 // #include "../42_ft_containers/list.hpp"     // Comment if you don't want to test LIST
-// #include "../42_ft_containers/stack.hpp"    // Comment if you don't want to test STACK
+#include "../includes/stack.hpp"    // Comment if you don't want to test STACK
 // #include "../42_ft_containers/queue.hpp"    // Comment if you don't want to test QUEUE
-// #include "../42_ft_containers/map.hpp"      // Comment if you don't want to test MAP
+#include "../includes/map.hpp"      // Comment if you don't want to test MAP
 
 // ---------------------------------------------------------------------------
 
