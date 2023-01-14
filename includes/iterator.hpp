@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 12:25:58 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 16:48:27 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,18 @@ namespace ft {
 			}
 			
 			bidirectionnal_iterator	&operator--() {
-				if (elem != elem->_nllnode && elem->_left != elem->_nllnode)
+				if (elem == elem->_nllnode)
+					elem = elem->_parent;
+				else if (elem->_left != elem->_nllnode)
 				{
 					elem = elem->_left;
 					while (elem->_right != elem->_nllnode)
-					{
 						elem = elem->_right;
-					}
 				}
 				else
 				{
-					while (elem->_parent && elem == elem->_parent->_left)
-					{
+					while (elem->_parent != elem->_nllnode && elem == elem->_parent->_left)
 						elem = elem->_parent;
-					}
 					elem = elem->_parent;
 				}
 				return (*this);
@@ -218,21 +216,18 @@ namespace ft {
 			}
 			
 			const_bidirectionnal_iterator	&operator--() {
-				if (elem != elem->_nllnode && elem->_left != elem->_nllnode)
+				if (elem == elem->_nllnode)
+					elem = elem->_parent;
+				else if (elem->_left != elem->_nllnode)
 				{
-					
 					elem = elem->_left;
 					while (elem->_right != elem->_nllnode)
-					{
 						elem = elem->_right;
-					}
 				}
 				else
 				{
-					while (elem->_parent && elem == elem->_parent->_left)
-					{
+					while (elem->_parent != elem->_nllnode && elem == elem->_parent->_left)
 						elem = elem->_parent;
-					}
 					elem = elem->_parent;
 				}
 				return (*this);
@@ -286,7 +281,7 @@ namespace ft {
 			}
 
 			//Dereference operator
-			node_type	*operator*() const {return (this->elem->_pair); };
+			node_type	operator*() const {return (this->elem->_pair); };
 			node_type	*operator->() const {return (&(this->elem->_pair)); };
 			
 			//ft::pair<const int, std::basic_string<char> > *
@@ -294,22 +289,23 @@ namespace ft {
 
 			//Increment operator
 			reverse_bidirectionnal_iterator	&operator++() {
-				if (elem != elem->_nllnode && elem->_left != elem->_nllnode)
+				value_type	*nllnode = elem->_nllnode;
+				if (elem == elem->_nllnode)
+					return (*this);
+				else if (elem->_left != elem->_nllnode)
 				{
 					elem = elem->_left;
 					while (elem->_right != elem->_nllnode)
-					{
 						elem = elem->_right;
-					}
 				}
 				else
 				{
 					while (elem->_parent && elem == elem->_parent->_left)
-					{
 						elem = elem->_parent;
-					}
 					elem = elem->_parent;
 				}
+				if (elem == NULL)
+					elem = nllnode;
 				return (*this);
 			}
 			
@@ -320,16 +316,18 @@ namespace ft {
 			}
 			
 			reverse_bidirectionnal_iterator	&operator--() {
-				value_type	*nllnode = elem->_nllnode;
 				if (elem == elem->_nllnode)
-					return (*this);
-				if (elem->_right != elem->_nllnode)
+				{
+					while (elem->_parent != NULL)
+						elem = elem->_parent;
+					while (elem->_left != elem->_nllnode)
+						elem = elem->_left;
+				}
+				else if (elem->_right != elem->_nllnode)
 				{
 					elem = elem->_right;
 					while (elem->_left != elem->_nllnode)
-					{
 						elem = elem->_left;
-					}
 				}
 				else
 				{
@@ -339,8 +337,6 @@ namespace ft {
 					}
 					elem = elem->_parent;
 				}
-				if (elem == NULL)
-					elem = nllnode;
 				return (*this);
 			}
 			
@@ -393,7 +389,7 @@ namespace ft {
 			}
 
 			//Dereference operator
-			node_type	*operator*() const {return (this->elem->_pair); };
+			node_type	operator*() const {return (this->elem->_pair); };
 			node_type	*operator->() const {return (&(this->elem->_pair)); };
 			
 			//ft::pair<const int, std::basic_string<char> > *
@@ -401,22 +397,25 @@ namespace ft {
 
 			//Increment operator
 			const_reverse_bidirectionnal_iterator	&operator++() {
-				if (elem != elem->_nllnode && elem->_left != elem->_nllnode)
+				value_type	*nllnode = elem->_nllnode;
+				if (elem == elem->_nllnode)
+					return (*this);
+				if (elem == elem->_nllnode)
+					elem = elem->_parent;
+				else if (elem->_left != elem->_nllnode)
 				{
 					elem = elem->_left;
 					while (elem->_right != elem->_nllnode)
-					{
 						elem = elem->_right;
-					}
 				}
 				else
 				{
 					while (elem->_parent && elem == elem->_parent->_left)
-					{
 						elem = elem->_parent;
-					}
 					elem = elem->_parent;
 				}
+				if (elem == NULL)
+					elem = nllnode;
 				return (*this);
 			}
 			
@@ -427,16 +426,18 @@ namespace ft {
 			}
 			
 			const_reverse_bidirectionnal_iterator	&operator--() {
-				value_type	*nllnode = elem->_nllnode;
 				if (elem == elem->_nllnode)
-					return (*this);
-				if (elem->_right != elem->_nllnode)
+				{
+					while (elem->_parent != NULL)
+						elem = elem->_parent;
+					while (elem->_left != elem->_nllnode)
+						elem = elem->_left;
+				}
+				else if (elem->_right != elem->_nllnode)
 				{
 					elem = elem->_right;
 					while (elem->_left != elem->_nllnode)
-					{
 						elem = elem->_left;
-					}
 				}
 				else
 				{
@@ -446,8 +447,6 @@ namespace ft {
 					}
 					elem = elem->_parent;
 				}
-				if (elem == NULL)
-					elem = nllnode;
 				return (*this);
 			}
 			

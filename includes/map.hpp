@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/13 18:40:18 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:22:12 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,21 @@ namespace ft {
 
 			map(const map &x)
 			{
-				_data = x._data;
-				_comp = x._comp;
+				_data.clear(_data.getRoot());
 				_alloc = x._alloc;
+				_comp = x._comp;
+				insert(x.begin(), x.end());
 			}
 
-			~map(void) {}
+			~map(void) {
+				_data.clear(_data.getRoot());
+			}
 
 			map	&operator=(const map &x)
 			{
+				_data.clear(_data.getRoot());
 				_comp = x._comp;
-				_alloc = x._alloc;
-				for (const_iterator it = x.begin(); it != x.end(); it++)
-					_data.addNode(*it);
+				insert(x.begin(), x.end());
 				return (*this);
 			}
 			
@@ -227,8 +229,17 @@ namespace ft {
 
 			void	erase(iterator first, iterator last)
 			{
-				for (; first != last; first++)
-					_data.addNode(*first);
+				iterator								next;
+				typename ft::RBtree<value_type>::NodePtr toDel;
+				
+				while (first != last)
+				{
+					toDel = _data.search(*first);
+					next = first++;
+					if (toDel)
+						_data.deleteNode(toDel);
+					first = next;
+				}
 			}
 
 			void	clear(void)

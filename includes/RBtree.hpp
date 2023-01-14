@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 12:29:40 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 16:17:37 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ namespace ft {
 
 		Node(Node<Type> *nllnode) : _type(LEAF), _parent(NULL), _left(NULL), _right(NULL), _nllnode(nllnode) {}
 		
-		Node(const Type &elem) : _pair(elem), _type(BLACK), _parent(NULL), _left(NULL), _right(NULL) {}
+		Node(const Type elem) : _pair(elem), _type(BLACK), _parent(NULL), _left(NULL), _right(NULL) {}
 
-		Node(const Type &elem, int type, Node<Type> *parent, Node<Type> *nllnode) : _pair(elem), _type(type), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
+		Node(const Type elem, int type, Node<Type> *parent, Node<Type> *nllnode) : _pair(elem), _type(type), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 
 		Node(Node<Type> *parent, Node<Type> *nllnode) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}\
 	};
@@ -54,7 +54,7 @@ namespace ft {
 			Node<Type>	*_nllnode;
 			Alloc		_allocator;
 
-			NodePtr	_allocateNode(const Type &elem, int type, NodePtr parent)
+			NodePtr	_allocateNode(const Type elem, int type, NodePtr parent)
 			{
 				NodePtr	node;
 				
@@ -128,6 +128,16 @@ namespace ft {
 				else
 					from->_parent->_right = to;
 				to->_parent = from->_parent;
+			}
+
+			void	_clearHelper(NodePtr node)
+			{
+				if (node == NULL || node == _nllnode)
+					return ;
+				clear(node->_right);
+				clear(node->_left);
+				_allocator.destroy(node);
+				_allocator.deallocate(node, 1);
 			}
 
 			/* -------------------------------------------------------------------------- */
@@ -289,19 +299,13 @@ namespace ft {
 
 			~RBtree(void)
 			{
-				clear(_root);
 				_allocator.deallocate(_nllnode, 1);
 			}
 
 			void clear(NodePtr	node)
 			{
-				(void)node;
-				if (node == NULL || node == _nllnode)
-					return ;
-				clear(node->_right);
-				clear(node->_left);
-				_allocator.destroy(node);
-				_allocator.deallocate(node, 1);
+				_clearHelper(node);
+				_root = _nllnode;
 			}
 
 			/* -------------------------------------------------------------------------- */
@@ -389,7 +393,7 @@ namespace ft {
 			/*                                add / delete                                */
 			/* -------------------------------------------------------------------------- */
 
-			void	addNode(const Type &elem)
+			void	addNode(const Type elem)
 			{
 				NodePtr	newNode = _allocateNode(elem, RED, NULL);
 				NodePtr parentNode = NULL;
