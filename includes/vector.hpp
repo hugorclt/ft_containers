@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/10 11:09:47 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:35:52 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -508,6 +508,6 @@ namespace ft
 		vector<T,Alloc> tmp = x;
 
 		x = y;
-		y = x;
+		y = tmp;
 	}
 }

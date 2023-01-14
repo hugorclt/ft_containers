@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/13 19:11:06 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:33:19 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ namespace ft {
 	{
 		public:
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::value_type			value_type;
-			typedef typename value_type::value_type													node_type;
+			typedef typename T::value_type													node_type;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type		difference_type;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::pointer				pointer;
@@ -56,6 +56,7 @@ namespace ft {
 			//Constructor - Destructor
 			bidirectionnal_iterator(pointer	pointee = NULL) : elem(pointee) {};
 			bidirectionnal_iterator(const bidirectionnal_iterator &cpy) : elem(cpy.elem) {};
+			
 			virtual ~bidirectionnal_iterator() {}
 
 			//operator
@@ -67,6 +68,9 @@ namespace ft {
 			//Dereference operator
 			node_type	operator*() const {return (this->elem->_pair); };
 			node_type	*operator->() const {return (&(this->elem->_pair)); };
+
+			//ft::pair<const int, std::basic_string<char> > *
+			//const ft::pair<const int, std::basic_string<char> > *
 			
 			//ft::pair<const int, std::basic_string<char> > *
 			//const ft::pair<const int, std::basic_string<char> > *'
@@ -134,7 +138,10 @@ namespace ft {
 				return (tmp);
 			}
 
-			
+			value_type	*getElem(void) const
+			{
+				return (elem);
+			}
 
 			//Comparison operator
 			bool	operator==(const bidirectionnal_iterator &iter) const {return (this->elem == iter.elem); };
@@ -145,6 +152,118 @@ namespace ft {
 
 			//create const iterator
 			operator bidirectionnal_iterator<const value_type>() const {return (bidirectionnal_iterator<const value_type>(this->elem)); };
+
+			private:
+				pointer	elem;
+	};
+
+	template<typename T>
+	class const_bidirectionnal_iterator : public ft::iterator<std::bidirectional_iterator_tag, T>
+	{
+		public:
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::value_type			value_type;
+			typedef const typename T::value_type													node_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type		difference_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::pointer				pointer;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::reference			reference;
+
+			//Constructor - Destructor
+			const_bidirectionnal_iterator(pointer	pointee = NULL) : elem(pointee) {};
+			const_bidirectionnal_iterator(const const_bidirectionnal_iterator &cpy) : elem(cpy.elem) {};
+			const_bidirectionnal_iterator(const bidirectionnal_iterator<T> &it) : elem(it.getElem()) {}
+			virtual ~const_bidirectionnal_iterator() {}
+
+			//operator
+			const_bidirectionnal_iterator &operator=(const const_bidirectionnal_iterator &to_cpy) {
+				this->elem = to_cpy.elem;
+				return (*this);
+			}
+
+			//Dereference operator
+			node_type	operator*() const {return (this->elem->_pair); };
+			node_type	*operator->() const {return (&(this->elem->_pair)); };
+
+			//ft::pair<const int, std::basic_string<char> > *
+			//const ft::pair<const int, std::basic_string<char> > *
+			
+			//ft::pair<const int, std::basic_string<char> > *
+			//const ft::pair<const int, std::basic_string<char> > *'
+
+			//Increment operator
+			const_bidirectionnal_iterator	&operator++() {
+				value_type	*nllnode = elem->_nllnode;
+				if (elem == elem->_nllnode)
+					return (*this);
+				if (elem->_right != elem->_nllnode)
+				{
+					elem = elem->_right;
+					while (elem->_left != elem->_nllnode)
+					{
+						elem = elem->_left;
+					}
+				}
+				else
+				{
+					while (elem->_parent && elem == elem->_parent->_right)
+					{
+						elem = elem->_parent;
+					}
+					elem = elem->_parent;
+				}
+				if (elem == NULL)
+					elem = nllnode;
+				return (*this);
+			}
+			
+			const_bidirectionnal_iterator	operator++(int) {
+				const_bidirectionnal_iterator	tmp = *this;
+				operator++();
+				return (tmp);
+			}
+			
+			const_bidirectionnal_iterator	&operator--() {
+				value_type	*nllnode = elem->_nllnode;
+				if (elem == elem->_nllnode)
+					return (*this);
+				if (elem->_left != elem->_nllnode)
+				{
+					elem = elem->_left;
+					while (elem->_right != elem->_nllnode)
+					{
+						elem = elem->_right;
+					}
+				}
+				else
+				{
+					while (elem->_parent && elem == elem->_parent->_left)
+					{
+						elem = elem->_parent;
+					}
+					elem = elem->_parent;
+				}
+				if (elem == NULL)
+					elem = nllnode;
+				return (*this);
+			}
+			
+			const_bidirectionnal_iterator	operator--(int) {
+				const_bidirectionnal_iterator	tmp = *this;
+				operator--();
+				return (tmp);
+			}
+
+			
+
+			//Comparison operator
+			bool	operator==(const const_bidirectionnal_iterator &iter) const {return (this->elem == iter.elem); };
+			bool	operator!=(const const_bidirectionnal_iterator &iter) const 
+			{
+				return (this->elem != iter.elem);
+			};
+
+			//create const iterator
+			operator const_bidirectionnal_iterator<const value_type>() const {return (const_bidirectionnal_iterator<const value_type>(this->elem)); };
 
 			private:
 				pointer	elem;
@@ -242,7 +361,10 @@ namespace ft {
 				return (tmp);
 			}
 
-			
+			value_type	*getElem(void) const
+			{
+				return (elem);
+			}
 
 			//Comparison operator
 			bool	operator==(const reverse_bidirectionnal_iterator &iter) const {return (this->elem == iter.elem); };
@@ -253,6 +375,115 @@ namespace ft {
 
 			//create const iterator
 			operator reverse_bidirectionnal_iterator<const value_type>() const {return (reverse_bidirectionnal_iterator<const value_type>(this->elem)); };
+
+			private:
+				pointer	elem;
+	};
+
+	template<typename T>
+	class const_reverse_bidirectionnal_iterator : public ft::iterator<std::bidirectional_iterator_tag, T>
+	{
+		public:
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::value_type			value_type;
+			typedef const typename value_type::value_type													node_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type		difference_type;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::pointer				pointer;
+			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::reference			reference;
+
+			//Constructor - Destructor
+			const_reverse_bidirectionnal_iterator(pointer	pointee = NULL) : elem(pointee) {};
+			const_reverse_bidirectionnal_iterator(const const_reverse_bidirectionnal_iterator &cpy) : elem(cpy.elem) {};
+			const_reverse_bidirectionnal_iterator(const reverse_bidirectionnal_iterator<T> &it) : elem(it.getElem()) {}
+			virtual ~const_reverse_bidirectionnal_iterator() {}
+
+			//operator
+			const_reverse_bidirectionnal_iterator &operator=(const const_reverse_bidirectionnal_iterator &to_cpy) {
+				this->elem = to_cpy.elem;
+				return (*this);
+			}
+
+			//Dereference operator
+			node_type	*operator*() const {return (this->elem->_pair); };
+			node_type	*operator->() const {return (&(this->elem->_pair)); };
+			
+			//ft::pair<const int, std::basic_string<char> > *
+			//const ft::pair<const int, std::basic_string<char> > *'
+
+			//Increment operator
+			const_reverse_bidirectionnal_iterator	&operator++() {
+				value_type	*nllnode = elem->_nllnode;
+				if (elem == elem->_nllnode)
+					return (*this);
+				if (elem->_left != elem->_nllnode)
+				{
+					elem = elem->_left;
+					while (elem->_right != elem->_nllnode)
+					{
+						elem = elem->_right;
+					}
+				}
+				else
+				{
+					while (elem->_parent && elem == elem->_parent->_left)
+					{
+						elem = elem->_parent;
+					}
+					elem = elem->_parent;
+				}
+				if (elem == NULL)
+					elem = nllnode;
+				return (*this);
+			}
+			
+			const_reverse_bidirectionnal_iterator	operator++(int) {
+				const_reverse_bidirectionnal_iterator	tmp = *this;
+				operator++();
+				return (tmp);
+			}
+			
+			const_reverse_bidirectionnal_iterator	&operator--() {
+				value_type	*nllnode = elem->_nllnode;
+				if (elem == elem->_nllnode)
+					return (*this);
+				if (elem->_right != elem->_nllnode)
+				{
+					elem = elem->_right;
+					while (elem->_left != elem->_nllnode)
+					{
+						elem = elem->_left;
+					}
+				}
+				else
+				{
+					while (elem->_parent && elem == elem->_parent->_right)
+					{
+						elem = elem->_parent;
+					}
+					elem = elem->_parent;
+				}
+				if (elem == NULL)
+					elem = nllnode;
+				return (*this);
+			}
+			
+			const_reverse_bidirectionnal_iterator	operator--(int) {
+				const_reverse_bidirectionnal_iterator	tmp = *this;
+				operator--();
+				return (tmp);
+			}
+
+			
+
+			//Comparison operator
+			bool	operator==(const const_reverse_bidirectionnal_iterator &iter) const {return (this->elem == iter.elem); };
+			bool	operator!=(const const_reverse_bidirectionnal_iterator &iter) const 
+			{
+				return (this->elem != iter.elem);
+			};
+
+			//create const iterator
+			operator const_reverse_bidirectionnal_iterator<const value_type>() const {return (const_reverse_bidirectionnal_iterator<const value_type>(this->elem)); };
 
 			private:
 				pointer	elem;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select_map_tests.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:51:32 by llefranc          #+#    #+#             */
-/*   Updated: 2021/04/08 11:29:45 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:43:58 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ template <typename T>
 void    testNotConstMap(T& l, int testNb)
 {
     printContainerInfo<T>("MAP", testNb);
-        
     mapTest_Size(l);                        //  size
     mapTest_Empty(l);                       //  empty
     mapTest_Iterators(l);                   //  iterators / begin / end
@@ -30,6 +29,7 @@ void    testNotConstMap(T& l, int testNb)
     mapTest_InsertRange(l);                 //  insert an iterator range
     mapTest_InsertToAPosition(l);           //  insert n elements
     mapTest_Insert1Elem(l);                 //  insert one element
+
     mapTest_EraseRange(l);                  //  erase an iterator range
     mapTest_EraseToAPosition(l);            //  erase one element
     mapTest_EraseASpecificKey(l);           //  erase one element

@@ -39,6 +39,8 @@ void	mapTest_Iterators(T& cont)
 	std::string name("iterators:");
 	std::cout << "\n---------------------";
 		
+			        	        std::cerr << "begin" << std::endl;
+
 	printTestName("42", name, "operator++");
 	for (typename T::const_iterator it = cont.begin(); it != cont.end(); it++)
 		std::cout << "[" << it->first << "][" << it->second << "] | ";
@@ -46,6 +48,7 @@ void	mapTest_Iterators(T& cont)
 	printTestName("46", name, "++operator");
 	for (typename T::const_iterator it = cont.begin(); it != cont.end(); ++it)
 		std::cout << "[" << it->first << "][" << it->second << "] | ";
+		        	        std::cerr << "end" << std::endl;
 
 	if (cont.size())
 	{
@@ -59,6 +62,7 @@ void	mapTest_Iterators(T& cont)
 			if (it != cont.end())
 				std::cout << "[" << it->first << "][" << it->second << "] | ";
 	}
+
 }
 
 template <typename T>

@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:37:35 by hherin            #+#    #+#             */
-/*   Updated: 2023/01/12 19:37:28 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:40:49 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int main(void)
     // ---------------------------------------------------------------------------
     // CHOOSE HERE WHICH CONTAINERS YOU WANT TO TEST. YOU HAVE ALSO TO COMMENT
     // THE WHOLE FUNCTION BELOW.
-    testVector(arrInt, arrString);  // Comment if you don't want to test VECTOR
+    // testVector(arrInt, arrString);  // Comment if you don't want to test VECTOR
 
    //  testList(arrInt, arrString);    // Comment if you don't want to test LIST   
     // testStack(arrInt, arrString);   // Comment if you don't want to test STACK   
    //  testQueue(arrInt, arrString);   // Comment if you don't want to test QUEUE   
-    // testMap(arrInt, arrString);     // Comment if you don't want to test MAP   
+    testMap(arrInt, arrString);     // Comment if you don't want to test MAP   
 
     // ---------------------------------------------------------------------------
 }
@@ -185,7 +185,6 @@ void    testMap(const int (&arrInt)[20], const std::string (&arrString)[20])
 
  //redirect std::cout to std::map_result.txt
     std::cout.rdbuf(ftFile.rdbuf());
-        
  /* FT TESTS */
     constructMap<int, std::string, ft::map<int, std::string>, ft::pair<int, std::string> >
         (arrInt, arrString, testNotConstMap<ft::map<int, std::string> >, testConstMap<const ft::map<int, std::string> >);

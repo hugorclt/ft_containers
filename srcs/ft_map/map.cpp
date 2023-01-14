@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:27 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/12 17:39:29 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:45:09 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main()
 	// tree.printTree();
 	
 	
-	for (ft::map<int, int>::iterator it = tree.begin(); it != tree.end(); it++)
+	for (ft::map<int, int>::iterator it = tree.end(); it != tree.begin(); it--)
 	{
 		std::cout << it->first << std::endl;
 	}

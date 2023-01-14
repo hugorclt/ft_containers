@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/13 18:40:29 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:33:26 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 namespace ft {
 	template<class Type>
 	struct Node {
-		typedef		Type	value_type;
+		typedef		 Type	value_type;
 		Type		_pair;
 		int			_type;
 		Node<Type>	*_parent;
@@ -46,9 +46,9 @@ namespace ft {
 		public:
 			typedef Node<Type>														*NodePtr;
 			typedef typename ft::bidirectionnal_iterator<Node<Type> > 				iterator;
-			typedef typename ft::bidirectionnal_iterator<const Node<Type> >			const_iterator;
+			typedef typename ft::const_bidirectionnal_iterator<Node<Type> >			const_iterator;
 			typedef typename ft::reverse_bidirectionnal_iterator<Node<Type> > 		reverse_iterator;
-			typedef typename ft::reverse_bidirectionnal_iterator<const Node<Type> >	const_reverse_iterator;
+			typedef typename ft::const_reverse_bidirectionnal_iterator< Node<Type> >	const_reverse_iterator;
 		private:
 			Node<Type>	*_root;
 			Node<Type>	*_nllnode;

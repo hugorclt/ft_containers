@@ -173,7 +173,7 @@ void constructMap(const T1 (&x)[20], const T2 (&y)[20], Func execNonConst, FuncC
             execNonConst(tmp, ++nb);
         }
     }
-	
+
     Cont c1(c0);
     execNonConst(c1, ++nb);
         
@@ -187,7 +187,7 @@ void constructMap(const T1 (&x)[20], const T2 (&y)[20], Func execNonConst, FuncC
 
     Cont c4(c0.begin(), c0.begin());
     execNonConst(c4, ++nb);
-        
+
 	P pair19(x[19], y[19]);
 	P pair14(x[14], y[14]);
     Cont c8(c0); c8.insert(pair19); c8.insert(pair14);
