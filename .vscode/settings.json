@@ -81,6 +81,12 @@
 		"map": "cpp",
 		"fstream": "cpp",
 		"span": "cpp",
-		"set": "cpp"
+		"set": "cpp",
+		"__tree": "cpp",
+		"codecvt": "cpp",
+		"csignal": "cpp",
+		"iomanip": "cpp",
+		"list": "cpp",
+		"stack": "cpp"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 17:22:12 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 20:11:06 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,19 @@ namespace ft {
 
 			void	erase(iterator position)
 			{
-				_data.deleteNode(_data.search(*position));
+				_data.deleteNode(position->first);
+			}
+
+			void	erase(iterator first, iterator last)
+			{
+				iterator tmp;
+				
+				while (first != last)
+				{
+					tmp = first;
+					first++;
+					_data.deleteNode(tmp->first);
+				}
 			}
 
 			size_type	erase(const key_type &key)
@@ -223,23 +235,8 @@ namespace ft {
 				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(pair);
 				if (!nodeFound)
 					return (0);
-				_data.deleteNode(nodeFound);
+				_data.deleteNode(nodeFound->_pair.first);
 				return (1);
-			}
-
-			void	erase(iterator first, iterator last)
-			{
-				iterator								next;
-				typename ft::RBtree<value_type>::NodePtr toDel;
-				
-				while (first != last)
-				{
-					toDel = _data.search(*first);
-					next = first++;
-					if (toDel)
-						_data.deleteNode(toDel);
-					first = next;
-				}
 			}
 
 			void	clear(void)

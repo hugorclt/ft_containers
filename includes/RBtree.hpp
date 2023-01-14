@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 16:17:37 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 20:16:55 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ namespace ft {
 	class RBtree {
 		public:
 			typedef Node<Type>														*NodePtr;
+			typedef typename Type::first_type												key_type;
+			typedef typename Type::second_type												mapped_type;
 			typedef typename ft::bidirectionnal_iterator<Node<Type> > 				iterator;
 			typedef typename ft::const_bidirectionnal_iterator<Node<Type> >			const_iterator;
 			typedef typename ft::reverse_bidirectionnal_iterator<Node<Type> > 		reverse_iterator;
@@ -389,6 +391,38 @@ namespace ft {
 				return (NULL);
 			}
 
+			NodePtr	search(const key_type &value)
+			{
+				NodePtr node = _root;
+				
+				while (node != _nllnode)
+				{
+					if (node->_pair.first == value)
+						return (node);
+					if (node->_pair.first > value)
+						node = node->_left;
+					else
+						node = node->_right;
+				}
+				return (NULL);
+			}
+
+			NodePtr	search(const key_type &value) const
+			{
+				NodePtr node = _root;
+				
+				while (node != _nllnode)
+				{
+					if (node->_pair.first == value)
+						return (node);
+					if (node->_pair.first > value)
+						node = node->_left;
+					else
+						node = node->_right;
+				}
+				return (NULL);
+			}
+
 			/* -------------------------------------------------------------------------- */
 			/*                                add / delete                                */
 			/* -------------------------------------------------------------------------- */
@@ -432,9 +466,10 @@ namespace ft {
 				_insertFix(newNode);
 			}
 
-			void	deleteNode(NodePtr nodeToDelete)
+			void	deleteNode(const key_type &value)
 			{
-				if (!nodeToDelete)
+				NodePtr	nodeToDelete = search(value);
+				if (nodeToDelete == _nllnode)
 					return ;
 				int	nodeDelType = nodeToDelete->_type;
 				NodePtr toTransplant;

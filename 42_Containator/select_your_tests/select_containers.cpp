@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:37:35 by hherin            #+#    #+#             */
-/*   Updated: 2023/01/14 10:40:49 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:53:40 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,29 @@ int main(void)
 // ---------------------------------------------------------------------------
 // COMMENT THE WHOLE FUNCTION IF YOU DON'T WANT TO TEST VECTOR.
 // ---------------------------------------------------------------------------
-void    testVector(const int (&arrInt)[20], const std::string (&arrString)[20])
-{
-    //save old buf
-    std::streambuf *coutbuf = std::cout.rdbuf();
+// void    testVector(const int (&arrInt)[20], const std::string (&arrString)[20])
+// {
+//     //save old buf
+//     std::streambuf *coutbuf = std::cout.rdbuf();
         
-    std::ofstream stdFile("results/vector_std.txt");
-    std::ofstream ftFile("results/vector_ft.txt");
+//     std::ofstream stdFile("results/vector_std.txt");
+//     std::ofstream ftFile("results/vector_ft.txt");
 
-    //redirect std::cout to std::vector_result.txt
-    std::cout.rdbuf(stdFile.rdbuf());
+//     //redirect std::cout to std::vector_result.txt
+//     std::cout.rdbuf(stdFile.rdbuf());
         
-    /* STL TESTS */
-    constructVectorList<int, std::vector<int> >(arrInt, testNotConstVec<std::vector<int> >, testConstVec<const std::vector<int> >);
-    constructVectorList<std::string, std::vector<std::string> >(arrString, testNotConstVec<std::vector<std::string> >, testConstVec<const std::vector<std::string> >);
+//     /* STL TESTS */
+//     constructVectorList<int, std::vector<int> >(arrInt, testNotConstVec<std::vector<int> >, testConstVec<const std::vector<int> >);
+//     constructVectorList<std::string, std::vector<std::string> >(arrString, testNotConstVec<std::vector<std::string> >, testConstVec<const std::vector<std::string> >);
 
-    //redirect std::cout to ft::vector_result.txt
-    std::cout.rdbuf(ftFile.rdbuf());
-    /* FT TESTS */
-    constructVectorList<int, ft::vector<int> >(arrInt, testNotConstVec<ft::vector<int> >, testConstVec<const ft::vector<int> >);
-    constructVectorList<std::string, ft::vector<std::string> >(arrString, testNotConstVec<ft::vector<std::string> >, testConstVec<const ft::vector<std::string> >);
-    //reset to standard output again
-    std::cout.rdbuf(coutbuf);
-}
+//     //redirect std::cout to ft::vector_result.txt
+//     std::cout.rdbuf(ftFile.rdbuf());
+//     /* FT TESTS */
+//     constructVectorList<int, ft::vector<int> >(arrInt, testNotConstVec<ft::vector<int> >, testConstVec<const ft::vector<int> >);
+//     constructVectorList<std::string, ft::vector<std::string> >(arrString, testNotConstVec<ft::vector<std::string> >, testConstVec<const ft::vector<std::string> >);
+//     //reset to standard output again
+//     std::cout.rdbuf(coutbuf);
+// }
 
 
 // ---------------------------------------------------------------------------
@@ -107,31 +107,31 @@ void    testVector(const int (&arrInt)[20], const std::string (&arrString)[20])
 // ---------------------------------------------------------------------------
 // COMMENT THE WHOLE FUNCTION IF YOU DON'T WANT TO TEST STACK.
 // ---------------------------------------------------------------------------
-void    testStack(const int (&arrInt)[20], const std::string (&arrString)[20])
-{
-    //save old buf
-    std::streambuf *coutbuf = std::cout.rdbuf();
+// void    testStack(const int (&arrInt)[20], const std::string (&arrString)[20])
+// {
+//     //save old buf
+//     std::streambuf *coutbuf = std::cout.rdbuf();
         
-    std::ofstream stdFile("results/stack_std.txt");
-    std::ofstream ftFile("results/stack_ft.txt");
+//     std::ofstream stdFile("results/stack_std.txt");
+//     std::ofstream ftFile("results/stack_ft.txt");
 
-    //redirect std::cout to std::stack_result.txt
-    std::cout.rdbuf(stdFile.rdbuf());
+//     //redirect std::cout to std::stack_result.txt
+//     std::cout.rdbuf(stdFile.rdbuf());
         
-    /* STL TESTS */
-    constructStackQueue<int, std::stack<int, std::list<int> >, std::list<int> >(arrInt, testNonConstStack<std::stack<int, std::list<int> > >);
-    constructStackQueue<std::string, std::stack<std::string, std::list<std::string> >, std::list<std::string> > (arrString, testNonConstStack<std::stack<std::string, std::list<std::string> > >);
+//     /* STL TESTS */
+//     constructStackQueue<int, std::stack<int, std::list<int> >, std::list<int> >(arrInt, testNonConstStack<std::stack<int, std::list<int> > >);
+//     constructStackQueue<std::string, std::stack<std::string, std::list<std::string> >, std::list<std::string> > (arrString, testNonConstStack<std::stack<std::string, std::list<std::string> > >);
 
-    //redirect std::cout to ft::stack_result.txt
-    std::cout.rdbuf(ftFile.rdbuf());
+//     //redirect std::cout to ft::stack_result.txt
+//     std::cout.rdbuf(ftFile.rdbuf());
         
-    /* FT TESTS */
-    constructStackQueue<int, ft::stack<int, std::list<int> >, std::list<int> >(arrInt, testNonConstStack<ft::stack<int, std::list<int> > >);
-    constructStackQueue<std::string, ft::stack<std::string, std::list<std::string> >, std::list<std::string> >(arrString, testNonConstStack<ft::stack<std::string, std::list<std::string> > >);
+//     /* FT TESTS */
+//     constructStackQueue<int, ft::stack<int, std::list<int> >, std::list<int> >(arrInt, testNonConstStack<ft::stack<int, std::list<int> > >);
+//     constructStackQueue<std::string, ft::stack<std::string, std::list<std::string> >, std::list<std::string> >(arrString, testNonConstStack<ft::stack<std::string, std::list<std::string> > >);
 
-    //reset to standard output again
-    std::cout.rdbuf(coutbuf);
-}
+//     //reset to standard output again
+//     std::cout.rdbuf(coutbuf);
+// }
 
 
 // ---------------------------------------------------------------------------

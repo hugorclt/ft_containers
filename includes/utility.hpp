@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:28:10 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/13 18:40:07 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 20:13:31 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ namespace ft {
 	/* -------------------------------------------------------------------------- */
 	template <class T1, class T2>
 	struct pair {
+		typedef T1 first_type;
+		typedef T2 second_type;
 		T1 first;
 		T2 second;
 		/* ------------------------------- Constructor ------------------------------ */
