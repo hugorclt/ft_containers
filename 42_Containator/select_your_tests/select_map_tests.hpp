@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:51:32 by llefranc          #+#    #+#             */
-/*   Updated: 2023/01/14 10:43:58 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 12:29:58 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void    testNotConstMap(T& l, int testNb)
     mapTest_Size(l);                        //  size
     mapTest_Empty(l);                       //  empty
     mapTest_Iterators(l);                   //  iterators / begin / end
+
     mapTest_ReverseIterators(l);            //  reverse iterators / rbegin / rend
     mapTest_operatorBracelet(l);            //  operator[]
     mapTest_Clear(l);                       //  clear

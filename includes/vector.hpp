@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 10:35:52 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 11:38:38 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,14 +368,6 @@ namespace ft
 				{
 					_allocator.construct(&_array[i], val);
 				}
-
-				// for (difference_type i = _currentSize - 1; i > posIt - 1; i--)
-				// {
-				// 	_allocator.construct(&_array[i + n], _array[i]);
-				// 	_allocator.destroy(&(_array[i]));
-				// }
-				// for (size_type i = posIt; i < _currentSize + n; i++)
-				// 	_allocator.construct(&_array[i], val);
 			}
 
 			template<class InputIterator>

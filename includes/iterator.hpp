@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 10:33:19 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 12:25:58 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,7 @@ namespace ft {
 			}
 			
 			bidirectionnal_iterator	&operator--() {
-				value_type	*nllnode = elem->_nllnode;
-				if (elem == elem->_nllnode)
-					return (*this);
-				if (elem->_left != elem->_nllnode)
+				if (elem != elem->_nllnode && elem->_left != elem->_nllnode)
 				{
 					elem = elem->_left;
 					while (elem->_right != elem->_nllnode)
@@ -127,8 +124,6 @@ namespace ft {
 					}
 					elem = elem->_parent;
 				}
-				if (elem == NULL)
-					elem = nllnode;
 				return (*this);
 			}
 			
@@ -223,11 +218,9 @@ namespace ft {
 			}
 			
 			const_bidirectionnal_iterator	&operator--() {
-				value_type	*nllnode = elem->_nllnode;
-				if (elem == elem->_nllnode)
-					return (*this);
-				if (elem->_left != elem->_nllnode)
+				if (elem != elem->_nllnode && elem->_left != elem->_nllnode)
 				{
+					
 					elem = elem->_left;
 					while (elem->_right != elem->_nllnode)
 					{
@@ -242,8 +235,6 @@ namespace ft {
 					}
 					elem = elem->_parent;
 				}
-				if (elem == NULL)
-					elem = nllnode;
 				return (*this);
 			}
 			
@@ -256,7 +247,10 @@ namespace ft {
 			
 
 			//Comparison operator
-			bool	operator==(const const_bidirectionnal_iterator &iter) const {return (this->elem == iter.elem); };
+			bool	operator==(const const_bidirectionnal_iterator &iter) const {
+
+				return (this->elem == iter.elem); 
+			};
 			bool	operator!=(const const_bidirectionnal_iterator &iter) const 
 			{
 				return (this->elem != iter.elem);
@@ -300,10 +294,7 @@ namespace ft {
 
 			//Increment operator
 			reverse_bidirectionnal_iterator	&operator++() {
-				value_type	*nllnode = elem->_nllnode;
-				if (elem == elem->_nllnode)
-					return (*this);
-				if (elem->_left != elem->_nllnode)
+				if (elem != elem->_nllnode && elem->_left != elem->_nllnode)
 				{
 					elem = elem->_left;
 					while (elem->_right != elem->_nllnode)
@@ -319,8 +310,6 @@ namespace ft {
 					}
 					elem = elem->_parent;
 				}
-				if (elem == NULL)
-					elem = nllnode;
 				return (*this);
 			}
 			
@@ -412,10 +401,7 @@ namespace ft {
 
 			//Increment operator
 			const_reverse_bidirectionnal_iterator	&operator++() {
-				value_type	*nllnode = elem->_nllnode;
-				if (elem == elem->_nllnode)
-					return (*this);
-				if (elem->_left != elem->_nllnode)
+				if (elem != elem->_nllnode && elem->_left != elem->_nllnode)
 				{
 					elem = elem->_left;
 					while (elem->_right != elem->_nllnode)
@@ -431,8 +417,6 @@ namespace ft {
 					}
 					elem = elem->_parent;
 				}
-				if (elem == NULL)
-					elem = nllnode;
 				return (*this);
 			}
 			

@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 10:33:26 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/14 12:29:40 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ namespace ft {
 						break ;
 				}
 				_root->_type = BLACK;
+				_nllnode->_parent = rightMost();
 			}
 
 			int	_getSizeHelper(NodePtr node) const
@@ -410,16 +411,20 @@ namespace ft {
 					parentNode->_left = newNode;
 				else
 					parentNode->_right = newNode;
-				
+
 				if (newNode->_parent == NULL)
 				{
 					newNode->_type = BLACK;
+					_nllnode->_parent = rightMost();
 					return ;
 				}
 
 				if (newNode->_parent->_parent == NULL)
+				{
+					_nllnode->_parent = rightMost();
 					return ;
-
+				}
+				
 				_insertFix(newNode);
 			}
 
@@ -464,12 +469,16 @@ namespace ft {
 				
 				if (nodeDelType == BLACK)
 					_deleteNodeFix(toTransplant);
+				
+				_nllnode->_parent = rightMost();
 			}
 
 			NodePtr	leftMost(void) const
 			{
 				NodePtr node = _root;
 
+				if (_root == _nllnode)
+					return (_root);
 				while(node->_left != _nllnode)
 					node = node->_left;
 				return (node);
@@ -479,6 +488,8 @@ namespace ft {
 			{
 				NodePtr node = _root;
 
+				if (_root == _nllnode)
+					return (_root);
 				while(node->_right != _nllnode)
 					node = node->_right;
 				return (node);
