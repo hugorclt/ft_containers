@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 20:11:06 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/15 10:57:21 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,12 +262,18 @@ namespace ft {
 			// /* -------------------------------------------------------------------------- */
 			iterator find(const key_type &k)
 			{
-				return (iterator(_data.search(ft::make_pair(k, mapped_type()))));
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
+				if (!nodeFound)
+					return (end());
+				return (iterator(nodeFound));
 			}
 
 			const_iterator find(const key_type& k) const
 			{
-				return (const_iterator(_data.search(ft::make_pair(k, mapped_type()))));
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
+				if (!nodeFound)
+					return (end());
+				return (iterator(nodeFound));
 			}
 
 			size_type count(const key_type& k) const

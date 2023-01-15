@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 20:16:55 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/15 10:45:58 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,6 +295,8 @@ namespace ft {
 			{
 				_nllnode = _allocator.allocate(1);
 				_allocator.construct(_nllnode, Node<Type>(_nllnode));
+				_nllnode->_left = _nllnode;
+				_nllnode->_right = _nllnode;
 				_root = _nllnode;
 				_allocator = alloc;
 			}
@@ -510,6 +512,8 @@ namespace ft {
 					_deleteNodeFix(toTransplant);
 				
 				_nllnode->_parent = rightMost();
+				if (getSize() == 0)
+					_root = _nllnode;
 			}
 
 			NodePtr	leftMost(void) const
