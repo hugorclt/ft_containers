@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/15 10:57:21 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:00:47 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <memory>
 #include "RBtree.hpp"
 
-#define MAP_MAX_SIZE 461168601842738790
+#define MAP_MAX_SIZE 230584300921369395
 
 namespace ft {
 	template<
@@ -283,44 +283,62 @@ namespace ft {
 
 			iterator lower_bound(const key_type& k)
 			{
-				return (iterator(_data.search(ft::make_pair(k, mapped_type()))));
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
+				if (!nodeFound)
+				{
+					for (iterator it = begin(); it != end(); it++)
+					{
+						if ((_comp(k, it->first)))
+							return (it);
+					}
+					return (end());
+				}
+				return (iterator(nodeFound));
 			}
 
 			const_iterator lower_bound(const key_type& k) const
 			{
-				return (const_iterator(_data.search(ft::make_pair(k, mapped_type()))));
+				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
+				if (!nodeFound)
+				{
+					for (const_iterator it = begin(); it != end(); it++)
+					{
+						if ((_comp(k, it->first)))
+							return (it);
+					}
+					return (end());
+				}
+				return (const_iterator(nodeFound));
 			}
 
 			iterator upper_bound(const key_type& k)
 			{
-				return (iterator(_data.search(ft::make_pair(k, mapped_type())))++);
+				for (iterator it = begin(); it != end(); it++)
+				{
+					if ((_comp(it->first, k)))
+						return (it);
+				}
+				return (end());
 			}
 
 			const_iterator upper_bound(const key_type& k) const
 			{
-				return (const_iterator(_data.search(ft::make_pair(k, mapped_type())))++);
+				for (const_iterator it = begin(); it != end(); it++)
+				{
+					if ((_comp(it->first, k)))
+						return (it);
+				}
+				return (end());
 			}
 
 			pair<iterator,iterator> equal_range(const key_type& k)
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
-				if (nodeFound)
-					return (ft::make_pair(iterator(nodeFound), iterator(nodeFound)));
-				iterator it = begin();
-				for (; _comp(k, it->first); it++)
-				{}
-				return (ft::make_pair(it, it));
+				return (ft::make_pair(lower_bound(k), upper_bound(k)));
 			}
 
 			pair<const_iterator,const_iterator> equal_range(const key_type& k) const
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
-				if (nodeFound)
-					return (ft::make_pair(const_iterator(nodeFound), const_iterator(nodeFound)));
-				const_iterator it = begin();
-				for (; _comp(k, it->first); it++)
-				{}
-				return (ft::make_pair(it, it));
+				return (ft::make_pair(lower_bound(k), upper_bound(k)));
 			}
 
 			allocator_type get_allocator() const

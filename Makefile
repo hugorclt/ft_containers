@@ -6,7 +6,7 @@
 #    By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:43:06 by hrecolet          #+#    #+#              #
-#    Updated: 2023/01/10 18:33:24 by hrecolet         ###   ########.fr        #
+#    Updated: 2023/01/15 19:51:09 by hrecolet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,10 @@ stack			: 	$(OBJS_DIR) $(STACK_OBJS)
 #===================================================#
 
 MAP_SRCS		=	srcs/ft_map/map.cpp\
+					srcs/ft_map/map_capacity.cpp\
+					srcs/ft_map/map_access.cpp\
+					srcs/ft_map/map_modifier.cpp\
+					srcs/ft_map/map_operations.cpp\
 
 MAP_OBJS 		= 	$(addprefix $(OBJS_DIR)/, $(notdir $(MAP_SRCS:%.cpp=%.o)))
 

@@ -6,57 +6,59 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:14:27 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/15 10:53:42 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/15 20:00:38 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/map.hpp"
-#include "../../includes/RBtree.hpp"
-#include <iostream>
-#include <string>
-#include <map>
-#include "../../includes/vector.hpp"
+#include "map_proto.hpp"
+
+void	do_capacity_test(std_typ std, ft_typ ft)
+{
+	empty(std, ft);
+	size(std, ft);
+	max_size(std, ft);
+}
+
+void	do_access_test(std_typ std, ft_typ ft)
+{
+	op(std, ft);
+}
+
+void	do_modifier_test(std_typ std, ft_typ ft)
+{
+	insert(std, ft);
+	erase(std, ft);
+	swap(std, ft);
+	clear(std, ft);
+}
+
+void	operation(std_typ std, ft_typ ft)
+{
+	find(std, ft);
+	count(std, ft);
+	lower_bound(std, ft);
+	upper_bound(std, ft);
+	equal_range(std, ft);
+}
 
 int	main()
 {
-	ft::map<int, int>	tree;
-	ft::pair<int, int>	pair1 = ft::make_pair(10, 1);
-	ft::pair<int, int>	pair2 = ft::make_pair(20, 2);
-	ft::pair<int, int>	pair3 = ft::make_pair(30, 3);
-	ft::pair<int, int>	pair4 = ft::make_pair(15, 3);
-	ft::pair<int, int>	pair5 = ft::make_pair(5, 3);
-	ft::pair<int, int>	pair6 = ft::make_pair(21, 3);
-	ft::pair<int, int>	pair7 = ft::make_pair(11, 1);
-	ft::pair<int, int>	pair8 = ft::make_pair(24, 2);
-	ft::pair<int, int>	pair9 = ft::make_pair(32, 3);
-	ft::pair<int, int>	pair10 = ft::make_pair(19, 3);
-	ft::pair<int, int>	pair11 = ft::make_pair(90, 3);
-	ft::pair<int, int>	pair12 = ft::make_pair(80, 3);
-	tree.insert(pair1);
-	tree.insert(pair2);
-	tree.insert(pair3);
-	tree.insert(pair4);
-	tree.insert(pair5);
-	tree.insert(pair6);
-	tree.insert(pair7);
-	tree.insert(pair8);
-	tree.insert(pair9);
-	tree.insert(pair10);
-	tree.insert(pair11);
-	tree.insert(pair12);
-	// tree.printTree();
-	
-	ft::map<int, int>::const_iterator it = tree.find(3);
+	std::map<int, int>	stdMap;
+	ft::map<int, int>	ftMap;
 
-	std::cout << it->first << ' ' << it->second << std::endl;
+	for (int i = 0; i < 20; i++)
+	{
+		stdMap.insert(std::make_pair(i, i));
+		ftMap.insert(ft::make_pair(i, i));
+	}
+	std::cout << WHITE << "\t\tMAP:" << RESET << std::endl;
+	std::cout << WHITE << "CAPACITY_TEST:" << RESET << std::endl;
+	do_capacity_test(stdMap, ftMap);
+	std::cout << WHITE << "ACCESS_TEST:" << RESET << std::endl;
+	do_access_test(stdMap, ftMap);
+	std::cout << WHITE << "MODIFIER_TEST:" << RESET << std::endl;
+	do_modifier_test(stdMap, ftMap);
+	std::cout << WHITE << "OPERATION_TEST:" << RESET << std::endl;
+	operation(stdMap, ftMap);
 }
 
-
-	// std::cout << tree.size() << std::endl;
-	// tree.erase(tree.begin(), tree.end());
-	// std::cout << tree.size() << std::endl;
-	// for (ft::map<int, int>::const_iterator it = tree.end(); it != tree.begin(); it--)
-	// {
-	// 	// std::cout << it->first << std::endl;
-	// }
-	// // std::cout << tree.getSize() << std::endl;

@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/15 10:45:58 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/15 17:53:57 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ namespace ft {
 
 			void	_leftRotate(NodePtr node)
 			{
+				if (node == NULL)
+					return ;
 				NodePtr childToChange = node->_right;
 				node->_right = childToChange->_left;
 				if (childToChange->_left != _nllnode)
