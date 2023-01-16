@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/15 19:00:47 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:01:55 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ namespace ft {
 
 			class ValComp : std::binary_function<value_type, value_type, bool>
 			{
+				friend class ft::map<Key, T, Compare, Allocator>;
 				protected:
 					Compare comp;
 					ValComp(Compare c) : comp(c) {};
@@ -211,6 +212,12 @@ namespace ft {
 				}
 			}
 
+			// const ft::Node<ft::pair<const std::basic_string<char>, std::basic_string<char> > >
+			// const ft::pair<const std::basic_string<char>, std::basic_string<char> >
+
+			//const ft::Node<ft::pair<const std::basic_string<char>, std::basic_string<char> > >
+			//Node<ft::pair<const std::basic_string<char>, std::basic_string<char> > > *
+
 			void	erase(iterator position)
 			{
 				_data.deleteNode(position->first);
@@ -254,7 +261,7 @@ namespace ft {
 
 			value_compare value_comp(void) const
 			{
-				return (value_compare::comp);
+				return (value_compare(_comp));
 			}
 
 			// /* -------------------------------------------------------------------------- */
@@ -315,7 +322,7 @@ namespace ft {
 			{
 				for (iterator it = begin(); it != end(); it++)
 				{
-					if ((_comp(it->first, k)))
+					if ((_comp(k, it->first)))
 						return (it);
 				}
 				return (end());
@@ -325,7 +332,7 @@ namespace ft {
 			{
 				for (const_iterator it = begin(); it != end(); it++)
 				{
-					if ((_comp(it->first, k)))
+					if ((_comp(k, it->first)))
 						return (it);
 				}
 				return (end());
@@ -352,5 +359,92 @@ namespace ft {
 				ft::swapT(this->_comp, x._comp);
 				_data.swap(x._data);
 			}
+
+			/* -------------------------------------------------------------------------- */
+			/*                             non member methods                             */
+			/* -------------------------------------------------------------------------- */
+			template <class key, class Type, class Comp, class Allocat> 
+			friend void swap (map<key,Type,Comp,Allocat>& x, map<key,Type,Comp,Allocat>& y);
+			template <class key, class Type, class Comp, class Allocat> 
+			friend bool operator==( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
+			template <class key, class Type, class Comp, class Allocat> 
+			friend bool operator!=( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
+			template <class key, class Type, class Comp, class Allocat> 
+			friend bool operator< ( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
+			template <class key, class Type, class Comp, class Allocat> 
+			friend bool operator<=( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
+			template <class key, class Type, class Comp, class Allocat> 
+			friend bool operator> ( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
+			template <class key, class Type, class Comp, class Allocat> 
+			friend bool operator>=( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
 	};
+
+	template <class Key, class T, class Compare, class Alloc> 
+	void swap (map<Key,T,Compare,Alloc>& x, map<Key,T,Compare,Alloc>& y)
+	{
+		map<Key,T,Compare,Alloc> tmp = x;
+
+		x = y;
+		y = tmp;
+	}
+	
+	template <class Key, class T, class Compare, class Alloc> 
+	bool operator==( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		
+		typename map<Key,T,Compare,Alloc>::const_iterator lhsit = lhs.begin();
+		typename map<Key,T,Compare,Alloc>::const_iterator lhsite = lhs.end();
+		typename map<Key,T,Compare,Alloc>::const_iterator rhsit = rhs.begin();
+		typename map<Key,T,Compare,Alloc>::const_iterator rhsite = rhs.end();
+		for (; lhsit != lhsite; lhsit++, rhsit++)
+		{
+			if (lhsit->first != rhsit->first)
+				return (false);
+		}
+		return (true);
+	}
+	
+	template <class Key, class T, class Compare, class Alloc> 
+	bool operator!=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{
+		return (!(lhs == rhs));
+	}
+	
+	template <class Key, class T, class Compare, class Alloc> 
+	bool operator< ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{
+		typename map<Key, T, Compare, Alloc>::const_iterator	lhsit = lhs.begin();
+		typename map<Key, T, Compare, Alloc>::const_iterator	ite = lhs.end();
+		typename map<Key, T, Compare, Alloc>::const_iterator	rhsit = rhs.begin();
+
+		while (lhsit != ite && rhsit != rhs.end()) {
+			if (lhsit->first != rhsit->first)
+				return (lhsit->first < rhsit->first);
+			else if (lhsit->second != rhsit->second)
+				return (lhsit->second < rhsit->second);
+			lhsit++;
+			rhsit++;
+		}
+		return (lhsit == ite && rhsit != rhs.end());
+	}
+	
+	template <class Key, class T, class Compare, class Alloc> 
+	bool operator<=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{
+		return (!(rhs < lhs));
+	}
+	
+	template <class Key, class T, class Compare, class Alloc> 
+	bool operator> ( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{
+		return ((rhs < lhs) and lhs != rhs);
+	}
+	
+	template <class Key, class T, class Compare, class Alloc> 
+	bool operator>=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs )
+	{
+		return (!(lhs < rhs));
+	}
 }

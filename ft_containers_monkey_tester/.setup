@@ -1,3 +1,0 @@
-INCLUDE_DIRECTORIES=( ../includes/ )
-CFLAGS+=" -g3 -Wall -Werror -Wextra -std=c++98"
-CPP_LOGGING=n

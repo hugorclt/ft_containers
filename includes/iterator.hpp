@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/15 10:43:06 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:51:57 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ namespace ft {
 	{
 		public:
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::value_type			value_type;
-			typedef typename T::value_type													node_type;
+			typedef typename T::value_type															node_type;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::iterator_category	iterator_category;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::difference_type		difference_type;
 			typedef typename ft::iterator<std::bidirectional_iterator_tag, T>::pointer				pointer;
