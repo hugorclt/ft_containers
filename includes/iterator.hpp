@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/16 13:51:57 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:42:10 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -520,8 +520,8 @@ namespace ft {
 			bool	operator!=(const random_access_iterator &iter) const {return (this->elem != iter.elem); };
 			bool	operator>=(const random_access_iterator &iter) const {return (this->elem >= iter.elem); };
 			bool	operator<=(const random_access_iterator &iter) const {return (this->elem <= iter.elem); };
-			bool	operator>(const random_access_iterator &iter) const {return (this->elem < iter.elem); };
-			bool	operator<(const random_access_iterator &iter) const {return (this->elem > iter.elem); };
+			bool	operator>(const random_access_iterator &iter) const {return (this->elem > iter.elem); };
+			bool	operator<(const random_access_iterator &iter) const { return (this->elem < iter.elem); };
 
 			//create const iterator
 			operator random_access_iterator<const value_type>() const {return (random_access_iterator<const value_type>(this->elem)); };
@@ -578,8 +578,8 @@ namespace ft {
 			bool	operator!=(const reverse_random_access_iterator &iter) const {return (this->elem != iter.elem); };
 			bool	operator>=(const reverse_random_access_iterator &iter) const {return (this->elem >= iter.elem); };
 			bool	operator<=(const reverse_random_access_iterator &iter) const {return (this->elem <= iter.elem); };
-			bool	operator>(const reverse_random_access_iterator &iter) const {return (this->elem < iter.elem); };
-			bool	operator<(const reverse_random_access_iterator &iter) const {return (this->elem > iter.elem); };
+			bool	operator>(const reverse_random_access_iterator &iter) const {return (this->elem > iter.elem); };
+			bool	operator<(const reverse_random_access_iterator &iter) const {return (this->elem < iter.elem); };
 
 			//create const iterator
 			operator reverse_random_access_iterator<const value_type>() const {return (reverse_random_access_iterator<const value_type>(this->elem)); };

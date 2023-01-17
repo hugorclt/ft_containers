@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 11:38:38 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:48:23 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,8 @@ namespace ft
 
 			void	reserve(size_type n) 
 			{
+				if (n > max_size())
+					throw std::length_error("vector::reserve");
 				if (n > _maxSize)
 				{
 					size_type	save_size = _currentSize;
@@ -289,7 +291,7 @@ namespace ft
 			template <class InputIterator>
 			void	assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
-				difference_type	size = ft::distance(first, last);
+				difference_type	size = last - first;
 				
 				reserve(size);
 				clear();
@@ -338,7 +340,7 @@ namespace ft
 
 			iterator	insert(iterator position, const value_type &val)
 			{
-				difference_type	posIt = ft::distance(begin(), position);
+				difference_type	posIt = position - begin();
 				
 				if (_currentSize + 1 > _maxSize)
 					reserve((_maxSize) ? _maxSize * 2 : 1);
@@ -354,8 +356,8 @@ namespace ft
 
 			void	insert(iterator position, size_type n, const value_type &val)
 			{
-				difference_type	posIt = ft::distance(begin(), position);
-
+				difference_type	posIt = position - begin();
+				
 				while (_currentSize + n > _maxSize)
 					reserve((_maxSize) ? _maxSize * 2 : 1);
 				for (difference_type i = _currentSize - 1; i > posIt - 1; --i)
@@ -373,8 +375,8 @@ namespace ft
 			template<class InputIterator>
 			void	insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			{
-				difference_type	posIt = ft::distance(begin(), position);
-				difference_type	size = ft::distance(first, last);
+				difference_type	posIt = position - begin();
+				difference_type	size = last - first;
 				
 				while (_currentSize + size > _maxSize)
 					reserve((_maxSize) ? _maxSize * 2 : 1);
@@ -413,7 +415,7 @@ namespace ft
 				{
 					_allocator.destroy(&(_array[i]));
 					if (i + 1 < _currentSize)
-					_allocator.construct(&_array[i], _array[i + 1]);
+						_allocator.construct(&_array[i], _array[i + 1]);
 				}
 				_currentSize -= 1;
 				return (_currentSize ? iterator(&(_array[posIt])) : end());
