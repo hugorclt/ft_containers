@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 11:57:59 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/17 13:48:23 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:12:19 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,10 @@ namespace ft
 
 			vector	&operator=(const vector &x)
 			{
+				if (x == *this)
+					return *this;
 				clear();
-				_allocator.deallocate(_array, _maxSize);
-				_array = _allocator.allocate(x._maxSize);
-				for (size_type i = 0; i < x._currentSize; i++)
-					_allocator.construct(&_array[i], x._array[i]);
-				_currentSize = x._currentSize;
-				_maxSize = x._maxSize;
+				insert(begin(), x.begin(), x.end());
 				return (*this);
 			}
 
@@ -266,7 +263,7 @@ namespace ft
 					_array = tmp;
 				}
 			}
-
+			
 			void	resize(size_type n, value_type val = value_type())
 			{
 				if (n == _currentSize)
@@ -274,7 +271,7 @@ namespace ft
 				else if (n < _currentSize)
 				{
 					for (size_type i = n; i < _currentSize; i++)
-						_allocator.destroy(&(_array[i++]));
+						_allocator.destroy(&(_array[i]));
 				}
 				else
 				{
@@ -423,10 +420,10 @@ namespace ft
 
 			void	swap(vector &x)
 			{
-				vector<value_type> tmp = x;
-				
-				x = *this;
-				*this = tmp;
+				ft::swapT(_array, x._array);
+				ft::swapT(_currentSize, x._currentSize);
+				ft::swapT(_maxSize, x._maxSize);
+				ft::swapT(_allocator, x._allocator);
 			}
 
 			/* -------------------------- relationnal operator -------------------------- */
@@ -499,9 +496,6 @@ namespace ft
 	template <class T, class Alloc>
 	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
 	{
-		vector<T,Alloc> tmp = x;
-
-		x = y;
-		y = tmp;
+		x.swap(y);
 	}
 }

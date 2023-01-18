@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/16 15:01:55 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:32:15 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,10 +382,7 @@ namespace ft {
 	template <class Key, class T, class Compare, class Alloc> 
 	void swap (map<Key,T,Compare,Alloc>& x, map<Key,T,Compare,Alloc>& y)
 	{
-		map<Key,T,Compare,Alloc> tmp = x;
-
-		x = y;
-		y = tmp;
+		x.swap(y);
 	}
 	
 	template <class Key, class T, class Compare, class Alloc> 

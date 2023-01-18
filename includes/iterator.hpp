@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:56:07 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/17 13:42:10 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:34:21 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,6 @@ namespace ft {
 			//Dereference operator
 			node_type	operator*() const {return (this->elem->_pair); };
 			node_type	*operator->() const {return (&(this->elem->_pair)); };
-
-			//ft::pair<const int, std::basic_string<char> > *
-			//const ft::pair<const int, std::basic_string<char> > *
-			
-			//ft::pair<const int, std::basic_string<char> > *
-			//const ft::pair<const int, std::basic_string<char> > *'
 
 			//Increment operator
 			bidirectionnal_iterator	&operator++() {

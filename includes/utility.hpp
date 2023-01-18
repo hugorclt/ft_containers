@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 10:28:10 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/14 20:13:31 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:28:29 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,9 @@ namespace ft {
 	template<typename T>
 	void swapT(T &a, T &b)
 	{
-		T c(a);
+		T c;
+		
+		c = a;
 		a = b;
 		b = c;
 	}

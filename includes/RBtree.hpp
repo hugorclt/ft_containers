@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/16 14:45:44 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/18 12:33:00 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ namespace ft {
 
 		Node(const Type elem, int type, Node<Type> *parent, Node<Type> *nllnode) : _pair(elem), _type(type), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 
-		Node(Node<Type> *parent, Node<Type> *nllnode) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}\
+		Node(Node<Type> *parent, Node<Type> *nllnode) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 	};
 		
 
@@ -295,12 +295,12 @@ namespace ft {
 			/* -------------------------------------------------------------------------- */
 			RBtree(const Alloc& alloc = Alloc())
 			{
+				_allocator = alloc;
 				_nllnode = _allocator.allocate(1);
 				_allocator.construct(_nllnode, Node<Type>(_nllnode));
 				_nllnode->_left = _nllnode;
 				_nllnode->_right = _nllnode;
 				_root = _nllnode;
-				_allocator = alloc;
 			}
 
 			~RBtree(void)
