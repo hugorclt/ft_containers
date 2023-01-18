@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 17:52:15 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/18 12:32:15 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:45:15 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,15 @@ namespace ft {
 			typedef typename allocator_type::const_reference 							const_reference;
 			typedef typename allocator_type::pointer 									pointer;
 			typedef typename allocator_type::const_pointer 								const_pointer;
-			typedef typename ft::RBtree<value_type>::iterator							iterator;
-			typedef typename ft::RBtree<value_type>::const_iterator						const_iterator;
-			typedef typename ft::RBtree<value_type>::reverse_iterator 					reverse_iterator;
-			typedef typename ft::RBtree<value_type>::const_reverse_iterator				const_reverse_iterator;
+			typedef typename ft::RBtree<value_type,key_compare, allocator_type>::iterator							iterator;
+			typedef typename ft::RBtree<value_type,key_compare, allocator_type>::const_iterator						const_iterator;
+			typedef typename ft::RBtree<value_type,key_compare, allocator_type>::reverse_iterator 					reverse_iterator;
+			typedef typename ft::RBtree<value_type,key_compare, allocator_type>::const_reverse_iterator				const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type				difference_type;
 			typedef size_t 																size_type;
 			
 		private:
-			RBtree<value_type>	_data;
+			RBtree<value_type, key_compare, allocator_type>	_data;
 			key_compare			_comp;
 			allocator_type		_alloc;
 			
@@ -171,7 +171,7 @@ namespace ft {
 			{
 				value_type	pair = ft::make_pair(k, mapped_type());
 
-				typename ft::RBtree<value_type>::NodePtr node = _data.search(pair);
+				typename ft::RBtree<value_type,key_compare, allocator_type>::NodePtr node = _data.search(pair);
 				if (!node)
 				{
 					_data.addNode(pair);
@@ -185,7 +185,7 @@ namespace ft {
 			/* -------------------------------------------------------------------------- */
 			pair<iterator, bool> insert(const value_type &val)
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(val);
+				typename ft::RBtree<value_type,key_compare, allocator_type>::NodePtr nodeFound = _data.search(val);
 				if (nodeFound)
 					return (ft::make_pair(iterator(nodeFound), false));
 				_data.addNode(val);
@@ -195,7 +195,7 @@ namespace ft {
 			iterator	insert(iterator position, const value_type &val)
 			{
 				(void)position;
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(val);
+				typename ft::RBtree<value_type,key_compare, allocator_type>::NodePtr nodeFound = _data.search(val);
 				if (nodeFound)
 					return (iterator(nodeFound));
 				_data.addNode(val);
@@ -211,12 +211,6 @@ namespace ft {
 						_data.addNode(*first);
 				}
 			}
-
-			// const ft::Node<ft::pair<const std::basic_string<char>, std::basic_string<char> > >
-			// const ft::pair<const std::basic_string<char>, std::basic_string<char> >
-
-			//const ft::Node<ft::pair<const std::basic_string<char>, std::basic_string<char> > >
-			//Node<ft::pair<const std::basic_string<char>, std::basic_string<char> > > *
 
 			void	erase(iterator position)
 			{
@@ -239,7 +233,7 @@ namespace ft {
 			{
 				value_type	pair = ft::make_pair(key, mapped_type());
 
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(pair);
+				typename ft::RBtree<value_type,key_compare, allocator_type>::NodePtr nodeFound = _data.search(pair);
 				if (!nodeFound)
 					return (0);
 				_data.deleteNode(nodeFound->_pair.first);
@@ -251,9 +245,9 @@ namespace ft {
 				_data.clear(_data.getRoot());
 			}
 
-			// /* -------------------------------------------------------------------------- */
-			// /*                                  observer                                  */
-			// /* -------------------------------------------------------------------------- */
+			/* -------------------------------------------------------------------------- */
+			/*                                  observer                                  */
+			/* -------------------------------------------------------------------------- */
 			key_compare key_comp(void) const
 			{
 				return (_comp);
@@ -264,12 +258,12 @@ namespace ft {
 				return (value_compare(_comp));
 			}
 
-			// /* -------------------------------------------------------------------------- */
-			// /*                                  operation                                 */
-			// /* -------------------------------------------------------------------------- */
+			/* -------------------------------------------------------------------------- */
+			/*                                  operation                                 */
+			/* -------------------------------------------------------------------------- */
 			iterator find(const key_type &k)
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
+				typename ft::RBtree<value_type,key_compare, allocator_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
 				if (!nodeFound)
 					return (end());
 				return (iterator(nodeFound));
@@ -277,7 +271,7 @@ namespace ft {
 
 			const_iterator find(const key_type& k) const
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
+				typename ft::RBtree<value_type,key_compare, allocator_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
 				if (!nodeFound)
 					return (end());
 				return (iterator(nodeFound));
@@ -290,7 +284,7 @@ namespace ft {
 
 			iterator lower_bound(const key_type& k)
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
+				typename ft::RBtree<value_type,key_compare, allocator_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
 				if (!nodeFound)
 				{
 					for (iterator it = begin(); it != end(); it++)
@@ -305,7 +299,7 @@ namespace ft {
 
 			const_iterator lower_bound(const key_type& k) const
 			{
-				typename ft::RBtree<value_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
+				typename ft::RBtree<value_type,key_compare, allocator_type>::NodePtr nodeFound = _data.search(ft::make_pair(k, mapped_type()));
 				if (!nodeFound)
 				{
 					for (const_iterator it = begin(); it != end(); it++)
@@ -359,24 +353,6 @@ namespace ft {
 				ft::swapT(this->_comp, x._comp);
 				_data.swap(x._data);
 			}
-
-			/* -------------------------------------------------------------------------- */
-			/*                             non member methods                             */
-			/* -------------------------------------------------------------------------- */
-			template <class key, class Type, class Comp, class Allocat> 
-			friend void swap (map<key,Type,Comp,Allocat>& x, map<key,Type,Comp,Allocat>& y);
-			template <class key, class Type, class Comp, class Allocat> 
-			friend bool operator==( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
-			template <class key, class Type, class Comp, class Allocat> 
-			friend bool operator!=( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
-			template <class key, class Type, class Comp, class Allocat> 
-			friend bool operator< ( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
-			template <class key, class Type, class Comp, class Allocat> 
-			friend bool operator<=( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
-			template <class key, class Type, class Comp, class Allocat> 
-			friend bool operator> ( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
-			template <class key, class Type, class Comp, class Allocat> 
-			friend bool operator>=( const map<key,Type,Comp,Allocat>& lhs, const map<key,Type,Comp,Allocat>& rhs );
 	};
 
 	template <class Key, class T, class Compare, class Alloc> 

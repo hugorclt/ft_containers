@@ -6,7 +6,7 @@
 /*   By: hrecolet <hrecolet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:56:18 by hrecolet          #+#    #+#             */
-/*   Updated: 2023/01/18 12:33:00 by hrecolet         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:15:28 by hrecolet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ namespace ft {
 
 		Node(Node<Type> *parent, Node<Type> *nllnode) : _type(LEAF), _parent(parent), _left(NULL), _right(NULL), _nllnode(nllnode)  {}
 	};
-		
+	
+	//std::allocator<Type>::template rebind<Node<Type> >::other
 
-	template<class Type, class Alloc = std::allocator< Node<Type> > >
+	template<class Type, class Compare, class Alloc >
 	class RBtree {
 		public:
 			typedef Node<Type>														*NodePtr;
@@ -54,7 +55,8 @@ namespace ft {
 		private:
 			Node<Type>	*_root;
 			Node<Type>	*_nllnode;
-			Alloc		_allocator;
+			typename Alloc::template rebind<Node<Type> >::other		_allocator;
+			Compare		_comp;
 
 			NodePtr	_allocateNode(const Type elem, int type, NodePtr parent)
 			{
@@ -293,9 +295,10 @@ namespace ft {
 			/* -------------------------------------------------------------------------- */
 			/*                          constructor / destructor                          */
 			/* -------------------------------------------------------------------------- */
-			RBtree(const Alloc& alloc = Alloc())
+			RBtree(const Alloc& alloc = Alloc(), const Compare &comp = Compare())
 			{
 				_allocator = alloc;
+				_comp = comp;
 				_nllnode = _allocator.allocate(1);
 				_allocator.construct(_nllnode, Node<Type>(_nllnode));
 				_nllnode->_left = _nllnode;
@@ -339,7 +342,7 @@ namespace ft {
 				{
 					if (node->_pair.first == value.first)
 						return (node);
-					if (node->_pair.first > value.first)
+					if (_comp(value.first, node->_pair.first))
 						node = node->_left;
 					else
 						node = node->_right;
@@ -371,7 +374,7 @@ namespace ft {
 				{
 					if (node->_pair.first == nodeToSearch->_pair.first)
 						return (node);
-					if (node->_pair.first > nodeToSearch->_pair.first)
+					if (_comp(nodeToSearch->_pair.first, node->_pair.first))
 						node = node->_left;
 					else
 						node = node->_right;
@@ -387,7 +390,7 @@ namespace ft {
 				{
 					if (node->_pair.first == nodeToSearch->_pair.first)
 						return (node);
-					if (node->_pair.first > nodeToSearch->_pair.first)
+					if (_comp(nodeToSearch->_pair.first, node->_pair.first))
 						node = node->_left;
 					else
 						node = node->_right;
@@ -403,7 +406,7 @@ namespace ft {
 				{
 					if (node->_pair.first == value)
 						return (node);
-					if (node->_pair.first > value)
+					if (_comp(value, node->_pair.first))
 						node = node->_left;
 					else
 						node = node->_right;
@@ -419,7 +422,7 @@ namespace ft {
 				{
 					if (node->_pair.first == value)
 						return (node);
-					if (node->_pair.first > value)
+					if (_comp(value, node->_pair.first))
 						node = node->_left;
 					else
 						node = node->_right;
